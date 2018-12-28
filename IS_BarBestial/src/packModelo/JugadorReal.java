@@ -1,8 +1,8 @@
 package packModelo;
 
 public class JugadorReal extends Jugador {	
-    public JugadorReal(String pNombre, EnumColor pColorJugador) {
-    	super(pNombre, pColorJugador);
+    public JugadorReal(String pNombre, EnumColor pColorJugador, int pNumAyuda) {
+    	super(pNombre, pColorJugador,pNumAyuda);
     }  
     
     public void elegirCartaMano(int pPos) {

@@ -4,20 +4,24 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.swing.JOptionPane;
+
 public abstract class Jugador extends Observable {
     private String nombre;
     private EnumColor colorJugador;    
     private ListaCartas mazo;
+    private int numAyudas;
     protected ListaCartas mano;
     protected Carta cartaElegidaMano;
     protected int saltosElegidos;
     protected String especieElegidaCola;    
 
-    public Jugador(String pNombre, EnumColor pColorJugador) {
+    public Jugador(String pNombre, EnumColor pColorJugador, int pNumAyudas) {
         this.nombre = pNombre;
         this.colorJugador = pColorJugador;
         this.mano = new ListaCartas();
         this.mazo = new ListaCartas();
+        this.numAyudas = 0;
     }
 
     public void robarCarta() {
@@ -156,5 +160,29 @@ public abstract class Jugador extends Observable {
     
     private boolean hayCartasEnMano() {
     	return !this.mano.vacia();
+    }
+    
+    public boolean ayudasMaxPartida(){
+    		if (this.numAyudas == 2){
+    			return true;
+    		}else{
+    			return false;
+    			}
+
+    }
+    
+    public int restarAyuda() {
+    	return (this.numAyudas -1);
+    }
+    
+    public int comprobarAyudas(){
+    		if (this.numAyudas ==1){
+    			return 1;
+    		}else if( this.numAyudas == 2){
+    			return 2;
+    		}else {
+    	        JOptionPane.showMessageDialog(null, "No tiene ninguna ayuda.");
+    	        return 0;
+    		}
     }
 }

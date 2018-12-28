@@ -3,8 +3,8 @@ package packModelo;
 import java.util.Random;
 
 public class Maquina extends Jugador {
-    public Maquina(String pNombre, EnumColor colorJugador) {
-        super(pNombre, colorJugador);
+    public Maquina(String pNombre, EnumColor colorJugador, int pNumAyudas) {
+        super(pNombre, colorJugador,0);
     }
 
     public void elegirCartaMano(int pPos) {
