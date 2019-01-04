@@ -35,7 +35,7 @@ public class Partida extends Observable {
         EsLoQueHay elqh = EsLoQueHay.getMiEsLoQueHay();
         elqh.vaciar();
 
-        this.listaJugadores.add(new JugadorReal(pNombreJugador, EnumColor.AZUL,0));
+        this.listaJugadores.add(new JugadorReal(pNombreJugador, EnumColor.AZUL,2));
         this.listaJugadores.add(new Maquina("Maquina", EnumColor.VERDE,0));
 
         this.repartirCartas();

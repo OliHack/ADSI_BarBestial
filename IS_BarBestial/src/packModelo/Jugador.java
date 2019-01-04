@@ -21,7 +21,7 @@ public abstract class Jugador extends Observable {
         this.colorJugador = pColorJugador;
         this.mano = new ListaCartas();
         this.mazo = new ListaCartas();
-        this.numAyudas = 0;
+        this.numAyudas = 2;
     }
 
     public void robarCarta() {
@@ -163,7 +163,7 @@ public abstract class Jugador extends Observable {
     }
     
     public boolean ayudasMaxPartida(){
-    		if (this.numAyudas == 2){
+    		if (this.numAyudas == 0){
     			return true;
     		}else{
     			return false;
@@ -184,5 +184,13 @@ public abstract class Jugador extends Observable {
     	        JOptionPane.showMessageDialog(null, "No tiene ninguna ayuda.");
     	        return 0;
     		}
+    }
+    
+    public boolean comprobarpts(){
+    	return true;
+    }
+    
+    public void usarAyuda() {
+    	
     }
 }

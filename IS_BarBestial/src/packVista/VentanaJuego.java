@@ -47,6 +47,7 @@ public class VentanaJuego extends JFrame implements Observer {
     private JLabel bestLabel4;
     private JButton btnJugarTurno;
     private JButton btnSiguiente;
+    private JButton btnAyuda;
 
     /**
      * Create the frame.
@@ -124,6 +125,11 @@ public class VentanaJuego extends JFrame implements Observer {
         btnSiguiente = new JButton("Siguiente");
         btnSiguiente.setPreferredSize(new Dimension(120, 25));
         panelElegirCartas.add(btnSiguiente);
+        
+        btnAyuda = new JButton("Usar Ayuda");
+        btnAyuda.setPreferredSize(new Dimension(120, 25));
+        panelElegirCartas.add(btnAyuda);
+        
 
         panelCola = new JPanel();
         contentPane.add(panelCola, BorderLayout.CENTER);
@@ -321,6 +327,10 @@ public class VentanaJuego extends JFrame implements Observer {
 
     public void addSiguienteListener(ActionListener listenForBtnSiguiente) {
         btnSiguiente.addActionListener(listenForBtnSiguiente);
+    }
+    
+    public void addUsarAyuda (ActionListener listenForBtnUsarAyuda){
+    	btnAyuda.addActionListener(listenForBtnUsarAyuda);
     }
 
     public void addElegirCarta1Listener(ActionListener listenForBtnElegirCarta1) {

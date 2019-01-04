@@ -20,6 +20,7 @@ public class Controlador {
 	private Partida partida;
 	private Tablero tablero;
 	private RankingDB rankingDB;
+	private Jugador jug;
 	
 	/* Vista */
 	private VentanaInicio ventanaInicio;
@@ -50,6 +51,7 @@ public class Controlador {
 		this.ventanaJuego.addElegirCarta3Listener(new ElegirCarta3Listener());
 		this.ventanaJuego.addElegirCarta4Listener(new ElegirCarta4Listener());
 		this.ventanaJuego.addSiguienteListener(new SiguienteListener());
+		this.ventanaJuego.addUsarAyuda(new UsarAyudaListener());
 		
 		this.ventanaJuego.desactivarBotonJugarTurno();
 		this.ventanaJuego.desactivarBotonSiguiente();
@@ -177,6 +179,13 @@ public class Controlador {
 			
 			ventanaJuego.desactivarBotonJugarTurno();
 			ventanaJuego.activarBotonSiguiente();
+		}
+	}
+	
+	class UsarAyudaListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			jug.usarAyuda();
 		}
 	}
 	

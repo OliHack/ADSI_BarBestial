@@ -14,7 +14,7 @@ public class JugadorTest {
 
 	@Before
 	public void setUp() throws Exception {
-		jugador = new JugadorReal("Revi", EnumColor.VERDE,0);
+		jugador = new JugadorReal("Revi", EnumColor.VERDE,2);
 		
         camaleon = new Camaleon();
         leon = new Leon();
