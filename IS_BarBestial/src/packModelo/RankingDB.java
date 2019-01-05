@@ -92,7 +92,6 @@ public class RankingDB {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:ranking.db");
             c.setAutoCommit(false);
-
             s = c.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM PUNTUACIONES ORDER BY fuerza ASC;");
 

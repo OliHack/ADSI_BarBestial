@@ -4,6 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import packModelo.Carta;
+import packModelo.GestorCartas;
+import packModelo.GestorConfiguraciones;
+import packModelo.GestorUsuarios;
 import packModelo.Jugador;
 import packModelo.Partida;
 import packModelo.RankingDB;
@@ -20,6 +24,9 @@ public class Controlador {
 	private Partida partida;
 	private Tablero tablero;
 	private RankingDB rankingDB;
+	private GestorConfiguraciones miGestorConfig;
+	private GestorCartas miGestorCartas;
+	private GestorUsuarios miGestorUsuarios;
 	
 	/* Vista */
 	private VentanaInicio ventanaInicio;
@@ -31,6 +38,9 @@ public class Controlador {
 		this.partida = Partida.getMiPartida();
 		this.tablero = Tablero.getMiTablero();
 		this.rankingDB = RankingDB.getRankingDB();
+		this.miGestorConfig = GestorConfiguraciones.getGestorConfig();
+		this.miGestorCartas = GestorCartas.getGestorCartas();
+		this.miGestorUsuarios = GestorUsuarios.getGestorUsuarios();
 		
 		this.ventanaInicio = new VentanaInicio();
 		this.ventanaJuego = new VentanaJuego();
@@ -190,5 +200,10 @@ public class Controlador {
 			ventanaJuego.desactivarBotonJugarTurno();
 			ventanaJuego.desactivarBotonSiguiente();
 		}
+	}
+
+	public static Carta buscarCarta(int nCarta) {
+		
+		return null;
 	}
 }
