@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Vector;
 
-
 public class GestorBD {
 	
 	
@@ -57,7 +56,7 @@ public class GestorBD {
 	                    " idUs	    VARCHAR(20)    NOT NULL, " +
 	                    " PRIMARY KEY(idConfig))";
 	            s.executeUpdate(instruccion);
-	            
+	            s.close();
 	            //Creamos una tabla para las configuraciones de usuario
 	            s = c.createStatement();
 	            instruccion = "CREATE TABLE ConfiguracionCarta " +
