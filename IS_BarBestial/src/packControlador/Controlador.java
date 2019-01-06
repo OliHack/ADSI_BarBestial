@@ -6,11 +6,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
+<<<<<<< HEAD
 import packModelo.GestorBD;
 import packModelo.Carta;
 import packModelo.GestorCartas;
 import packModelo.GestorConfiguraciones;
 import packModelo.GestorUsuarios;
+=======
+
+>>>>>>> refs/heads/Unru
 import packModelo.Jugador;
 import packModelo.Partida;
 import packModelo.RankingDB;

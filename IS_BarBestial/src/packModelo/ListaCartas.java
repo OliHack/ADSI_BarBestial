@@ -291,4 +291,33 @@ public class ListaCartas {
         }
         return i;
     }
+    
+    public boolean ComprobarListaCartas(){
+    	if( this.lista.size()==0){
+    		return true;
+    	}else{
+    		return false;
+    	}
+    }
+      
+    public Carta obtenerPrimeraCartaRival(){
+    	int i=0;
+    	Carta aux= null;
+    	boolean enc= false;
+    	if( this.lista.size()==0){
+    		return aux;
+    	}else{
+    			
+    		while( i< lista.size() && !enc){
+    			if (this.lista.get(i).getColor().equals("VERDE")){
+    				aux= this.lista.get(i);
+    				enc = true;
+    		}
+    		i++;
+    	}
+        this.lista.remove(aux);
+        return aux;
+
+    	}
+    }
 }

@@ -13,6 +13,7 @@ public class Partida extends Observable {
      * a 0 cuando todos hayan jugado. */
     private int turnoActual;
     private ArrayList<Jugador> listaJugadores;
+    
 
     private Partida() {
         this.listaJugadores = new ArrayList<Jugador>();
@@ -77,7 +78,7 @@ public class Partida extends Observable {
         }
     }
 
-    private void avanzarTurno() {
+    public void avanzarTurno() {
         this.turnoActual++;
         //opopo
 
@@ -86,7 +87,7 @@ public class Partida extends Observable {
         }
     }
 
-    private void finalizar() {
+    public void finalizar() {
         String infoGanador = this.obtenerInformacionGanador();
         /* Guardar ganador en la base de datos */
         this.anadirGanadorDatabase(infoGanador);
@@ -95,7 +96,7 @@ public class Partida extends Observable {
         this.notificar("fin-" + infoGanador);
     }
 
-    private boolean comprobarFinalizacion() {
+    public boolean comprobarFinalizacion() {
         Iterator<Jugador> it = this.listaJugadores.iterator();
         Jugador j;
         boolean quedanCartas = false;

@@ -156,4 +156,9 @@ public class Tablero extends Observable {
             b.anadirCarta(c);
         }
     }
+    
+    public ListaCartas getCola(){
+    	return this.cola;
+    }
+
 }
