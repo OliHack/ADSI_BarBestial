@@ -14,6 +14,8 @@ public class VentanaInicio extends JFrame {
     private JButton btnJugar;
     private JButton btnAyuda;
     private JButton btnRanking;
+    private JButton btnSeleccionarConfig;
+    private JButton btnCrearConfig;
 
     /**
      * Create the frame.
@@ -55,6 +57,12 @@ public class VentanaInicio extends JFrame {
 
         this.btnRanking = new JButton("Ranking");
         panelMenu.add(btnRanking);
+        
+        this.btnSeleccionarConfig = new JButton("Sel.Config.");
+        panelMenu.add(btnSeleccionarConfig);
+        
+        this.btnCrearConfig = new JButton("Crear Config.");
+        panelMenu.add(btnCrearConfig);
 
         JPanel panelImagenBar = new JPanel();
         contentPane.add(panelImagenBar, BorderLayout.CENTER);
@@ -77,7 +85,8 @@ public class VentanaInicio extends JFrame {
             }
         });
     }
-
+    
+    
     public void addJugarListener(ActionListener listenForBtnJugar) {
         btnJugar.addActionListener(listenForBtnJugar);
     }
@@ -88,6 +97,14 @@ public class VentanaInicio extends JFrame {
 
     public void addRankingListener(ActionListener listenForBtnRanking) {
         btnRanking.addActionListener(listenForBtnRanking);
+    }
+    
+    public void addCrearConfigListener(ActionListener listenForBtnCrearConfig) {
+        btnCrearConfig.addActionListener(listenForBtnCrearConfig);
+    }
+    
+    public void addSeleccionarConfigListener(ActionListener listenForBtnSelConfig) {
+        btnSeleccionarConfig.addActionListener(listenForBtnSelConfig);
     }
 
     public String getTextFieldNombreValue() {
