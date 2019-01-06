@@ -199,7 +199,7 @@ public class Controlador {
 	class ContinuarListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Hola");
+			System.out.println("Hola que tal");
 		}
 	}
 	
