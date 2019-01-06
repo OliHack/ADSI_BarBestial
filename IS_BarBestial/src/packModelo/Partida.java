@@ -9,7 +9,7 @@ public class Partida extends Observable {
 
     /* El turno se representa como un numero
      * que indica la posicion de la lista de jugadores
-     * que jugara cada turno. Incrementara y volver√°
+     * que jugara cada turno. Incrementara y volvera°
      * a 0 cuando todos hayan jugado. */
     private int turnoActual;
     private ArrayList<Jugador> listaJugadores;
@@ -79,6 +79,7 @@ public class Partida extends Observable {
 
     private void avanzarTurno() {
         this.turnoActual++;
+        //opopo
 
         if (this.turnoActual == this.listaJugadores.size()) {
             turnoActual = 0;
