@@ -5,16 +5,13 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-<<<<<<< HEAD
 import packModelo.GestorBD;
 import packModelo.Carta;
 import packModelo.GestorCartas;
 import packModelo.GestorConfiguraciones;
 import packModelo.GestorUsuarios;
-=======
 
->>>>>>> refs/heads/Unru
+
 import packModelo.Jugador;
 import packModelo.Partida;
 import packModelo.RankingDB;
@@ -46,11 +43,8 @@ public class Controlador {
 
 	private GestorBD misGestorBD;
 
-<<<<<<< HEAD
-=======
 	private GestorPartida miGestorPartida;
 
->>>>>>> branch 'master' of https://github.com/OliHack/ADSI_BarBestial.git
 	
 	/* Vista */
 	private VentanaInicio ventanaInicio;
