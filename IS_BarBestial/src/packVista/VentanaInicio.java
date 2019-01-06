@@ -14,13 +14,12 @@ public class VentanaInicio extends JFrame {
     private JButton btnJugar;
     private JButton btnAyuda;
     private JButton btnRanking;
-<<<<<<< HEAD
+
     private JButton btnSeleccionarConfig;
     private JButton btnCrearConfig;
 
-=======
     private JButton btnContinuarPartida;
->>>>>>> refs/heads/Jonan
+
     /**
      * Create the frame.
      */

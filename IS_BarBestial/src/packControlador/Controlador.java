@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-<<<<<<< HEAD
+
 import packModelo.GestorBD;
 import packModelo.Carta;
 import packModelo.GestorCartas;
@@ -20,12 +20,11 @@ import packVista.VentanaInicio;
 import packVista.VentanaJuego;
 import packVista.VentanaRanking;
 import packVista.VentanaSeleccionConfig;
-=======
+
 import packModelo.*;
 
 import packVista.*;
 
->>>>>>> refs/heads/Jonan
 
 public class Controlador {
 	private static Controlador miControlador;
@@ -38,11 +37,11 @@ public class Controlador {
 	private GestorConfiguraciones miGestorConfig;
 	private GestorCartas miGestorCartas;
 	private GestorUsuarios miGestorUsuarios;
-<<<<<<< HEAD
+
 	private GestorBD misGestorBD;
-=======
+
 	private GestorPartida miGestorPartida;
->>>>>>> refs/heads/Jonan
+
 	
 	/* Vista */
 	private VentanaInicio ventanaInicio;
@@ -59,11 +58,11 @@ public class Controlador {
 		this.miGestorConfig = GestorConfiguraciones.getGestorConfig();
 		this.miGestorCartas = GestorCartas.getGestorCartas();
 		this.miGestorUsuarios = GestorUsuarios.getGestorUsuarios();
-<<<<<<< HEAD
+
 		this.misGestorBD = GestorBD.getGestorBD();
-=======
+
 		this.miGestorPartida = GestorPartida.getGestorPartida();
->>>>>>> refs/heads/Jonan
+
 		
 		this.ventanaInicio = new VentanaInicio();
 		this.ventanaJuego = new VentanaJuego();
@@ -76,13 +75,12 @@ public class Controlador {
 		this.ventanaInicio.addJugarListener(new JugarListener());
 		this.ventanaInicio.addAyudaListener(new AyudaListener());
 		this.ventanaInicio.addRankingListener(new RankingListener());
-<<<<<<< HEAD
+
 		this.ventanaInicio.addSeleccionarConfigListener(new SeleccionConfigListener());
 		
-=======
+
 		this.ventanaInicio.addContinuarListener(new ContinuarListener());
 
->>>>>>> refs/heads/Jonan
 		/* Listeners VentanaJuego */
 		this.ventanaJuego.addJugarTurnoListener(new JugarTurnoListener());
 		this.ventanaJuego.addElegirCarta1Listener(new ElegirCarta1Listener());
