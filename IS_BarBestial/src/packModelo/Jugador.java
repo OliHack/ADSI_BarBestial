@@ -121,7 +121,7 @@ public abstract class Jugador extends Observable {
 		this.echarCarta(cartaElegidaMano); 
 		this.robarCarta();
     }  
-    
+
     public abstract void elegirCartaMano(int pPos);
     
     public abstract void elegirEspecieCola();
@@ -162,6 +162,7 @@ public abstract class Jugador extends Observable {
     	return !this.mano.vacia();
     }
     
+    
     public boolean ayudasMaxPartida(){
     		if (this.numAyudas == 0){
     			return true;
@@ -175,22 +176,35 @@ public abstract class Jugador extends Observable {
     	return (this.numAyudas -1);
     }
     
-    public int comprobarAyudas(){
-    		if (this.numAyudas ==1){
-    			return 1;
-    		}else if( this.numAyudas == 2){
-    			return 2;
-    		}else {
-    	        JOptionPane.showMessageDialog(null, "No tiene ninguna ayuda.");
-    	        return 0;
-    		}
-    }
-    
-    public boolean comprobarpts(){
-    	return true;
-    }
     
     public void usarAyuda() {
+    	Tablero tablero=null;
+    	Bar b= null;
+    	Carta aux = null;
+    	Partida p = null;
     	
+    	if((this.numAyudas ==0) && (p.obtenerJugadorTurnoActual().getColorJugador().equals("AZUL"))){
+	        JOptionPane.showMessageDialog(null, "No tiene ninguna ayuda.");
+    	}
+    	if ( (this.numAyudas !=0) && (p.obtenerJugadorTurnoActual().getColorJugador().equals("AZUL"))){
+    		if( b.getMiBar().getLista().ComprobarListaCartas()) {
+    			restarAyuda();
+    			p.getMiPartida().avanzarTurno();
+    		}else{
+    			aux = b.getMiBar().getLista().obtenerPrimeraCartaRival();
+    			tablero.getMiTablero().anadirALaCola(aux);
+    			restarAyuda();
+    			tablero.getMiTablero().hacerUltimaAnimalada();
+    	        tablero.getMiTablero().hacerAnimaladasRecurrentes();
+    	        tablero.getMiTablero().revisarCola();
+
+    	        if (p.getMiPartida().comprobarFinalizacion()) {
+    	            p.getMiPartida().finalizar();
+    	        } else {
+    	            p.getMiPartida().avanzarTurno();
+    	        }
+    		
+    		} 	
+    	}
     }
 }
