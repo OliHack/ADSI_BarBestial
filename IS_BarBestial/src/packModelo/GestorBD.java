@@ -65,7 +65,31 @@ public class GestorBD {
 	                    "nombreImagen		VARCHAR(20) NOT NULL, " +
 	                    " FOREIGN KEY (idConfig) REFERENCES ConfiguracionUs(idConfig))";
 	            s.executeUpdate(instruccion);
-            
+	            
+	            //Creamos una tabla para la Partida
+	            s = c.createStatement();
+	            instruccion = "CREATE TABLE Partida " +
+	            		"(ayUsuario	INT    NOT NULL, " +
+	                    "idPartida	INT    NOT NULL, " +
+	                    "turno	BOOLEAN NOT NULL, " +
+	                    "manoMaq	VARCHAR(200)    NOT NULL, " +
+	                    "manoUs	VARCHAR(200)    NOT NULL, " +
+	                    "calle	VARCHAR(200)    NOT NULL, " +
+	                    "bar	VARCHAR(200)    NOT NULL, " +
+	                    "mazoMaq	VARCHAR(200)    NOT NULL, " +
+	                    "mazoUs	VARCHAR(200)    NOT NULL, " +
+	                    "cola		VARCHAR(200) NOT NULL, " +
+	                    "idUs	INT    NOT NULL, " +
+	                    "fecha	DATETIME    NOT NULL, " +
+	                    " PRIMARY KEY(idPartida))";
+	            s.executeUpdate(instruccion);
+	            
+	            //Creamos una tabla para la Partida
+	            s = c.createStatement();
+	            instruccion = "INSERT INTO Partida (idPartida, Fecha) VALUES(" + "'" + 2 + "'" + "," + "datetime('now')" + ")";
+
+			s.executeUpdate(instruccion);
+	            
 	            s.close();
 	            c.close();
 	        } catch (Exception e) {

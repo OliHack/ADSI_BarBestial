@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 import packModelo.GestorBD;
 import packModelo.Carta;
 import packModelo.GestorCartas;
@@ -20,6 +21,11 @@ import packVista.VentanaJuego;
 import packVista.VentanaRanking;
 import packVista.VentanaSeleccionConfig;
 
+import packModelo.*;
+
+import packVista.*;
+
+
 public class Controlador {
 	private static Controlador miControlador;
 	private String usuarioAct;
@@ -33,8 +39,14 @@ public class Controlador {
 	private GestorConfiguraciones miGestorConfig;
 	private GestorCartas miGestorCartas;
 	private GestorUsuarios miGestorUsuarios;
+
 	private GestorBD misGestorBD;
 
+<<<<<<< HEAD
+=======
+	private GestorPartida miGestorPartida;
+
+>>>>>>> branch 'master' of https://github.com/OliHack/ADSI_BarBestial.git
 	
 	/* Vista */
 	private VentanaInicio ventanaInicio;
@@ -51,7 +63,11 @@ public class Controlador {
 		this.miGestorConfig = GestorConfiguraciones.getGestorConfig();
 		this.miGestorCartas = GestorCartas.getGestorCartas();
 		this.miGestorUsuarios = GestorUsuarios.getGestorUsuarios();
+
 		this.misGestorBD = GestorBD.getGestorBD();
+
+		this.miGestorPartida = GestorPartida.getGestorPartida();
+
 		
 		this.ventanaInicio = new VentanaInicio();
 		this.ventanaJuego = new VentanaJuego();
@@ -64,8 +80,12 @@ public class Controlador {
 		this.ventanaInicio.addJugarListener(new JugarListener());
 		this.ventanaInicio.addAyudaListener(new AyudaListener());
 		this.ventanaInicio.addRankingListener(new RankingListener());
+
 		this.ventanaInicio.addSeleccionarConfigListener(new SeleccionConfigListener());
 		
+
+		this.ventanaInicio.addContinuarListener(new ContinuarListener());
+
 		/* Listeners VentanaJuego */
 		this.ventanaJuego.addJugarTurnoListener(new JugarTurnoListener());
 		this.ventanaJuego.addElegirCarta1Listener(new ElegirCarta1Listener());
@@ -73,7 +93,12 @@ public class Controlador {
 		this.ventanaJuego.addElegirCarta3Listener(new ElegirCarta3Listener());
 		this.ventanaJuego.addElegirCarta4Listener(new ElegirCarta4Listener());
 		this.ventanaJuego.addSiguienteListener(new SiguienteListener());
+<<<<<<< HEAD
 		this.ventanaJuego.addUsarAyuda(new UsarAyudaListener());
+=======
+		this.ventanaJuego.addGuardarPartida(new GuardarListener());
+		
+>>>>>>> branch 'master' of https://github.com/OliHack/ADSI_BarBestial.git
 		
 		this.ventanaJuego.desactivarBotonJugarTurno();
 		this.ventanaJuego.desactivarBotonSiguiente();
@@ -157,6 +182,20 @@ public class Controlador {
 				setUpObservers();
 			}			
 			else ventanaInicio.showNombreErrorMessage();			
+		}
+	}
+	
+	class GuardarListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//
+		}
+	}
+	
+	class ContinuarListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Hola");
 		}
 	}
 	
