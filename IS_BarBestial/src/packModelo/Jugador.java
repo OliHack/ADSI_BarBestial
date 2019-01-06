@@ -176,6 +176,9 @@ public abstract class Jugador extends Observable {
     	return (this.numAyudas -1);
     }
     
+    public void comprobar(){
+    	
+    }
     
     public void usarAyuda() {
     	Tablero tablero=null;
