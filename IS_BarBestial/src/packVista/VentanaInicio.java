@@ -14,7 +14,7 @@ public class VentanaInicio extends JFrame {
     private JButton btnJugar;
     private JButton btnAyuda;
     private JButton btnRanking;
-
+    private JButton btnContinuarPartida;
     /**
      * Create the frame.
      */
@@ -56,6 +56,9 @@ public class VentanaInicio extends JFrame {
         this.btnRanking = new JButton("Ranking");
         panelMenu.add(btnRanking);
 
+        this.btnContinuarPartida = new JButton("Continuar Partida");
+        panelMenu.add(btnContinuarPartida);
+        
         JPanel panelImagenBar = new JPanel();
         contentPane.add(panelImagenBar, BorderLayout.CENTER);
 
@@ -90,6 +93,10 @@ public class VentanaInicio extends JFrame {
         btnRanking.addActionListener(listenForBtnRanking);
     }
 
+    public void addContinuarListener(ActionListener listenForBtnContinuar) {
+    	btnContinuarPartida.addActionListener(listenForBtnContinuar);
+    }
+    
     public String getTextFieldNombreValue() {
         return this.textFieldNombre.getText();
     }

@@ -4,18 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import packModelo.Carta;
-import packModelo.GestorCartas;
-import packModelo.GestorConfiguraciones;
-import packModelo.GestorUsuarios;
-import packModelo.Jugador;
-import packModelo.Partida;
-import packModelo.RankingDB;
-import packModelo.Tablero;
-import packVista.VentanaAyuda;
-import packVista.VentanaInicio;
-import packVista.VentanaJuego;
-import packVista.VentanaRanking;
+import packModelo.*;
+
+import packVista.*;
+
 
 public class Controlador {
 	private static Controlador miControlador;
@@ -27,6 +19,7 @@ public class Controlador {
 	private GestorConfiguraciones miGestorConfig;
 	private GestorCartas miGestorCartas;
 	private GestorUsuarios miGestorUsuarios;
+	private GestorPartida miGestorPartida;
 	
 	/* Vista */
 	private VentanaInicio ventanaInicio;
@@ -41,6 +34,7 @@ public class Controlador {
 		this.miGestorConfig = GestorConfiguraciones.getGestorConfig();
 		this.miGestorCartas = GestorCartas.getGestorCartas();
 		this.miGestorUsuarios = GestorUsuarios.getGestorUsuarios();
+		this.miGestorPartida = GestorPartida.getGestorPartida();
 		
 		this.ventanaInicio = new VentanaInicio();
 		this.ventanaJuego = new VentanaJuego();
@@ -52,6 +46,7 @@ public class Controlador {
 		this.ventanaInicio.addJugarListener(new JugarListener());
 		this.ventanaInicio.addAyudaListener(new AyudaListener());
 		this.ventanaInicio.addRankingListener(new RankingListener());
+		this.ventanaInicio.addContinuarListener(new ContinuarListener());
 
 		/* Listeners VentanaJuego */
 		this.ventanaJuego.addJugarTurnoListener(new JugarTurnoListener());
@@ -60,6 +55,8 @@ public class Controlador {
 		this.ventanaJuego.addElegirCarta3Listener(new ElegirCarta3Listener());
 		this.ventanaJuego.addElegirCarta4Listener(new ElegirCarta4Listener());
 		this.ventanaJuego.addSiguienteListener(new SiguienteListener());
+		this.ventanaJuego.addGuardarPartida(new GuardarListener());
+		
 		
 		this.ventanaJuego.desactivarBotonJugarTurno();
 		this.ventanaJuego.desactivarBotonSiguiente();
@@ -122,6 +119,20 @@ public class Controlador {
 				setUpObservers();
 			}			
 			else ventanaInicio.showNombreErrorMessage();			
+		}
+	}
+	
+	class GuardarListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//
+		}
+	}
+	
+	class ContinuarListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Hola");
 		}
 	}
 	

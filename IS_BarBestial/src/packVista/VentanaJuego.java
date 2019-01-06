@@ -43,6 +43,7 @@ public class VentanaJuego extends JFrame implements Observer {
     private JButton btnElegirCarta2;
     private JButton btnElegirCarta3;
     private JButton btnElegirCarta4;
+    private JButton guardarPartida;
     private JLabel bestLabel3;
     private JLabel bestLabel4;
     private JButton btnJugarTurno;
@@ -100,6 +101,10 @@ public class VentanaJuego extends JFrame implements Observer {
 
         //Tablero.getMiTablero().anadirObservador(this);
 
+        guardarPartida = new JButton("Guardar Partida");
+        guardarPartida.setPreferredSize(new Dimension(160, 25));
+        panelElegirCartas.add(guardarPartida);
+        
         btnElegirCarta1 = new JButton("Elegir");
         btnElegirCarta1.setPreferredSize(new Dimension(160, 25));
         panelElegirCartas.add(btnElegirCarta1);
@@ -306,7 +311,15 @@ public class VentanaJuego extends JFrame implements Observer {
     public void desactivarBotonJugarTurno() {
         btnJugarTurno.setEnabled(false);
     }
+    
+    public void activarBotonGuardarPartida() {
+        guardarPartida.setEnabled(true);
+    }
 
+    public void desactivarBotonGuardarPartida() {
+    	guardarPartida.setEnabled(false);
+    }
+    
     public void activarBotonSiguiente() {
         btnSiguiente.setEnabled(true);
     }
@@ -315,6 +328,10 @@ public class VentanaJuego extends JFrame implements Observer {
         btnSiguiente.setEnabled(false);
     }
 
+    public void addGuardarPartida(ActionListener listenBtnGuardarPartida) {
+        guardarPartida.addActionListener(listenBtnGuardarPartida);
+    }
+    
     public void addJugarTurnoListener(ActionListener listenForBtnJugarTurno) {
         btnJugarTurno.addActionListener(listenForBtnJugarTurno);
     }
