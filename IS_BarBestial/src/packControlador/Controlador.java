@@ -97,12 +97,12 @@ public class Controlador {
 		this.ventanaJuego.addElegirCarta3Listener(new ElegirCarta3Listener());
 		this.ventanaJuego.addElegirCarta4Listener(new ElegirCarta4Listener());
 		this.ventanaJuego.addSiguienteListener(new SiguienteListener());
-<<<<<<< HEAD
+
 		this.ventanaJuego.addUsarAyuda(new UsarAyudaListener());
-=======
+
 		this.ventanaJuego.addGuardarPartida(new GuardarListener());
 		
->>>>>>> branch 'master' of https://github.com/OliHack/ADSI_BarBestial.git
+
 		
 		this.ventanaJuego.desactivarBotonJugarTurno();
 		this.ventanaJuego.desactivarBotonSiguiente();
