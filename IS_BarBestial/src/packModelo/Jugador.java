@@ -87,6 +87,14 @@ public abstract class Jugador extends Observable {
         return this.colorJugador;
     }
     
+    public ListaCartas getManoJugador(){
+    	return this.mano;
+    }
+    
+    public ListaCartas getMazoJugador(){
+    	return this.mazo;
+    }
+    
     public String obtenerEspeciesDeAnimalesEnMano(){
         return this.mano.obtenerEspeciesDeAnimales();
     }
@@ -181,33 +189,6 @@ public abstract class Jugador extends Observable {
     }
     
     public void usarAyuda() {
-    	Tablero tablero=null;
-    	Bar b= null;
-    	Carta aux = null;
-    	Partida p = null;
-    	
-    	if((this.numAyudas ==0) && (p.obtenerJugadorTurnoActual().getColorJugador().equals("AZUL"))){
-	        JOptionPane.showMessageDialog(null, "No tiene ninguna ayuda.");
-    	}
-    	if ( (this.numAyudas !=0) && (p.obtenerJugadorTurnoActual().getColorJugador().equals("AZUL"))){
-    		if( b.getMiBar().getLista().ComprobarListaCartas()) {
-    			restarAyuda();
-    			p.getMiPartida().avanzarTurno();
-    		}else{
-    			aux = b.getMiBar().getLista().obtenerPrimeraCartaRival();
-    			tablero.getMiTablero().anadirALaCola(aux);
-    			restarAyuda();
-    			tablero.getMiTablero().hacerUltimaAnimalada();
-    	        tablero.getMiTablero().hacerAnimaladasRecurrentes();
-    	        tablero.getMiTablero().revisarCola();
-
-    	        if (p.getMiPartida().comprobarFinalizacion()) {
-    	            p.getMiPartida().finalizar();
-    	        } else {
-    	            p.getMiPartida().avanzarTurno();
-    	        }
-    		
-    		} 	
-    	}
+    	System.out.println("HOLA");
     }
 }

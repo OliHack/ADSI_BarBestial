@@ -309,7 +309,7 @@ public class ListaCartas {
     	}else{
     			
     		while( i< lista.size() && !enc){
-    			if (this.lista.get(i).getColor().equals("VERDE")){
+    			if (this.lista.get(i).getColor().equals("AZUL")){
     				aux= this.lista.get(i);
     				enc = true;
     		}

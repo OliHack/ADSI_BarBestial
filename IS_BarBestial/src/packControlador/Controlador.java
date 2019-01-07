@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-
-
+import packModelo.EnumColor;
 import packModelo.Jugador;
+import packModelo.JugadorReal;
 import packModelo.Partida;
 import packModelo.RankingDB;
 import packModelo.Tablero;
@@ -34,11 +34,13 @@ public class Controlador {
 		this.partida = Partida.getMiPartida();
 		this.tablero = Tablero.getMiTablero();
 		this.rankingDB = RankingDB.getRankingDB();
+		//this.jug= Partida.getMiPartida().obtenerJugadorReal();
 		
 		this.ventanaInicio = new VentanaInicio();
 		this.ventanaJuego = new VentanaJuego();
 		this.ventanaAyuda = new VentanaAyuda();
 		this.ventanaRanking = new VentanaRanking();
+		
 
 		
 		/* Listeners VentanaInicio */
@@ -112,7 +114,7 @@ public class Controlador {
 			if(nombre.length() > 0) {
 				//ocultarVentanaInicio();
 				mostrarVentanaJuego();
-				partida.inicializarPartida(nombre);;
+				partida.inicializarPartida(nombre);
 				setUpObservers();
 			}			
 			else ventanaInicio.showNombreErrorMessage();			
@@ -187,7 +189,8 @@ public class Controlador {
 	class UsarAyudaListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			jug.usarAyuda();
+			Partida.getMiPartida().obtenerJugadorReal().usarAyuda();
+			//jug.usarAyuda();
 		}
 	}
 	
