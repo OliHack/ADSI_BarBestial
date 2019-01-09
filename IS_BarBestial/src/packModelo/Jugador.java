@@ -24,10 +24,6 @@ public abstract class Jugador extends Observable {
         this.numAyudas = 2;
     }
 
-    public void usarAyuda() {
-    	System.out.println("Ey man");
-    }
-    
     public void robarCarta() {
     	Carta carta = this.mazo.obtenerCartaAleatoria();
     	if (carta != null) {
@@ -89,6 +85,14 @@ public abstract class Jugador extends Observable {
 
     public EnumColor getColorJugador(){
         return this.colorJugador;
+    }
+    
+    public ListaCartas getManoJugador(){
+    	return this.mano;
+    }
+    
+    public ListaCartas getMazoJugador(){
+    	return this.mazo;
     }
     
     public String obtenerEspeciesDeAnimalesEnMano(){
@@ -176,8 +180,13 @@ public abstract class Jugador extends Observable {
 
     }
     
+    public int getAyudas(){
+    	return this.numAyudas;
+    }
+      
     public int restarAyuda() {
-    	return (this.numAyudas -1);
+    	this.numAyudas= this.numAyudas -1;
+    	return this.numAyudas;
     }
     
     public void comprobar(){
@@ -185,33 +194,37 @@ public abstract class Jugador extends Observable {
     }
     
     public void usarAyuda() {
-    	Tablero tablero=null;
-    	Bar b= null;
+    	Bar bar= Bar.getMiBar();
     	Carta aux = null;
-    	Partida p = null;
-    	
-    	if((this.numAyudas ==0) && (p.obtenerJugadorTurnoActual().getColorJugador().equals("AZUL"))){
-	        JOptionPane.showMessageDialog(null, "No tiene ninguna ayuda.");
+    	Tablero tablero = Tablero.getMiTablero();
+    	Partida partida= Partida.getMiPartida();
+    	if( (partida.obtenerJugadorReal().getAyudas()==0)){
+	        JOptionPane.showMessageDialog(null, "No tienes ninguna ayuda.");
     	}
-    	if ( (this.numAyudas !=0) && (p.obtenerJugadorTurnoActual().getColorJugador().equals("AZUL"))){
-    		if( b.getMiBar().getLista().ComprobarListaCartas()) {
-    			restarAyuda();
-    			p.getMiPartida().avanzarTurno();
-    		}else{
-    			aux = b.getMiBar().getLista().obtenerPrimeraCartaRival();
-    			tablero.getMiTablero().anadirALaCola(aux);
-    			restarAyuda();
-    			tablero.getMiTablero().hacerUltimaAnimalada();
-    	        tablero.getMiTablero().hacerAnimaladasRecurrentes();
-    	        tablero.getMiTablero().revisarCola();
+    	if ((partida.obtenerJugadorReal().getAyudas() !=0)){
+    		bar.getLista().imprimirCartasColor(EnumColor.VERDE);
+    		if( bar.getLista().obtenerNumeroDeCartasColor(EnumColor.VERDE) ==0) {
+    			System.out.println("No hay cartas");
+    			//partida.avanzarTurno();
+    			partida.obtenerJugadorReal().restarAyuda();
+    			System.out.println(partida.obtenerJugadorReal().getAyudas());
+    		}
+    		else{
+    			aux = bar.getLista().obtenerPrimeraCartaRival();
+    			System.out.println("Tengo la carta del rival y es: "+ aux.getAnimal().getEspecie());
+    			tablero.anadirALaCola(aux);
+    			partida.obtenerJugadorReal().restarAyuda();
+    			System.out.println("He añadido la carta");
+    			//tablero.hacerUltimaAnimalada();
+    			//tablero.hacerAnimaladasRecurrentes();
+    			//tablero.revisarCola();
 
-    	        if (p.getMiPartida().comprobarFinalizacion()) {
-    	            p.getMiPartida().finalizar();
-    	        } else {
-    	            p.getMiPartida().avanzarTurno();
-    	        }
-    		
-    		} 	
+    			/*if (partida.comprobarFinalizacion()) {
+    				partida.finalizar();
+    			}else {
+    				partida.avanzarTurno();
+    			}*/
+    		} 
     	}
     }
 }

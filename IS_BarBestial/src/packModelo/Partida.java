@@ -29,7 +29,6 @@ public class Partida extends Observable {
     public void inicializarPartida(String pNombreJugador) {
         Tablero tablero = Tablero.getMiTablero();
         tablero.vaciar();
-
         Bar bar = Bar.getMiBar();
         bar.vaciar();
 
@@ -68,6 +67,18 @@ public class Partida extends Observable {
         return this.listaJugadores.get(turnoActual);
     }
 
+    public Jugador obtenerJugadorReal(){
+    	int i=0;
+    	Jugador aux=null;
+    	while (i< this.listaJugadores.size()){
+    		if(this.listaJugadores.get(i).getColorJugador().equals(EnumColor.AZUL)){
+    			aux= this.listaJugadores.get(i);
+    		}
+    		i++;
+    	}
+    	return aux;
+    }
+    	
     private void repartirCartas() {
         Iterator<Jugador> iterator = this.listaJugadores.iterator();
         Jugador jugador;
@@ -156,4 +167,5 @@ public class Partida extends Observable {
         super.setChanged();
         super.notifyObservers(pInformacion);
     }
+    
 }

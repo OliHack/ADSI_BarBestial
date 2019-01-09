@@ -322,9 +322,19 @@ public class VentanaJuego extends JFrame implements Observer {
         guardarPartida.setEnabled(true);
     }
 
+    public void activarBotonUsarAyuda(){
+    	btnAyuda.setEnabled(true);
+    }
+
+
     public void desactivarBotonGuardarPartida() {
     	guardarPartida.setEnabled(false);
     }
+
+    public void desactivarBotonUsarAyuda(){
+    	btnAyuda.setEnabled(false);
+    }
+
     
     public void activarBotonSiguiente() {
         btnSiguiente.setEnabled(true);
