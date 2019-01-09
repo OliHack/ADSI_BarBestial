@@ -192,12 +192,6 @@ public class Controlador {
 			partida.obtenerJugadorReal().usarAyuda();
 			ventanaJuego.desactivarBotonUsarAyuda();
 			ventanaJuego.activarBotonesElegir();
-			if(partida.obtenerJugadorTurnoActual().getColorJugador().equals(EnumColor.AZUL)){
-				System.out.println("Estoy aqui jej");
-				ventanaJuego.activarBotonUsarAyuda();
-			}else{
-				ventanaJuego.desactivarBotonUsarAyuda();
-			}
 			
 			//ventanaJuego.activarBotonSiguiente();
 			
