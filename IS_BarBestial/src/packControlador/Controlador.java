@@ -189,8 +189,18 @@ public class Controlador {
 	class UsarAyudaListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Partida.getMiPartida().obtenerJugadorReal().usarAyuda();
-			//jug.usarAyuda();
+			partida.obtenerJugadorReal().usarAyuda();
+			ventanaJuego.desactivarBotonUsarAyuda();
+			ventanaJuego.activarBotonesElegir();
+			if(partida.obtenerJugadorTurnoActual().getColorJugador().equals(EnumColor.AZUL)){
+				System.out.println("Estoy aqui jej");
+				ventanaJuego.activarBotonUsarAyuda();
+			}else{
+				ventanaJuego.desactivarBotonUsarAyuda();
+			}
+			
+			//ventanaJuego.activarBotonSiguiente();
+			
 		}
 	}
 	

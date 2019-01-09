@@ -180,8 +180,13 @@ public abstract class Jugador extends Observable {
 
     }
     
+    public int getAyudas(){
+    	return this.numAyudas;
+    }
+      
     public int restarAyuda() {
-    	return (this.numAyudas -1);
+    	this.numAyudas= this.numAyudas -1;
+    	return this.numAyudas;
     }
     
     public void comprobar(){
@@ -189,6 +194,37 @@ public abstract class Jugador extends Observable {
     }
     
     public void usarAyuda() {
-    	System.out.println("HOLA");
+    	Bar bar= Bar.getMiBar();
+    	Carta aux = null;
+    	Tablero tablero = Tablero.getMiTablero();
+    	Partida partida= Partida.getMiPartida();
+    	if( (partida.obtenerJugadorReal().getAyudas()==0)){
+	        JOptionPane.showMessageDialog(null, "No tienes ninguna ayuda.");
+    	}
+    	if ((partida.obtenerJugadorReal().getAyudas() !=0)){
+    		bar.getLista().imprimirCartasColor(EnumColor.VERDE);
+    		if( bar.getLista().obtenerNumeroDeCartasColor(EnumColor.VERDE) ==0) {
+    			System.out.println("No hay cartas");
+    			//partida.avanzarTurno();
+    			partida.obtenerJugadorReal().restarAyuda();
+    			System.out.println(partida.obtenerJugadorReal().getAyudas());
+    		}
+    		else{
+    			aux = bar.getLista().obtenerPrimeraCartaRival();
+    			System.out.println("Tengo la carta del rival y es: "+ aux.getAnimal().getEspecie());
+    			tablero.anadirALaCola(aux);
+    			partida.obtenerJugadorReal().restarAyuda();
+    			System.out.println("He añadido la carta");
+    			//tablero.hacerUltimaAnimalada();
+    			//tablero.hacerAnimaladasRecurrentes();
+    			//tablero.revisarCola();
+
+    			/*if (partida.comprobarFinalizacion()) {
+    				partida.finalizar();
+    			}else {
+    				partida.avanzarTurno();
+    			}*/
+    		} 
+    	}
     }
 }

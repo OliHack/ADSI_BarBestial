@@ -312,7 +312,16 @@ public class VentanaJuego extends JFrame implements Observer {
     public void desactivarBotonJugarTurno() {
         btnJugarTurno.setEnabled(false);
     }
+    
+    public void activarBotonUsarAyuda(){
+    	btnAyuda.setEnabled(true);
+    }
 
+    public void desactivarBotonUsarAyuda(){
+    	btnAyuda.setEnabled(false);
+    }
+   
+    
     public void activarBotonSiguiente() {
         btnSiguiente.setEnabled(true);
     }

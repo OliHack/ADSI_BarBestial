@@ -29,7 +29,6 @@ public class Partida extends Observable {
     public void inicializarPartida(String pNombreJugador) {
         Tablero tablero = Tablero.getMiTablero();
         tablero.vaciar();
-        System.out.println("juegooooo");
         Bar bar = Bar.getMiBar();
         bar.vaciar();
 
@@ -69,16 +68,11 @@ public class Partida extends Observable {
     }
 
     public Jugador obtenerJugadorReal(){
-    	
     	int i=0;
     	Jugador aux=null;
-    	System.out.println(this.listaJugadores.size()+"jjj");
     	while (i< this.listaJugadores.size()){
-    		
     		if(this.listaJugadores.get(i).getColorJugador().equals(EnumColor.AZUL)){
     			aux= this.listaJugadores.get(i);
-    			
-    		
     		}
     		i++;
     	}
