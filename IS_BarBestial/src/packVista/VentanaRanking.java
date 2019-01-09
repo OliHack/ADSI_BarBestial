@@ -49,9 +49,8 @@ public class VentanaRanking extends JFrame {
     public void actualizarRanking(Vector<Vector<String>> pData) {
         Vector<String> columnas = new Vector<>();
         columnas.add("Nombre");
-        columnas.add("Numero de cartas en Bar");
-        columnas.add("Fuerza de las cartas en Bar");
         columnas.add("Fecha");
+        columnas.add("Puntuacion");
 
         table = new JTable(pData, columnas);
 

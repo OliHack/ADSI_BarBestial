@@ -24,10 +24,6 @@ public abstract class Jugador extends Observable {
         this.numAyudas = 2;
     }
 
-    public void usarAyuda() {
-    	System.out.println("Ey man");
-    }
-    
     public void robarCarta() {
     	Carta carta = this.mazo.obtenerCartaAleatoria();
     	if (carta != null) {

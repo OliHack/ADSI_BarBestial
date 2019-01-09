@@ -6,15 +6,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-<<<<<<< HEAD
+
 import packModelo.GestorBD;
 import packModelo.Carta;
 import packModelo.GestorCartas;
 import packModelo.GestorConfiguraciones;
 import packModelo.GestorUsuarios;
-=======
 
->>>>>>> refs/heads/Unru
 import packModelo.Jugador;
 import packModelo.Partida;
 import packModelo.RankingDB;
@@ -46,17 +44,22 @@ public class Controlador {
 
 	private GestorBD misGestorBD;
 
-<<<<<<< HEAD
-=======
+
 	private GestorPartida miGestorPartida;
 
->>>>>>> branch 'master' of https://github.com/OliHack/ADSI_BarBestial.git
+
 	
 	/* Vista */
 	private VentanaInicio ventanaInicio;
 	private VentanaJuego ventanaJuego;
 	private VentanaAyuda ventanaAyuda;
 	private VentanaRanking ventanaRanking;
+	private Ranking ranking;
+	private VentanaMejIndv ventanaMejIndv;
+	private VentanaHoy ventanaHoy;
+	private VentanaSiempre ventanaSiempre;
+	private VentanaMedias ventanaMedias;
+	
 	private VentanaSeleccionConfig ventanaSeleccionConfig;
 	
 	public Controlador() {
@@ -77,6 +80,13 @@ public class Controlador {
 		this.ventanaJuego = new VentanaJuego();
 		this.ventanaAyuda = new VentanaAyuda();
 		this.ventanaRanking = new VentanaRanking();
+		
+		this.ranking = Ranking.getRanking();
+		this.ventanaMejIndv = VentanaMejIndv.getMejIndv();
+		this.ventanaHoy = VentanaHoy.getHoy();
+		this.ventanaSiempre = VentanaSiempre.getSiempre();
+		this.ventanaMedias = VentanaMedias.getMedias();
+		
 		this.ventanaSeleccionConfig = new VentanaSeleccionConfig();
 
 		
@@ -97,12 +107,11 @@ public class Controlador {
 		this.ventanaJuego.addElegirCarta3Listener(new ElegirCarta3Listener());
 		this.ventanaJuego.addElegirCarta4Listener(new ElegirCarta4Listener());
 		this.ventanaJuego.addSiguienteListener(new SiguienteListener());
-<<<<<<< HEAD
+
 		this.ventanaJuego.addUsarAyuda(new UsarAyudaListener());
-=======
+
 		this.ventanaJuego.addGuardarPartida(new GuardarListener());
 		
->>>>>>> branch 'master' of https://github.com/OliHack/ADSI_BarBestial.git
 		
 		this.ventanaJuego.desactivarBotonJugarTurno();
 		this.ventanaJuego.desactivarBotonSiguiente();
@@ -143,11 +152,13 @@ public class Controlador {
     }
 	
 	private void actualizarRanking() {
-		this.ventanaRanking.actualizarRanking(rankingDB.obtenerMejoresPuntuaciones());		
+		//this.ventanaRanking.actualizarRanking(rankingDB.obtenerMejoresPuntuaciones());	
+		//this.ranking.setVisible(true);
 	}
 	
 	private void mostrarVentanaRanking(){
-        this.ventanaRanking.setVisible(true);
+		this.ranking.setVisible(true);
+       // this.ventanaRanking.setVisible(true);
     }
 	
 	private void configUsuario() throws SQLException {
@@ -213,7 +224,7 @@ public class Controlador {
 	class RankingListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			actualizarRanking();
+			//actualizarRanking();
 		    mostrarVentanaRanking();
 		}
 	}

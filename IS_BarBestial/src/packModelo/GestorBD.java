@@ -69,7 +69,7 @@ public class GestorBD {
 	            //Creamos una tabla para la Partida
 	            s = c.createStatement();
 	            instruccion = "CREATE TABLE Partida " +
-	            		"(ayUsuario	INT    NOT NULL, " +
+	            		"(ayUsuario	INTEGER    NOT NULL, " +
 	                    "idPartida	INT    NOT NULL, " +
 	                    "turno	BOOLEAN NOT NULL, " +
 	                    "manoMaq	VARCHAR(200)    NOT NULL, " +

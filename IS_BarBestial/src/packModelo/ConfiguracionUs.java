@@ -36,13 +36,13 @@ public class ConfiguracionUs {
 		return idConfig;
 	}
 	
-	private void añadirConfiguracionCarta(ConfiguracionCarta cfC){
+	private void aÃ±adirConfiguracionCarta(ConfiguracionCarta cfC){
 		listaConfiguracionesCarta.add(cfC);
 	}
 	
 	public void nuevaConfiguracionCarta(String nombreImg, Carta carta){
 		ConfiguracionCarta cC = new ConfiguracionCarta(nombreImg, this.idConfig, carta);
-		añadirConfiguracionCarta(cC);
+		aÃ±adirConfiguracionCarta(cC);
 	}
 	
 }
