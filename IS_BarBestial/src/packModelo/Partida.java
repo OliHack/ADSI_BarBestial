@@ -30,6 +30,10 @@ public class Partida extends Observable {
     	return turnoActual;
     }
     
+    public void setTurno(int tur) {
+    	turnoActual = tur;
+    }
+    
     public void inicializarPartida(String pNombreJugador) {
         Tablero tablero = Tablero.getMiTablero();
         tablero.vaciar();
@@ -45,6 +49,10 @@ public class Partida extends Observable {
 
         this.repartirCartas();
         this.turnoActual = 0;
+    }
+    
+    public void anadirJugador(Jugador jug) {
+    	listaJugadores.add(jug); 
     }
     
     public void jugarTurno() {

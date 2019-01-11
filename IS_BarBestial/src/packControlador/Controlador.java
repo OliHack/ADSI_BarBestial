@@ -166,7 +166,7 @@ public class Controlador {
         this.ventanaPartidasGuardadas.setVisible(true);
     }
 	
-	private void guardarPartida() {
+	public void guardarPartida() {
 		misGestorBD.obtenerInfoyGuardarPartida();
 		JOptionPane.showMessageDialog(null, "Su partida ha sido guardada con éxito.");
 	}
