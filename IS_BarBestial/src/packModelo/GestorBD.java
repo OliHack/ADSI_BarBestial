@@ -69,20 +69,37 @@ public class GestorBD {
 	            //Creamos una tabla para la Partida
 	            s = c.createStatement();
 	            instruccion = "CREATE TABLE Partida " +
-	            		"(ayUsuario	INT    NOT NULL, " +
-	                    "idPartida	INT    NOT NULL, " +
-	                    "turno	BOOLEAN NOT NULL, " +
-	                    "manoMaq	VARCHAR(200)    NOT NULL, " +
-	                    "manoUs	VARCHAR(200)    NOT NULL, " +
-	                    "calle	VARCHAR(200)    NOT NULL, " +
-	                    "bar	VARCHAR(200)    NOT NULL, " +
-	                    "mazoMaq	VARCHAR(200)    NOT NULL, " +
-	                    "mazoUs	VARCHAR(200)    NOT NULL, " +
-	                    "cola		VARCHAR(200) NOT NULL, " +
-	                    "idUs	INT    NOT NULL, " +
-	                    "fecha	DATETIME    NOT NULL, " +
+	            		"(ayUsuario	INTEGER  , " +
+	                    "idPartida	INT  , " +
+	                    "turno	BOOLEAN , " +
+	                    "manoMaq	VARCHAR(200)    , " +
+	                    "manoUs	VARCHAR(200)    , " +
+	                    "calle	VARCHAR(200)    , " +
+	                    "bar	VARCHAR(200)    , " +
+	                    "mazoMaq	VARCHAR(200)    , " +
+	                    "mazoUs	VARCHAR(200)    , " +
+	                    "cola		VARCHAR(200) , " +
+	                    "idUs	INT    , " +
+	                    "fecha	DATETIME    , " +
 	                    " PRIMARY KEY(idPartida))";
 	            s.executeUpdate(instruccion);
+	            
+	            //Creamos una tabla para el usuario
+	            s=c.createStatement();
+	            instruccion = "CREATE TABLE USUARIO" +
+	            		"(idUsuario VARCHAR(200) , " +
+	            		"password VARCHAR(200) , " +
+	            		"numAyudas INT NOT NULL, " +
+	            		" PRIMARY KEY (idUsuario))";
+	            s.executeUpdate(instruccion);
+	            
+	            s=c.createStatement();
+	            instruccion = "INSERT INTO USUARIO (idUsuario,numAyudas) VALUES ('Unai',1)";
+	            s.executeUpdate(instruccion);
+	            
+	            		
+	            		
+	            		
 	            
 	            //Creamos una tabla para la Partida
 	            s = c.createStatement();

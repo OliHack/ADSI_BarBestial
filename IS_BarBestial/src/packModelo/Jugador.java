@@ -1,5 +1,7 @@
 package packModelo;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ThreadLocalRandom;
@@ -21,7 +23,7 @@ public abstract class Jugador extends Observable {
         this.colorJugador = pColorJugador;
         this.mano = new ListaCartas();
         this.mazo = new ListaCartas();
-        this.numAyudas = 2;
+        this.numAyudas = 0;
     }
 
     public void robarCarta() {
@@ -184,13 +186,19 @@ public abstract class Jugador extends Observable {
     	return this.numAyudas;
     }
       
-    public int restarAyuda() {
+    public void restarAyuda() {
     	this.numAyudas= this.numAyudas -1;
-    	return this.numAyudas;
+    	//String sql = String.format("UPDATE Usuario SET numAyudas = numAyudas -1 WHERE idUsuario= %s ; ", this.nombre);
+    	//GestorBD.sqlUpdate(sql);
+    	//GestorBD.sqlUpdate("UPDATE Usuario SET numAyudas = numAyudas -1 WHERE idUsuario= 'Unai';");
     }
     
-    public void comprobar(){
-    	
+    public void cargarAyuda() throws SQLException{
+    	//String sql = String.format("SELECT numAyudas FROM Usuario WHERE idUsuario = %s; ", this.nombre);
+    	//ResultSet rs =GestorBD.execSql(sql);
+    	ResultSet rs = GestorBD.execSql("SELECT numAyudas FROM Usuario WHERE idUsuario = 'Unai';");
+    	this.numAyudas= rs.getInt("numAyudas");
+    	rs.close();	
     }
     
     public void usarAyuda() {
@@ -200,9 +208,11 @@ public abstract class Jugador extends Observable {
     	Partida partida= Partida.getMiPartida();
     	if( (partida.obtenerJugadorReal().getAyudas()==0)){
 	        JOptionPane.showMessageDialog(null, "No tienes ninguna ayuda.");
+	        //partida.obtenerJugadorReal().restarAyuda();
     	}
     	if ((partida.obtenerJugadorReal().getAyudas() !=0)){
     		bar.getLista().imprimirCartasColor(EnumColor.VERDE);
+    		
     		if( bar.getLista().obtenerNumeroDeCartasColor(EnumColor.VERDE) ==0) {
     			System.out.println("No hay cartas");
     			//partida.avanzarTurno();
@@ -215,13 +225,14 @@ public abstract class Jugador extends Observable {
     			tablero.anadirALaCola(aux);
     			partida.obtenerJugadorReal().restarAyuda();
     			System.out.println("He añadido la carta");
-    			//tablero.hacerUltimaAnimalada();
-    			//tablero.hacerAnimaladasRecurrentes();
-    			//tablero.revisarCola();
+    			tablero.hacerUltimaAnimalada();
+    			tablero.hacerAnimaladasRecurrentes();
+    			tablero.revisarCola();
 
-    			/*if (partida.comprobarFinalizacion()) {
+    			if (partida.comprobarFinalizacion()) {
     				partida.finalizar();
-    			}else {
+    			}
+    			/*else {
     				partida.avanzarTurno();
     			}*/
     		} 
