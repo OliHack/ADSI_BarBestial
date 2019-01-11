@@ -12,6 +12,7 @@ public class JugadorTest {
     Animal camaleon, leon, mofeta;
     Tablero t = Tablero.getMiTablero();
 
+
 	@Before
 	public void setUp() throws Exception {
 		jugador = new JugadorReal("Revi", EnumColor.VERDE,2);
@@ -21,8 +22,9 @@ public class JugadorTest {
         mofeta = new Mofeta();
 
         carta1 = new Carta(camaleon, EnumColor.VERDE);
-        carta2 = new Carta(leon, EnumColor.VERDE);
+        carta2 = new Carta(leon, EnumColor.AZUL);
         carta3 = new Carta(mofeta, EnumColor.VERDE);
+
 	}
 
 	@After

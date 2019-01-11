@@ -309,7 +309,7 @@ public class Controlador {
 			ventanaJuego.desactivarBotonUsarAyuda();
 			ventanaJuego.activarBotonesElegir();
 			if(partida.obtenerJugadorReal().getAyudas()==0){
-				JOptionPane.showMessageDialog(null, "No tienes más ayuda.");
+				JOptionPane.showMessageDialog(null, "Ayuda utilizada. No te quedan más ayuda.");
 			}
 			
 			//ventanaJuego.activarBotonSiguiente();

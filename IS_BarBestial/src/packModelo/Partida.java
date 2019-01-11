@@ -170,6 +170,10 @@ public class Partida extends Observable {
     	
     }
     
+    public void addJugador( Jugador jug){
+    	this.listaJugadores.add(jug);
+    }
+    
     private void notificar(String pInformacion) {
         super.setChanged();
         super.notifyObservers(pInformacion);

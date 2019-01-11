@@ -94,7 +94,7 @@ public class GestorBD {
 	            s.executeUpdate(instruccion);
 	            
 	            s=c.createStatement();
-	            instruccion = "INSERT INTO USUARIO (idUsuario,numAyudas) VALUES ('Unai',1)";
+	            instruccion = "INSERT INTO USUARIO (idUsuario,numAyudas) VALUES ('Unai',4)";
 	            s.executeUpdate(instruccion);
 	            
 	            		
