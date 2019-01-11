@@ -1,6 +1,7 @@
 package packModelo;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class GestorUsuarios {
 	
@@ -16,5 +17,53 @@ public class GestorUsuarios {
 			miGestor = new GestorUsuarios();
 		}
 		return miGestor;
+	}
+	
+	public ArrayList<String> GetAllIDs(){
+		
+		ArrayList<String> nombres = new ArrayList<String>();
+		
+		for (int i = 0; i < this.listaUsuarios.size(); i++) {
+			nombres.add(this.listaUsuarios.get(i).getIdUsuario());
+		}
+		return nombres;
+	}
+	
+	public void añadirConfiguracion(ConfiguracionCarta pConfig, Usuario user) {
+		user.addConfig(pConfig);
+	}
+	
+	public Usuario buscarUsuario(String pNomUsuario) {
+		String compUsuario = "";
+		for (int i = 0; i < this.listaUsuarios.size(); i++) {
+			compUsuario = this.listaUsuarios.get(i).getIdUsuario();
+			if (compUsuario.equals(pNomUsuario)) {
+				return listaUsuarios.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public boolean comprobarLogin(String user, String pass) {
+		if (this.buscarUsuario(user).getContraseña().equals(pass)) {return true;}
+		else{return false;}
+	}
+	
+	public String recuperarContraseña(String user) {
+		Usuario userEncontrado = buscarUsuario(user);
+		if (!userEncontrado.equals(null)) {
+			String uuid = UUID.randomUUID().toString();
+			userEncontrado.setPassword(uuid);
+			return uuid;
+		}
+		return null;
+	}
+	
+	public void cambiarContraseña(String user, String nueva) {
+		this.buscarUsuario(user).setPassword(nueva);
+	}
+	
+	public void registrarse(String user, String pass) {
+		this.listaUsuarios.add(new Usuario(user, pass));
 	}
 }

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import packModelo.GestorBD;
@@ -60,6 +61,7 @@ public class Controlador {
 	private VentanaSeleccionConfig ventanaSeleccionConfig;
 	private VentanaPartidasGuardadas ventanaPartidasGuardadas;
 	private VentanaGuardada ventanaGuardada;
+	private VentanaCambiarContraseña ventanaCambiarContraseña;
 	
 	public Controlador() {
 		this.usuarioAct = null;
@@ -77,20 +79,21 @@ public class Controlador {
 		this.miGestorPartida = GestorPartida.getGestorPartida();
 
 		this.ventanaInicio = new VentanaInicio();
-		this.ventanaJuego = new VentanaJuego();
 		this.ventanaAyuda = new VentanaAyuda();
 		this.ventanaRanking = new VentanaRanking();
 		this.ventanaSeleccionConfig = new VentanaSeleccionConfig();
 
 		this.ventanaPartidasGuardadas = new VentanaPartidasGuardadas();
 		this.ventanaGuardada = new VentanaGuardada();
-
+		
 		
 		/* Listeners VentanaInicio */
-		this.ventanaInicio.addJugarListener(new JugarListener());
+		this.ventanaInicio.addIniciarSesionListener(new IniciarSesionListener());
 		this.ventanaInicio.addAyudaListener(new AyudaListener());
 		this.ventanaInicio.addRankingListener(new RankingListener());
-
+		this.ventanaInicio.addRegistrarseListener(new RegistrarseListener());
+		this.ventanaInicio.addRecuperarContraseñaListener(new RecuperarContraseñaListener());
+		
 		//this.ventanaInicio.addSeleccionarConfigListener(new SeleccionConfigListener());
 		
 
@@ -103,6 +106,7 @@ public class Controlador {
 		this.ventanaJuego.addElegirCarta3Listener(new ElegirCarta3Listener());
 		this.ventanaJuego.addElegirCarta4Listener(new ElegirCarta4Listener());
 		this.ventanaJuego.addSiguienteListener(new SiguienteListener());
+		this.ventanaJuego.addCambiarContraseñaListener(new cambiarContraseñaListener());
 
 		this.ventanaJuego.addUsarAyuda(new UsarAyudaListener());
 
@@ -113,6 +117,8 @@ public class Controlador {
 		this.ventanaJuego.desactivarBotonJugarTurno();
 		this.ventanaJuego.desactivarBotonSiguiente();
 		
+		/* Listeners VentanaCambiarContraseña */
+		this.ventanaCambiarContraseña.addCambiarListener(new cambiarListener());
 		
 		
 	}
@@ -146,7 +152,8 @@ public class Controlador {
 		this.ventanaInicio.setVisible(true);
 	}
 	
-	private void mostrarVentanaJuego() {
+	private void mostrarVentanaJuego(String user) {
+		this.ventanaJuego = new VentanaJuego(user);
 		this.ventanaJuego.setVisible(true);
 	}
 
@@ -202,15 +209,16 @@ public class Controlador {
 	}
 	
 	
-	class JugarListener implements ActionListener {
+	class IniciarSesionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String nombre = ventanaInicio.getTextFieldNombreValue();
+			String user = ventanaInicio.getTextUsuario();
+			String pass = ventanaInicio.getTextContraseña();
 			
-			if(nombre.length() > 0) {
+			if(miGestorUsuarios.comprobarLogin(user, pass)) {
 				//ocultarVentanaInicio();
-				mostrarVentanaJuego();
-				partida.inicializarPartida(nombre);
+				mostrarVentanaJuego(user);
+				partida.inicializarPartida(user);
 				setUpObservers();
 				try {
 					partida.obtenerJugadorReal().cargarAyuda();
@@ -220,12 +228,35 @@ public class Controlador {
 				}
 			}
 			else{ ventanaInicio.showNombreErrorMessage();}
+			
 			if(partida.obtenerJugadorReal().getAyudas()==0){
 				ventanaJuego.desactivarBotonUsarAyuda();
 			}else{
 				ventanaJuego.activarBotonUsarAyuda();
 			}
 			
+		}
+	}
+	
+	
+	class RegistrarseListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String user = ventanaInicio.getTextUsuario();
+			String pass = ventanaInicio.getTextContraseña();
+			
+			miGestorUsuarios.registrarse(user, pass);
+			
+			JOptionPane.showMessageDialog(null, user + ", te has registrado con éxito");
+		}
+	}
+	
+	class RecuperarContraseñaListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String user = ventanaInicio.getTextUsuario();
+			String nuevaPass = miGestorUsuarios.recuperarContraseña(user);
+			JOptionPane.showMessageDialog(null, user + ", tu nueva contraseña es " + nuevaPass);
 		}
 	}
 	
@@ -333,7 +364,7 @@ public class Controlador {
 			ventanaJuego.desactivarBotonUsarAyuda();
 			ventanaJuego.activarBotonesElegir();
 			if(partida.obtenerJugadorReal().getAyudas()==0){
-				JOptionPane.showMessageDialog(null, "Ayuda utilizada. No te quedan más ayuda.");
+				JOptionPane.showMessageDialog(null, "Ayuda utilizada. No te quedan más ayudas.");
 			}
 			
 			//ventanaJuego.activarBotonSiguiente();
@@ -362,6 +393,31 @@ public class Controlador {
 				ventanaJuego.activarBotonUsarAyuda();
 				ventanaJuego.desactivarBotonJugarTurno();
 				ventanaJuego.desactivarBotonSiguiente();
+			}
+		}
+	}
+	
+	class cambiarContraseñaListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ventanaCambiarContraseña = new VentanaCambiarContraseña(ventanaJuego.getUser());
+			ventanaCambiarContraseña.setVisible(true);
+		}
+	}
+	
+	
+	//listener de ventanacambiarcontraseña
+	
+	class cambiarListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String pass = ventanaCambiarContraseña.getTextNContraseña();
+			
+			if (pass.length() > 0) {
+				miGestorUsuarios.cambiarContraseña(ventanaCambiarContraseña.getUser(), pass);
+				ventanaCambiarContraseña.setVisible(false);
+			}else {
+				JOptionPane.showMessageDialog(null, "Introduce una contraseña");
 			}
 		}
 	}
