@@ -5,6 +5,9 @@ import packModelo.Partida;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import packControlador.Controlador;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -301,6 +304,7 @@ public class VentanaJuego extends JFrame implements Observer {
         if (labelCartaJugReal4.getIcon() != null) {
             btnElegirCarta4.setEnabled(true);
         }
+       
     }
 
     public void desactivarBotonesElegir() {
@@ -322,9 +326,21 @@ public class VentanaJuego extends JFrame implements Observer {
         guardarPartida.setEnabled(true);
     }
 
+    public void activarBotonUsarAyuda(){
+    	if(Controlador.getMiControlador().getUsos()!=2){
+    		btnAyuda.setEnabled(true);
+    	}
+    }
+
+
     public void desactivarBotonGuardarPartida() {
     	guardarPartida.setEnabled(false);
     }
+
+    public void desactivarBotonUsarAyuda(){
+    	btnAyuda.setEnabled(false);
+    }
+
     
     public void activarBotonSiguiente() {
         btnSiguiente.setEnabled(true);

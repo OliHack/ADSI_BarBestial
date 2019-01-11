@@ -81,6 +81,23 @@ public class GestorBD {
 	                    " PRIMARY KEY(idPartida))";
 	            s.executeUpdate(instruccion);
 	            
+	            //Creamos una tabla para el usuario
+	            s=c.createStatement();
+	            instruccion = "CREATE TABLE USUARIO" +
+	            		"(idUsuario VARCHAR(200) , " +
+	            		"password VARCHAR(200) , " +
+	            		"numAyudas INT NOT NULL, " +
+	            		" PRIMARY KEY (idUsuario))";
+	            s.executeUpdate(instruccion);
+	            
+	            s=c.createStatement();
+	            instruccion = "INSERT INTO USUARIO (idUsuario,numAyudas) VALUES ('Unai',4)";
+	            s.executeUpdate(instruccion);
+	            
+	            		
+	            		
+	            		
+	            
 	            //Creamos una tabla para la Partida
 	           // s = c.createStatement();
 	            //instruccion = "INSERT INTO Partida (idPartida, fecha) VALUES (2," + "datetime('now')" + ")";

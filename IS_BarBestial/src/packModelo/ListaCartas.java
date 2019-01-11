@@ -167,6 +167,19 @@ public class ListaCartas {
         return count;
     }
 
+    public void imprimirCartasColor(EnumColor pColor) {
+        int i = 0;
+        Carta aux;
+        while(i < this.lista.size()) {
+            if (this.lista.get(i).getColor().equals(pColor)) {
+                aux = this.lista.get(i);
+                System.out.println(aux.getEspecie());
+            }
+            i++;
+        }
+       
+    }
+    
     public int obtenerFuerzaDeCartasColor(EnumColor pColor) {
         int fuerza = 0;
         for (Carta c : this.lista) {
@@ -292,13 +305,6 @@ public class ListaCartas {
         return i;
     }
     
-    public boolean ComprobarListaCartas(){
-    	if( this.lista.size()==0){
-    		return true;
-    	}else{
-    		return false;
-    	}
-    }
       
     public Carta obtenerPrimeraCartaRival(){
     	int i=0;
@@ -309,7 +315,7 @@ public class ListaCartas {
     	}else{
     			
     		while( i< lista.size() && !enc){
-    			if (this.lista.get(i).getColor().equals("VERDE")){
+    			if (this.lista.get(i).getColor().equals(EnumColor.VERDE)){
     				aux= this.lista.get(i);
     				enc = true;
     		}

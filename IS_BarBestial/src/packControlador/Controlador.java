@@ -13,8 +13,11 @@ import packModelo.GestorCartas;
 import packModelo.GestorConfiguraciones;
 import packModelo.GestorUsuarios;
 
+import packModelo.EnumColor;
+
 
 import packModelo.Jugador;
+import packModelo.JugadorReal;
 import packModelo.Partida;
 import packModelo.RankingDB;
 import packModelo.Tablero;
@@ -38,6 +41,7 @@ public class Controlador {
 	private Tablero tablero;
 	private RankingDB rankingDB;
 	private Jugador jug;
+	private int usos;
 
 	private GestorConfiguraciones miGestorConfig;
 	private GestorCartas miGestorCartas;
@@ -47,7 +51,7 @@ public class Controlador {
 
 	private GestorPartida miGestorPartida;
 
-	
+
 	/* Vista */
 	private VentanaInicio ventanaInicio;
 	private VentanaJuego ventanaJuego;
@@ -62,6 +66,8 @@ public class Controlador {
 		this.partida = Partida.getMiPartida();
 		this.tablero = Tablero.getMiTablero();
 		this.rankingDB = RankingDB.getRankingDB();
+		this.usos = 0;
+
 		this.miGestorConfig = GestorConfiguraciones.getGestorConfig();
 		this.miGestorCartas = GestorCartas.getGestorCartas();
 		this.miGestorUsuarios = GestorUsuarios.getGestorUsuarios();
@@ -70,21 +76,22 @@ public class Controlador {
 
 		this.miGestorPartida = GestorPartida.getGestorPartida();
 
-		
 		this.ventanaInicio = new VentanaInicio();
 		this.ventanaJuego = new VentanaJuego();
 		this.ventanaAyuda = new VentanaAyuda();
 		this.ventanaRanking = new VentanaRanking();
 		this.ventanaSeleccionConfig = new VentanaSeleccionConfig();
+
 		this.ventanaPartidasGuardadas = new VentanaPartidasGuardadas();
 		this.ventanaGuardada = new VentanaGuardada();
+
 		
 		/* Listeners VentanaInicio */
 		this.ventanaInicio.addJugarListener(new JugarListener());
 		this.ventanaInicio.addAyudaListener(new AyudaListener());
 		this.ventanaInicio.addRankingListener(new RankingListener());
 
-		this.ventanaInicio.addSeleccionarConfigListener(new SeleccionConfigListener());
+		//this.ventanaInicio.addSeleccionarConfigListener(new SeleccionConfigListener());
 		
 
 		this.ventanaInicio.addContinuarListener(new ContinuarListener());
@@ -109,7 +116,13 @@ public class Controlador {
 		
 		
 	}
+	public int getUsos(){
+		return usos;
+	}
 	
+	public void sumarUso(){
+		this.usos = this.usos +1;
+	}
 	public static Controlador getMiControlador() {
         if (miControlador == null) {
         	miControlador = new Controlador();
@@ -197,10 +210,22 @@ public class Controlador {
 			if(nombre.length() > 0) {
 				//ocultarVentanaInicio();
 				mostrarVentanaJuego();
-				partida.inicializarPartida(nombre);;
+				partida.inicializarPartida(nombre);
 				setUpObservers();
-			}			
-			else ventanaInicio.showNombreErrorMessage();			
+				try {
+					partida.obtenerJugadorReal().cargarAyuda();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			else{ ventanaInicio.showNombreErrorMessage();}
+			if(partida.obtenerJugadorReal().getAyudas()==0){
+				ventanaJuego.desactivarBotonUsarAyuda();
+			}else{
+				ventanaJuego.activarBotonUsarAyuda();
+			}
+			
 		}
 	}
 	
@@ -235,7 +260,7 @@ public class Controlador {
 		}
 	}
 	
-	class SeleccionConfigListener implements ActionListener {
+	/*class SeleccionConfigListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
@@ -247,7 +272,7 @@ public class Controlador {
 		    mostrarVentanaSeleccionConfig();
 		}
 
-	}
+	}*/
 	
 	class ElegirCarta1Listener implements ActionListener {
 		@Override
@@ -302,19 +327,42 @@ public class Controlador {
 	class UsarAyudaListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			jug.usarAyuda();
+			Controlador.getMiControlador().sumarUso();
+			partida.obtenerJugadorReal().usarAyuda();
+			partida.getMiPartida().ayudaUsada();
+			ventanaJuego.desactivarBotonUsarAyuda();
+			ventanaJuego.activarBotonesElegir();
+			if(partida.obtenerJugadorReal().getAyudas()==0){
+				JOptionPane.showMessageDialog(null, "Ayuda utilizada. No te quedan más ayuda.");
+			}
+			
+			//ventanaJuego.activarBotonSiguiente();
+			
 		}
 	}
 	
 	class SiguienteListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			partida.obtenerJugadorTurnoActual().elegirCartaMano(0);
-			partida.jugarTurno();
+			if(partida.obtenerJugadorReal().getAyudas()==0){
+				partida.obtenerJugadorTurnoActual().elegirCartaMano(0);
+				partida.jugarTurno();
+				
+				ventanaJuego.activarBotonesElegir();
+				//ventanaJuego.activarBotonUsarAyuda();
+				ventanaJuego.desactivarBotonJugarTurno();
+				ventanaJuego.desactivarBotonSiguiente();
+				ventanaJuego.desactivarBotonUsarAyuda();
+
+			}else{
+				partida.obtenerJugadorTurnoActual().elegirCartaMano(0);
+				partida.jugarTurno();
 			
-			ventanaJuego.activarBotonesElegir();
-			ventanaJuego.desactivarBotonJugarTurno();
-			ventanaJuego.desactivarBotonSiguiente();
+				ventanaJuego.activarBotonesElegir();
+				ventanaJuego.activarBotonUsarAyuda();
+				ventanaJuego.desactivarBotonJugarTurno();
+				ventanaJuego.desactivarBotonSiguiente();
+			}
 		}
 	}
 
