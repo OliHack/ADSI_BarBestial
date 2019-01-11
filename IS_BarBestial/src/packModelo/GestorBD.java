@@ -1,18 +1,15 @@
 package packModelo;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Vector;
+import java.io.*;
+import java.sql.*;
+import java.util.*;
 
 public class GestorBD {
 	
 	
 		private static GestorBD miGestorBD;
-	    private static Connection c;
-	    private static Statement s;
+	    private Connection c;
+	    private Statement s;
 
 	    
 	    private GestorBD() {
@@ -69,26 +66,26 @@ public class GestorBD {
 	            //Creamos una tabla para la Partida
 	            s = c.createStatement();
 	            instruccion = "CREATE TABLE Partida " +
-	            		"(ayUsuario	INT    NOT NULL, " +
-	                    "idPartida	INT    NOT NULL, " +
-	                    "turno	BOOLEAN NOT NULL, " +
-	                    "manoMaq	VARCHAR(200)    NOT NULL, " +
-	                    "manoUs	VARCHAR(200)    NOT NULL, " +
-	                    "calle	VARCHAR(200)    NOT NULL, " +
-	                    "bar	VARCHAR(200)    NOT NULL, " +
-	                    "mazoMaq	VARCHAR(200)    NOT NULL, " +
-	                    "mazoUs	VARCHAR(200)    NOT NULL, " +
-	                    "cola		VARCHAR(200) NOT NULL, " +
-	                    "idUs	INT    NOT NULL, " +
-	                    "fecha	DATETIME    NOT NULL, " +
+	            		"(ayUsuario	INT, " +
+	                    "idPartida	INTEGER, " +
+	                    "turno	INT, " +
+	                    "manoMaq	VARCHAR(200), " +
+	                    "manoUs	VARCHAR(200), " +
+	                    "calle	VARCHAR(200), " +
+	                    "bar	VARCHAR(200), " +
+	                    "mazoMaq	VARCHAR(200), " +
+	                    "mazoUs	VARCHAR(200), " +
+	                    "cola		VARCHAR(200), " +
+	                    "idUs	VARCHAR(200), " +
+	                    "fecha	DATETIME, " +
 	                    " PRIMARY KEY(idPartida))";
 	            s.executeUpdate(instruccion);
 	            
 	            //Creamos una tabla para la Partida
-	            s = c.createStatement();
-	            instruccion = "INSERT INTO Partida (idPartida, Fecha) VALUES(" + "'" + 2 + "'" + "," + "datetime('now')" + ")";
-
-			s.executeUpdate(instruccion);
+	           // s = c.createStatement();
+	            //instruccion = "INSERT INTO Partida (idPartida, fecha) VALUES (2," + "datetime('now')" + ")";
+	           
+	          //  s.executeUpdate(instruccion);
 	            
 	            s.close();
 	            c.close();
@@ -99,9 +96,91 @@ public class GestorBD {
 	        System.out.println("Tabla creada");
 	    }
 	    
+	    public Vector<Vector<String>> obtenerPartidas() {
+	        Vector<String> info;
+	        Vector<Vector<String>> partidas = new Vector<>();
 
+	        try {
+	            Class.forName("org.sqlite.JDBC");
+	            c = DriverManager.getConnection("jdbc:sqlite:DataBase.db");
+	            c.setAutoCommit(false);
+	            s = c.createStatement();
+	            
+	            ResultSet rs = s.executeQuery("SELECT idPartida, fecha FROM Partida;");
 
-		public static ResultSet execSql(String consulta) {
+	            
+	            while (rs.next()) {
+	                info = new Vector<>();
+
+	                String id = rs.getString("idPartida");
+	                String fecha = rs.getString("fecha");
+	                String idR = "Partida Guardada " + id;
+	                		
+	                info.add(idR);
+	                info.add(fecha);
+
+	                partidas.add(info);
+	            }
+
+	            rs.close();
+	            s.close();
+	            c.close();
+
+	        } catch (Exception e) {
+	            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+	            System.exit(0);
+	        }
+	        System.out.println("Consulta terminada");
+	        return partidas;
+	    }
+	    
+	    public void obtenerInfoyGuardarPartida() {
+
+	    	Partida part = Partida.getMiPartida();
+	    	int turnoAct = part.getTurno();	    	
+	    	
+	    	//Info Bar
+	    	Bar b = Bar.getMiBar();
+	    	ListaCartas elBar = b.getLista();
+	    	String bar = elBar.convertirListaStringColor();
+	    	
+	    	//Info calle
+	    	EsLoQueHay c = EsLoQueHay.getMiEsLoQueHay();
+	    	ListaCartas laCalle = c.getCalle();
+	    	String calle = laCalle.convertirListaStringColor();
+	    	
+	    	//Info cola (ordenado)
+	    	Tablero t = Tablero.getMiTablero();
+	    	ListaCartas laCola = t.getCola();
+	    	String cola = laCola.convertirListaStringColor();	    	
+	    	
+	    	ArrayList<Jugador> lisJug = part.obtenerJugadores();
+	    	
+	    	Jugador jugReal = lisJug.get(0);
+	    	Jugador maquina = lisJug.get(1);
+	    	
+	    	//Info del jugador
+	    	String nombre = jugReal.getNombre();
+	    	int ayUs = jugReal.getNumAyudas();
+	    	
+	    	ListaCartas mazoJugador = jugReal.getMazo();
+	    	String mazoJug = mazoJugador.convertirListaString();
+	    	
+	    	ListaCartas manoJugador = jugReal.getMano();
+	    	String manoJug = manoJugador.convertirListaString();
+	    	
+	    	//Info Maquina
+	    	ListaCartas mazoMaquina = maquina.getMazo();
+	    	String mazoMaq = mazoMaquina.convertirListaString();
+	    	
+	    	ListaCartas manoMaquina = maquina.getMano();
+	    	String manoMaq = manoMaquina.convertirListaString();
+	    	
+	    	sqlUpdate("INSERT INTO Partida (ayUsuario,turno,manoMaq,manoUs,calle,bar,mazoMaq,mazoUs,cola,idUs,fecha) VALUES(" + ayUs + "," + turnoAct + "," + "'" + manoMaq + "'" + "," + "'" + manoJug + "'" + "," + "'" + calle + "'" + "," + "'" + bar + "'" + "," + "'" + mazoMaq + "'" + "," + "'" + mazoJug + "'" + "," + "'" + cola + "'" + "," + "'" + nombre + "'" + "," + "datetime('now')" + ");");
+	    }
+	    
+	  
+		public ResultSet execSql(String consulta) {
 			ResultSet rs = null;
 			try {
 		            Class.forName("org.sqlite.JDBC");
@@ -118,7 +197,7 @@ public class GestorBD {
 		}
 
 
-		public static void sqlUpdate(String strUpdate) {
+		public void sqlUpdate(String strUpdate) {
 			 try {
 		            Class.forName("org.sqlite.JDBC");
 		            c = DriverManager.getConnection("jdbc:sqlite:DataBase.db");

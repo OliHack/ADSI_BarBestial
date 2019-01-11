@@ -26,6 +26,10 @@ public class Partida extends Observable {
         return miPartida;
     }
 
+    public int getTurno() {
+    	return turnoActual;
+    }
+    
     public void inicializarPartida(String pNombreJugador) {
         Tablero tablero = Tablero.getMiTablero();
         tablero.vaciar();
@@ -80,7 +84,6 @@ public class Partida extends Observable {
 
     public void avanzarTurno() {
         this.turnoActual++;
-        //opopo
 
         if (this.turnoActual == this.listaJugadores.size()) {
             turnoActual = 0;

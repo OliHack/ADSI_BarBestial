@@ -23,10 +23,10 @@ public class GestorPartida {
 							String mazoUs, String cola, int pUs, Date fecha ) throws SQLException{
 		
 		String consulta = "SELECT * FROM Partida WHERE idPartida="+pPart;
-		ResultSet result = GestorBD.execSql(consulta);
+		ResultSet result = GestorBD.getGestorBD().execSql(consulta);
 		int pIdConf = result.getFetchSize() + 1;
 		String strUpdate = "INSERT INTO Partida VALUES ("+pAy+","+pPart+","+turno+","+manoMaq+","+manoUs+","+calle+","+bar+","+mazoMaq+","+mazoUs+","+cola+","+pUs+",GETDATE())";
-		GestorBD.sqlUpdate(strUpdate);
+		GestorBD.getGestorBD().sqlUpdate(strUpdate);
 		
 	}
 	

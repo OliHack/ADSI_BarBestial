@@ -320,4 +320,31 @@ public class ListaCartas {
 
     	}
     }
+    
+    private Iterator<Carta> iterator(){
+    	return lista.iterator();
+    }
+    
+    public String convertirListaString() {
+    	String res = "/";
+    	Iterator<Carta> it = lista.iterator();
+    	while(it.hasNext()) {
+    		Carta c = it.next();
+    		int f = c.getFuerza();
+    		res = res + f + "/";
+    	}    	
+    	return res;
+    }
+    
+    public String convertirListaStringColor() {
+    	String res = "/";
+    	Iterator<Carta> it = lista.iterator();
+    	while(it.hasNext()) {
+    		Carta c = it.next();
+    		int f = c.getFuerza();
+    		EnumColor e = c.getColor();
+    		res = res + f + "-" + e + "/";
+    	}    	
+    	return res;
+    }
 }

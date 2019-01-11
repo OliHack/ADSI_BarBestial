@@ -19,7 +19,7 @@ public class VentanaAyuda extends JFrame {
         ayuda.setSize(600, 600);
         ayuda.setText("1. Jugar una carta\n" +
                 "Elige una carta de animal de tu mano y colócala boca arriba al final de la cola, en la cola" +
-                "de entrada. Si la cola está vacía, el animal jugado es el primero de la (nueva) cola ante la" +
+                "de entrada. Si la cola esta vacía, el animal jugado es el primero de la (nueva) cola ante la" +
                 "Puerta del Cielo.\n\n" +
                 "2. Realizar la animalada de la carta jugada\n" +
                 "Seguidamente, si es posible, realiza la animalada del animal que acabas de jugar.\n\n" +
