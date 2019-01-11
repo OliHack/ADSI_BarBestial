@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import packModelo.GestorBD;
 import packModelo.Carta;
 import packModelo.GestorCartas;
@@ -52,6 +54,8 @@ public class Controlador {
 	private VentanaAyuda ventanaAyuda;
 	private VentanaRanking ventanaRanking;
 	private VentanaSeleccionConfig ventanaSeleccionConfig;
+	private VentanaPartidasGuardadas ventanaPartidasGuardadas;
+	private VentanaGuardada ventanaGuardada;
 	
 	public Controlador() {
 		this.usuarioAct = null;
@@ -72,7 +76,8 @@ public class Controlador {
 		this.ventanaAyuda = new VentanaAyuda();
 		this.ventanaRanking = new VentanaRanking();
 		this.ventanaSeleccionConfig = new VentanaSeleccionConfig();
-
+		this.ventanaPartidasGuardadas = new VentanaPartidasGuardadas();
+		this.ventanaGuardada = new VentanaGuardada();
 		
 		/* Listeners VentanaInicio */
 		this.ventanaInicio.addJugarListener(new JugarListener());
@@ -146,12 +151,28 @@ public class Controlador {
 	
 	private void configUsuario() throws SQLException {
 		
-		this.ventanaSeleccionConfig.configUsuario(GestorBD.execSql("SELECT idConfig,nombre,fecha FROM ConfiguracionUs WHERE idUs="+usuarioAct));	
+		this.ventanaSeleccionConfig.configUsuario(misGestorBD.execSql("SELECT idConfig,nombre,fecha FROM ConfiguracionUs WHERE idUs="+usuarioAct));	
 	}
 	
-	private void mostrarVentanaSeleccionConfig(){
-		
+	private void mostrarVentanaSeleccionConfig(){		
         this.ventanaSeleccionConfig.setVisible(true);
+    }
+	
+	private void actualizarPartidas() {
+		this.ventanaPartidasGuardadas.actualizarPartidas(misGestorBD.obtenerPartidas());		
+	}
+	
+	private void mostrarVentanaPartidas(){
+        this.ventanaPartidasGuardadas.setVisible(true);
+    }
+	
+	public void guardarPartida() {
+		misGestorBD.obtenerInfoyGuardarPartida();
+		JOptionPane.showMessageDialog(null, "Su partida ha sido guardada con éxito.");
+	}
+	
+	private void mostrarVentanaGuardado(){
+        this.ventanaGuardada.setVisible(true);
     }
 	
 	private void setUpObservers() {
@@ -186,14 +207,16 @@ public class Controlador {
 	class GuardarListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//
+			guardarPartida();
+			
 		}
 	}
 	
 	class ContinuarListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Hola que tal");
+			actualizarPartidas();
+			mostrarVentanaPartidas();
 		}
 	}
 	

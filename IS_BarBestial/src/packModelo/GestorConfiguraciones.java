@@ -24,10 +24,10 @@ public class GestorConfiguraciones {
 	
 	public void crearConf(ArrayList<String> pImagenes, ArrayList<Integer> pNumeros, String pNombre, String pDesc, String pUs) throws SQLException{
 		String consulta = "SELECT * FROM ConfiguracionUs WHERE idUsuario="+pUs;
-		ResultSet result = GestorBD.execSql(consulta);
+		ResultSet result = GestorBD.getGestorBD().execSql(consulta);
 		int pIdConf = result.getFetchSize() + 1;
 		String strUpdate = "INSERT INTO ConfiguracionUs VALUES ("+pIdConf+","+pNombre+","+ pDesc +",GETDATE(),"+pUs+")";
-		GestorBD.sqlUpdate(strUpdate);
+		GestorBD.getGestorBD().sqlUpdate(strUpdate);
 		
 		for(int i=0; i<pImagenes.size(); i++){
 			int pNum = pNumeros.get(i);
@@ -38,7 +38,7 @@ public class GestorConfiguraciones {
 	
 	public void instanciarConfig(int pIdConfig, String pUs) throws SQLException{
 		String consulta1 = "SELECT * FROM ConfiguracionUs WHERE idUsuario="+pUs+" AND idConfig="+pIdConfig;
-		ResultSet rs = GestorBD.execSql(consulta1);
+		ResultSet rs = GestorBD.getGestorBD().execSql(consulta1);
 		rs.next();
 		int idConfig = rs.getInt(1);
 		String nombre = rs.getString(2);
@@ -48,7 +48,7 @@ public class GestorConfiguraciones {
 		ConfiguracionUs cF = new ConfiguracionUs(fecha,nombre,desc,idConfig);
 		
 		String consulta2 = "SELECT * FROM ConfiguracionCarta WHERE idConfig="+pIdConfig;
-		ResultSet rs1 = GestorBD.execSql(consulta2);
+		ResultSet rs1 = GestorBD.getGestorBD().execSql(consulta2);
 		
 		while(rs1.next()){
 			int nCarta = Integer.parseInt(rs1.getString(2));

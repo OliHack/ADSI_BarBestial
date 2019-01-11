@@ -22,4 +22,9 @@ public class EsLoQueHay {
     public void vaciar() {
         this.lista.vaciar();
     }
+    
+    public ListaCartas getCalle() {
+    	return lista;
+    }
+    
 }

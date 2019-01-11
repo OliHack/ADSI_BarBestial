@@ -32,6 +32,18 @@ public abstract class Jugador extends Observable {
     	}
     }
 
+    public int getNumAyudas() {
+    	return numAyudas;
+    }
+    
+    public ListaCartas getMazo() {
+    	return mazo;
+    }
+    
+    public ListaCartas getMano() {
+    	return mano;
+    }
+    
     public void repartirCartas() {
     	AnimalFactory af = AnimalFactory.getMiAnimalFactory();
     	
