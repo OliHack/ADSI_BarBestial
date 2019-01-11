@@ -1,5 +1,10 @@
 /images/
-/packModelo/
 /packControlador/
-/packVista/
+/packModelo/
 /packPrincipal/
+/packVista/
+<<<<<<< HEAD
+/packPrincipal/
+=======
+/packUsarAyuda/
+>>>>>>> refs/heads/Unru

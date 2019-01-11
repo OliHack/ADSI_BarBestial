@@ -305,13 +305,6 @@ public class ListaCartas {
         return i;
     }
     
-    public boolean ComprobarListaCartasBar(){
-    	if( this.lista.size()==0){
-    		return true;
-    	}else{
-    		return false;
-    	}
-    }
       
     public Carta obtenerPrimeraCartaRival(){
     	int i=0;
