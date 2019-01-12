@@ -17,4 +17,16 @@ public class GestorUsuarios {
 		}
 		return miGestor;
 	}
+
+	public Usuario getUs(String usuarioAct) {
+		
+		int i = 0;
+		Usuario user = null;
+		while(!usuarioAct.equals(listaUsuarios.get(i).getNombre()))
+		{	
+			user = listaUsuarios.get(i);
+			i++;
+		}
+		return user;
+	}
 }

@@ -83,7 +83,7 @@ public class VentanaSeleccionConfig extends JFrame {
 		                todo.add(fila);
 		            }
 				 
-				 Vector<String> columnas = new Vector<>();
+				 	Vector<String> columnas = new Vector<>();
 				 	columnas.add("IdConfig");
 			        columnas.add("Nombre");
 			        columnas.add("Fecha");

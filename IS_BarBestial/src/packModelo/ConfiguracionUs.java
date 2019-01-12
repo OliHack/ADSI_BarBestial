@@ -40,7 +40,7 @@ public class ConfiguracionUs {
 		listaConfiguracionesCarta.add(cfC);
 	}
 	
-	public void nuevaConfiguracionCarta(String nombreImg, Carta carta){
+	public void nuevaConfiguracionCarta(String nombreImg, int carta){
 		ConfiguracionCarta cC = new ConfiguracionCarta(nombreImg, this.idConfig, carta);
 		añadirConfiguracionCarta(cC);
 	}
