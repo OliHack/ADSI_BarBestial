@@ -5,9 +5,9 @@ public class ConfiguracionCarta {
 	
 	private String imagen;
 	private int idConfig;
-	private Carta carta;
+	private int carta;
 	
-	public ConfiguracionCarta(String imagen, int idConfig, Carta carta){
+	public ConfiguracionCarta(String imagen, int idConfig, int carta){
 		this.imagen = imagen;
 		this.idConfig = idConfig;
 		this.carta = carta;
@@ -22,7 +22,7 @@ public class ConfiguracionCarta {
 		return idConfig;
 	}
 	
-	public Carta getCarta(){
+	public int getCarta(){
 		return carta;
 	}
 }

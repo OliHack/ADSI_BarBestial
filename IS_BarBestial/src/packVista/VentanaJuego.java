@@ -52,11 +52,14 @@ public class VentanaJuego extends JFrame implements Observer {
     private JButton btnJugarTurno;
     private JButton btnSiguiente;
     private JButton btnAyuda;
+    private JButton btnCambiarContrasena;
+    private String MUser;
 
     /**
      * Create the frame.
      */
-    public VentanaJuego() {
+    public VentanaJuego(String user) {
+    	MUser = user;
         setTitle("BarBestial");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -131,12 +134,15 @@ public class VentanaJuego extends JFrame implements Observer {
         panelElegirCartas.add(btnJugarTurno);
 
         btnSiguiente = new JButton("Siguiente");
-        btnSiguiente.setPreferredSize(new Dimension(120, 25));
+        btnSiguiente.setPreferredSize(new Dimension(100, 25));
         panelElegirCartas.add(btnSiguiente);
         
         btnAyuda = new JButton("Usar Ayuda");
-        btnAyuda.setPreferredSize(new Dimension(120, 25));
+        btnAyuda.setPreferredSize(new Dimension(90, 25));
         panelElegirCartas.add(btnAyuda);
+        
+        btnCambiarContrasena = new JButton("Cam. Contrase\u00F1a");
+        panelElegirCartas.add(btnCambiarContrasena);
         
 
         panelCola = new JPanel();
@@ -229,7 +235,7 @@ public class VentanaJuego extends JFrame implements Observer {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
-                VentanaJuego frame = new VentanaJuego();
+                VentanaJuego frame = new VentanaJuego("prueba");
                 frame.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -360,6 +366,10 @@ public class VentanaJuego extends JFrame implements Observer {
 
     public void addSiguienteListener(ActionListener listenForBtnSiguiente) {
         btnSiguiente.addActionListener(listenForBtnSiguiente);
+    }
+    
+    public void addCambiarContrasenaListener(ActionListener listenForBtnCambiarContrasena) {
+        btnCambiarContrasena.addActionListener(listenForBtnCambiarContrasena);
     }
     
     public void addUsarAyuda (ActionListener listenForBtnUsarAyuda){
@@ -581,4 +591,9 @@ public class VentanaJuego extends JFrame implements Observer {
             return null;
         }
     }
+
+	public String getUser() {
+		return MUser;
+	}
+
 }

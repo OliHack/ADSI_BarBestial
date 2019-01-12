@@ -9,7 +9,7 @@ public class Partida extends Observable {
 
     /* El turno se representa como un numero
      * que indica la posicion de la lista de jugadores
-     * que jugara cada turno. Incrementara y volvera¡
+     * que jugara cada turno. Incrementara y volveraï¿½
      * a 0 cuando todos hayan jugado. */
     private int turnoActual;
     private ArrayList<Jugador> listaJugadores;
@@ -167,13 +167,13 @@ public class Partida extends Observable {
     }
 
     private void anadirGanadorDatabase(String pInformacionGanador) {
-        RankingDB r = RankingDB.getRankingDB();
+        GestorRanking r = GestorRanking.getRankingDB();
         String nombre = pInformacionGanador.split(" ")[0];
         int nCartas = Integer.parseInt(pInformacionGanador.split(" ")[1]);
         int fuerza = Integer.parseInt(pInformacionGanador.split(" ")[2]);
 
         r.insertarPuntuacion(nombre, nCartas, fuerza, this.usadoAyuda);
-        //Añadir parametro this.usadoAyuda
+        //Aï¿½adir parametro this.usadoAyuda
     }
     
     public void ayudaUsada(){

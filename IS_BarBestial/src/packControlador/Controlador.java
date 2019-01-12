@@ -5,27 +5,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
-import packModelo.GestorBD;
-import packModelo.Carta;
-import packModelo.GestorCartas;
-import packModelo.GestorConfiguraciones;
-import packModelo.GestorUsuarios;
-
-import packModelo.EnumColor;
-
-
-import packModelo.Jugador;
-import packModelo.JugadorReal;
-import packModelo.Partida;
-import packModelo.RankingDB;
-import packModelo.Tablero;
-import packVista.VentanaAyuda;
-import packVista.VentanaInicio;
-import packVista.VentanaJuego;
-import packVista.VentanaRanking;
-import packVista.VentanaSeleccionConfig;
 
 import packModelo.*;
 
@@ -35,16 +16,16 @@ import packVista.*;
 public class Controlador {
 	private static Controlador miControlador;
 	private String usuarioAct;
+	private int configAct;
 	
 	/* Modelo */
 	private Partida partida;
 	private Tablero tablero;
-	private RankingDB rankingDB;
+	private GestorRanking gestorRanking;
 	private Jugador jug;
 	private int usos;
 
 	private GestorConfiguraciones miGestorConfig;
-	private GestorCartas miGestorCartas;
 	private GestorUsuarios miGestorUsuarios;
 
 	private GestorBD misGestorBD;
@@ -56,20 +37,25 @@ public class Controlador {
 	private VentanaInicio ventanaInicio;
 	private VentanaJuego ventanaJuego;
 	private VentanaAyuda ventanaAyuda;
-	private VentanaRanking ventanaRanking;
+	private Ranking ventanaRanking;
 	private VentanaSeleccionConfig ventanaSeleccionConfig;
 	private VentanaPartidasGuardadas ventanaPartidasGuardadas;
 	private VentanaGuardada ventanaGuardada;
+	private VentanaCambiarContrasena ventanaCambiarContrasena;
+	private VentanaMejIndv ventanaMejIndv;
+	private VentanaHoy ventanaHoy;
+	private VentanaSiempre ventanaSiempre;
+	private VentanaMedias ventanaMedias;
 	
 	public Controlador() {
 		this.usuarioAct = null;
 		this.partida = Partida.getMiPartida();
 		this.tablero = Tablero.getMiTablero();
-		this.rankingDB = RankingDB.getRankingDB();
+		this.gestorRanking = GestorRanking.getRankingDB();
+		this.configAct = 0;
 		this.usos = 0;
 
 		this.miGestorConfig = GestorConfiguraciones.getGestorConfig();
-		this.miGestorCartas = GestorCartas.getGestorCartas();
 		this.miGestorUsuarios = GestorUsuarios.getGestorUsuarios();
 
 		this.misGestorBD = GestorBD.getGestorBD();
@@ -77,20 +63,27 @@ public class Controlador {
 		this.miGestorPartida = GestorPartida.getGestorPartida();
 
 		this.ventanaInicio = new VentanaInicio();
-		this.ventanaJuego = new VentanaJuego();
 		this.ventanaAyuda = new VentanaAyuda();
-		this.ventanaRanking = new VentanaRanking();
+		this.ventanaRanking = Ranking.getRanking();
+		this.ventanaMejIndv = VentanaMejIndv.getMejIndv();
+		this.ventanaHoy = VentanaHoy.getHoy();
+		this.ventanaSiempre = VentanaSiempre.getSiempre();
+		this.ventanaMedias = VentanaMedias.getMedias();
+		this.ventanaJuego = new VentanaJuego("pepes");//test
 		this.ventanaSeleccionConfig = new VentanaSeleccionConfig();
+		this.ventanaCambiarContrasena = new VentanaCambiarContrasena("pepes");//tesst
 
 		this.ventanaPartidasGuardadas = new VentanaPartidasGuardadas();
 		this.ventanaGuardada = new VentanaGuardada();
-
+		
 		
 		/* Listeners VentanaInicio */
-		this.ventanaInicio.addJugarListener(new JugarListener());
+		this.ventanaInicio.addIniciarSesionListener(new IniciarSesionListener());
 		this.ventanaInicio.addAyudaListener(new AyudaListener());
 		this.ventanaInicio.addRankingListener(new RankingListener());
-
+		this.ventanaInicio.addRegistrarseListener(new RegistrarseListener());
+		this.ventanaInicio.addRecuperarContrasenaListener(new RecuperarContrasenaListener());
+		
 		//this.ventanaInicio.addSeleccionarConfigListener(new SeleccionConfigListener());
 		
 
@@ -103,9 +96,8 @@ public class Controlador {
 		this.ventanaJuego.addElegirCarta3Listener(new ElegirCarta3Listener());
 		this.ventanaJuego.addElegirCarta4Listener(new ElegirCarta4Listener());
 		this.ventanaJuego.addSiguienteListener(new SiguienteListener());
-
+		this.ventanaJuego.addCambiarContrasenaListener(new cambiarContrasenaListener());
 		this.ventanaJuego.addUsarAyuda(new UsarAyudaListener());
-
 		this.ventanaJuego.addGuardarPartida(new GuardarListener());
 		
 
@@ -113,6 +105,8 @@ public class Controlador {
 		this.ventanaJuego.desactivarBotonJugarTurno();
 		this.ventanaJuego.desactivarBotonSiguiente();
 		
+		/* Listeners VentanaCambiarContrasena */
+		this.ventanaCambiarContrasena.addCambiarListener(new cambiarListener());
 		
 		
 	}
@@ -138,6 +132,16 @@ public class Controlador {
 		this.usuarioAct = pUsuario;
 	}
 	
+	public void crearConf(ArrayList<String> pImagenes,  ArrayList<Integer> pNumeros, String pNombre, String pDesc, String pUs) throws SQLException{
+		
+		miGestorConfig.crearConf(pImagenes, pNumeros, pNombre, pDesc, pUs);
+	}
+	
+	public int numConfUsuarioAct(){
+		Usuario usAct = miGestorUsuarios.buscarUsuario(usuarioAct);
+		return usAct.getNumConfig();
+	}
+	
 	public void iniciarAplicacion() {
 		this.mostrarVentanaInicio();
 	}
@@ -146,17 +150,15 @@ public class Controlador {
 		this.ventanaInicio.setVisible(true);
 	}
 	
-	private void mostrarVentanaJuego() {
+	private void mostrarVentanaJuego(String user) {
+		this.ventanaJuego = new VentanaJuego(user);
 		this.ventanaJuego.setVisible(true);
 	}
 
 	private void mostrarVentanaAyuda(){
 	    this.ventanaAyuda.setVisible(true);
     }
-	
-	private void actualizarRanking() {
-		this.ventanaRanking.actualizarRanking(rankingDB.obtenerMejoresPuntuaciones());		
-	}
+
 	
 	private void mostrarVentanaRanking(){
         this.ventanaRanking.setVisible(true);
@@ -181,7 +183,7 @@ public class Controlador {
 	
 	public void guardarPartida() {
 		misGestorBD.obtenerInfoyGuardarPartida();
-		JOptionPane.showMessageDialog(null, "Su partida ha sido guardada con Èxito.");
+		JOptionPane.showMessageDialog(null, "Su partida ha sido guardada con ÔøΩxito.");
 	}
 	
 	private void mostrarVentanaGuardado(){
@@ -202,30 +204,54 @@ public class Controlador {
 	}
 	
 	
-	class JugarListener implements ActionListener {
+	class IniciarSesionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String nombre = ventanaInicio.getTextFieldNombreValue();
+			String user = ventanaInicio.getTextUsuario();
+			String pass = ventanaInicio.getTextContrasena();
 			
-			if(nombre.length() > 0) {
+			if(miGestorUsuarios.comprobarLogin(user, pass)) {
 				//ocultarVentanaInicio();
-				mostrarVentanaJuego();
-				partida.inicializarPartida(nombre);
+				mostrarVentanaJuego(user);
+				partida.inicializarPartida(user);
 				setUpObservers();
-				try {
+				/*try {
 					partida.obtenerJugadorReal().cargarAyuda();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+				}*/
 			}
 			else{ ventanaInicio.showNombreErrorMessage();}
+			
 			if(partida.obtenerJugadorReal().getAyudas()==0){
 				ventanaJuego.desactivarBotonUsarAyuda();
 			}else{
 				ventanaJuego.activarBotonUsarAyuda();
 			}
 			
+		}
+	}
+	
+	
+	class RegistrarseListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String user = ventanaInicio.getTextUsuario();
+			String pass = ventanaInicio.getTextContrasena();
+			
+			miGestorUsuarios.registrarse(user, pass);
+			
+			JOptionPane.showMessageDialog(null, user + ", te has registrado con ÔøΩxito");
+		}
+	}
+	
+	class RecuperarContrasenaListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String user = ventanaInicio.getTextUsuario();
+			String nuevaPass = miGestorUsuarios.recuperarContrasena(user);
+			JOptionPane.showMessageDialog(null, user + ", tu nueva contraseÔøΩa es " + nuevaPass);
 		}
 	}
 	
@@ -255,7 +281,6 @@ public class Controlador {
 	class RankingListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			actualizarRanking();
 		    mostrarVentanaRanking();
 		}
 	}
@@ -333,7 +358,7 @@ public class Controlador {
 			ventanaJuego.desactivarBotonUsarAyuda();
 			ventanaJuego.activarBotonesElegir();
 			if(partida.obtenerJugadorReal().getAyudas()==0){
-				JOptionPane.showMessageDialog(null, "Ayuda utilizada. No te quedan m·s ayuda.");
+				JOptionPane.showMessageDialog(null, "Ayuda utilizada. No te quedan mÔøΩs ayudas.");
 			}
 			
 			//ventanaJuego.activarBotonSiguiente();
@@ -365,9 +390,48 @@ public class Controlador {
 			}
 		}
 	}
+	
+	class cambiarContrasenaListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ventanaCambiarContrasena = new VentanaCambiarContrasena(ventanaJuego.getUser());
+			ventanaCambiarContrasena.setVisible(true);
+		}
+	}
+	
+	
+	//listener de ventanacambiarcontraseÔøΩa
+	
+	class cambiarListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String pass = ventanaCambiarContrasena.getTextNContrasena();
+			
+			if (pass.length() > 0) {
+				miGestorUsuarios.cambiarContrasena(ventanaCambiarContrasena.getUser(), pass);
+				ventanaCambiarContrasena.setVisible(false);
+			}else {
+				JOptionPane.showMessageDialog(null, "Introduce una contrase√±a");
+			}
+		}
+	}
 
 	public static Carta buscarCarta(int nCarta) {
 		
 		return null;
+	}
+	
+	public void elegirConfig(String pUs, int pIdConfig) throws SQLException{
+		
+		miGestorConfig.instanciarConfig(pIdConfig, pUs);
+		configAct = pIdConfig;
+		
+		
+	}
+
+	public void anadirConf(ConfiguracionUs cF) {
+		Usuario usAct = miGestorUsuarios.buscarUsuario(usuarioAct);
+		usAct.anadirConf(cF);
+		
 	}
 }

@@ -1,7 +1,6 @@
 package packModelo;
 
 import packControlador.Controlador;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,9 +22,10 @@ public class GestorConfiguraciones {
 	}
 	
 	public void crearConf(ArrayList<String> pImagenes, ArrayList<Integer> pNumeros, String pNombre, String pDesc, String pUs) throws SQLException{
-		String consulta = "SELECT * FROM ConfiguracionUs WHERE idUsuario="+pUs;
-		ResultSet result = GestorBD.getGestorBD().execSql(consulta);
-		int pIdConf = result.getFetchSize() + 1;
+
+		
+		int pIdConf = Controlador.getMiControlador().numConfUsuarioAct() + 1;
+
 		String strUpdate = "INSERT INTO ConfiguracionUs VALUES ("+pIdConf+","+pNombre+","+ pDesc +",GETDATE(),"+pUs+")";
 		GestorBD.getGestorBD().sqlUpdate(strUpdate);
 		
@@ -33,6 +33,7 @@ public class GestorConfiguraciones {
 			int pNum = pNumeros.get(i);
 			String pImg = pImagenes.get(i);
 			String strUpdate2 = "INSERT INTO ConfiguracionCarta VALUES ("+pIdConf+","+ pNum +","+pImg+")";
+			GestorBD.getGestorBD().sqlUpdate(strUpdate2);
 		}
 	}
 	
@@ -46,6 +47,9 @@ public class GestorConfiguraciones {
 		String fecha = rs.getString(4);
 		
 		ConfiguracionUs cF = new ConfiguracionUs(fecha,nombre,desc,idConfig);
+		listaConfiguraciones.add(cF);
+		
+		Controlador.getMiControlador().anadirConf(cF);
 		
 		String consulta2 = "SELECT * FROM ConfiguracionCarta WHERE idConfig="+pIdConfig;
 		ResultSet rs1 = GestorBD.getGestorBD().execSql(consulta2);
@@ -53,8 +57,7 @@ public class GestorConfiguraciones {
 		while(rs1.next()){
 			int nCarta = Integer.parseInt(rs1.getString(2));
 			String nImg = rs1.getString(3);
-			Carta ct = Controlador.buscarCarta(nCarta);
-			cF.nuevaConfiguracionCarta(nImg, ct);
+			cF.nuevaConfiguracionCarta(nImg, nCarta);
 			
 		}
 		

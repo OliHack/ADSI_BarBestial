@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 
 public class VentanaInicio extends JFrame {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private JTextField textFieldNombre;
+    private JTextField textUsuario;
 
     private JButton btnJugar;
     private JButton btnAyuda;
@@ -19,6 +19,11 @@ public class VentanaInicio extends JFrame {
     private JButton btnCrearConfig;
 
     private JButton btnContinuarPartida;
+    private JButton btnRegistrarse;
+    private JButton btnRecuperarContrasea;
+    private JTextField textContrasena;
+    private JLabel lblContrasea;
+    private JPanel panel;
 
     /**
      * Create the frame.
@@ -41,39 +46,67 @@ public class VentanaInicio extends JFrame {
             frameSize.width = screenSize.width;
         }
         setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+        
+        panel = new JPanel();
+        contentPane.add(panel, BorderLayout.NORTH);
+        
+                this.btnRanking = new JButton("Ranking");
+                panel.add(btnRanking);
+                btnRanking.setFont(new Font("Tahoma", Font.PLAIN, 11));
+                
+                this.btnSeleccionarConfig = new JButton("Sel.Config.");
+                panel.add(btnSeleccionarConfig);
+                btnSeleccionarConfig.setFont(new Font("Tahoma", Font.PLAIN, 11));
+                
+                this.btnCrearConfig = new JButton("Crear Config.");
+                panel.add(btnCrearConfig);
+                btnCrearConfig.setFont(new Font("Tahoma", Font.PLAIN, 11));
+                
+                        this.btnContinuarPartida = new JButton("Continuar Partida");
+                        panel.add(btnContinuarPartida);
 
         JPanel panelMenu = new JPanel();
         contentPane.add(panelMenu, BorderLayout.SOUTH);
 
-        JLabel lblIntroduceTuNombre = new JLabel("Introduce tu nombre:");
+        JLabel lblIntroduceTuNombre = new JLabel("Usuario:");
+        lblIntroduceTuNombre.setFont(new Font("Tahoma", Font.PLAIN, 11));
         panelMenu.add(lblIntroduceTuNombre);
 
-        this.textFieldNombre = new JTextField();
-        panelMenu.add(textFieldNombre);
-        textFieldNombre.setColumns(10);
+        this.textUsuario = new JTextField();
+        textUsuario.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        panelMenu.add(textUsuario);
+        textUsuario.setColumns(10);
+        
+        lblContrasea = new JLabel("Contrase\u00F1a:");
+        lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        panelMenu.add(lblContrasea);
+        
+        textContrasena = new JTextField();
+        textContrasena.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        panelMenu.add(textContrasena);
+        textContrasena.setColumns(10);
 
-        this.btnJugar = new JButton("Jugar");
+        this.btnJugar = new JButton("Iniciar Sesi\u00F3n");
+        btnJugar.setFont(new Font("Tahoma", Font.PLAIN, 11));
         panelMenu.add(btnJugar);
+        
+        btnRegistrarse = new JButton("Registrarse");
+        btnRegistrarse.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        panelMenu.add(btnRegistrarse);
+        
+        btnRecuperarContrasea = new JButton("Recuperar Contrase\u00F1a");
+        btnRecuperarContrasea.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        panelMenu.add(btnRecuperarContrasea);
 
         this.btnAyuda = new JButton("Ayuda");
+        btnAyuda.setFont(new Font("Tahoma", Font.PLAIN, 11));
         panelMenu.add(btnAyuda);
-
-        this.btnRanking = new JButton("Ranking");
-        panelMenu.add(btnRanking);
-        
-        this.btnSeleccionarConfig = new JButton("Sel.Config.");
-        panelMenu.add(btnSeleccionarConfig);
-        
-        this.btnCrearConfig = new JButton("Crear Config.");
-        panelMenu.add(btnCrearConfig);
-
-        this.btnContinuarPartida = new JButton("Continuar Partida");
-        panelMenu.add(btnContinuarPartida);
         
         JPanel panelImagenBar = new JPanel();
         contentPane.add(panelImagenBar, BorderLayout.CENTER);
 
         JLabel labelBar = new JLabel("");
+        labelBar.setFont(new Font("Tahoma", Font.PLAIN, 11));
         labelBar.setIcon(new ImageIcon(VentanaInicio.class.getResource("/images/Bar.png")));
         panelImagenBar.add(labelBar);
     }
@@ -93,7 +126,7 @@ public class VentanaInicio extends JFrame {
     }
     
     
-    public void addJugarListener(ActionListener listenForBtnJugar) {
+    public void addIniciarSesionListener(ActionListener listenForBtnJugar) {
         btnJugar.addActionListener(listenForBtnJugar);
     }
 
@@ -117,9 +150,14 @@ public class VentanaInicio extends JFrame {
     	btnContinuarPartida.addActionListener(listenForBtnContinuar);
     }
     
-    public String getTextFieldNombreValue() {
-        return this.textFieldNombre.getText();
+    public void addRegistrarseListener(ActionListener listenForBtnRegistrarse) {
+    	btnRegistrarse.addActionListener(listenForBtnRegistrarse);
     }
+    
+    public void addRecuperarContrasenaListener(ActionListener listenForBtnRecuperarContrasena) {
+    	btnRecuperarContrasea.addActionListener(listenForBtnRecuperarContrasena);
+    }
+    
 
     public void showNombreErrorMessage() {
         JOptionPane.showMessageDialog(this,
@@ -131,4 +169,21 @@ public class VentanaInicio extends JFrame {
         dispose();
     }
 
+	public String getTextUsuario() {
+		return textUsuario.toString();
+	}
+
+	public void setTextUsuario(JTextField textUsuario) {
+		this.textUsuario = textUsuario;
+	}
+
+	public String getTextContrasena() {
+		return textContrasena.toString();
+	}
+
+	public void setTextContrasena(JTextField textContrasena) {
+		this.textContrasena = textContrasena;
+	}
+
+    
 }
