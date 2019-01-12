@@ -20,7 +20,6 @@ import packModelo.Tablero;
 import packVista.VentanaAyuda;
 import packVista.VentanaInicio;
 import packVista.VentanaJuego;
-import packVista.VentanaRanking;
 import packVista.VentanaSeleccionConfig;
 
 import packModelo.*;
@@ -53,7 +52,6 @@ public class Controlador {
 	private VentanaInicio ventanaInicio;
 	private VentanaJuego ventanaJuego;
 	private VentanaAyuda ventanaAyuda;
-	private VentanaRanking ventanaRanking;
 	private Ranking ranking;
 	private VentanaMejIndv ventanaMejIndv;
 	private VentanaHoy ventanaHoy;
@@ -79,7 +77,6 @@ public class Controlador {
 		this.ventanaInicio = new VentanaInicio();
 		this.ventanaJuego = new VentanaJuego();
 		this.ventanaAyuda = new VentanaAyuda();
-		this.ventanaRanking = new VentanaRanking();
 		
 		this.ranking = Ranking.getRanking();
 		this.ventanaMejIndv = VentanaMejIndv.getMejIndv();
