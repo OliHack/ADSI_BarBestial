@@ -9,7 +9,7 @@ public class Partida extends Observable {
 
     /* El turno se representa como un numero
      * que indica la posicion de la lista de jugadores
-     * que jugara cada turno. Incrementara y volvera¡
+     * que jugara cada turno. Incrementara y volveraï¿½
      * a 0 cuando todos hayan jugado. */
     private int turnoActual;
     private ArrayList<Jugador> listaJugadores;
@@ -149,7 +149,7 @@ public class Partida extends Observable {
         int nCartas = Integer.parseInt(pInformacionGanador.split(" ")[1]);
         int fuerza = Integer.parseInt(pInformacionGanador.split(" ")[2]);
 
-        r.insertarPuntuacion(nombre, nCartas, fuerza);
+        r.insertarPuntuacion(nombre, nCartas, fuerza, true);//TODO cambiar
     }
     
     private void notificar(String pInformacion) {

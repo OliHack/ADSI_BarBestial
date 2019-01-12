@@ -60,18 +60,20 @@ public class RankingDB {
         System.out.println("Tabla creada");
     }
     
-    public void insertarPuntuacion(String pNombre, int pNCartas, int pFuerza) {
+    public void insertarPuntuacion(String pNombre, int pNCartas, int pFuerza, boolean ayuda) {
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:ranking.db");
             c.setAutoCommit(false);
 
             s = c.createStatement();
-            
+            //TODO comprobar quien ha ganado e incrementar ayudas si se dan las codiciones (+ de 6 cartas)
             int ptsCartas = pNCartas * 10;
             int ptsFuerza = pFuerza * 2;
             int punts = ptsCartas - ptsFuerza;
-            
+            if (ayuda) {
+            	punts = (punts*9)/10;
+            }
             String instruccion = "INSERT INTO PUNTUACIONES (NOMBRE, FECHA, PUNTUACION) " +
                     "VALUES(" + "'" + pNombre + "'" + "," + "datetime('now')" + "," + punts +")";
 

@@ -69,18 +69,18 @@ public class GestorBD {
 	            //Creamos una tabla para la Partida
 	            s = c.createStatement();
 	            instruccion = "CREATE TABLE Partida " +
-	            		"(ayUsuario	INTEGER    NOT NULL, " +
-	                    "idPartida	INT    NOT NULL, " +
-	                    "turno	BOOLEAN NOT NULL, " +
-	                    "manoMaq	VARCHAR(200)    NOT NULL, " +
-	                    "manoUs	VARCHAR(200)    NOT NULL, " +
-	                    "calle	VARCHAR(200)    NOT NULL, " +
-	                    "bar	VARCHAR(200)    NOT NULL, " +
-	                    "mazoMaq	VARCHAR(200)    NOT NULL, " +
-	                    "mazoUs	VARCHAR(200)    NOT NULL, " +
-	                    "cola		VARCHAR(200) NOT NULL, " +
-	                    "idUs	INT    NOT NULL, " +
-	                    "fecha	DATETIME    NOT NULL, " +
+	            		"(idPartida	INTEGER, " +
+	                    "ayUsuario	INT, " +
+	                    "turno	BOOLEAN, " +
+	                    "manoMaq	VARCHAR(200), " +
+	                    "manoUs	VARCHAR(200), " +
+	                    "calle	VARCHAR(200) , " +
+	                    "bar	VARCHAR(200), " +
+	                    "mazoMaq	VARCHAR(200), " +
+	                    "mazoUs	VARCHAR(200)    , " +
+	                    "cola		VARCHAR(200) , " +
+	                    "idUs	INT, " +
+	                    "fecha	DATETIME, " +
 	                    " PRIMARY KEY(idPartida))";
 	            s.executeUpdate(instruccion);
 	            
