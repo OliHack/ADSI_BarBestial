@@ -47,9 +47,8 @@ public class VentanaSeleccionConfig extends JFrame {
 	 */
 	@SuppressWarnings("serial")
 	private void initialize() {
-		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("Seleccionar Configuración");
