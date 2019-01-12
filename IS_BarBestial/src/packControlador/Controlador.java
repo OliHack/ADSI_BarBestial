@@ -37,7 +37,12 @@ public class Controlador {
 	private VentanaInicio ventanaInicio;
 	private VentanaJuego ventanaJuego;
 	private VentanaAyuda ventanaAyuda;
+
 	private Ranking ventanaRanking;
+
+	//private VentanaRanking ventanaRanking;
+	private VentanaConfiguracion ventanaConfiguracion;
+
 	private VentanaSeleccionConfig ventanaSeleccionConfig;
 	private VentanaPartidasGuardadas ventanaPartidasGuardadas;
 	private VentanaGuardada ventanaGuardada;
@@ -64,12 +69,17 @@ public class Controlador {
 
 		this.ventanaInicio = new VentanaInicio();
 		this.ventanaAyuda = new VentanaAyuda();
+
 		this.ventanaRanking = Ranking.getRanking();
 		this.ventanaMejIndv = VentanaMejIndv.getMejIndv();
 		this.ventanaHoy = VentanaHoy.getHoy();
 		this.ventanaSiempre = VentanaSiempre.getSiempre();
 		this.ventanaMedias = VentanaMedias.getMedias();
 		this.ventanaJuego = new VentanaJuego("pepes");//test
+
+		//this.ventanaRanking = new VentanaRanking();
+		this.ventanaConfiguracion = new VentanaConfiguracion();
+
 		this.ventanaSeleccionConfig = new VentanaSeleccionConfig();
 		this.ventanaCambiarContrasena = new VentanaCambiarContrasena("pepes");//tesst
 
@@ -84,7 +94,10 @@ public class Controlador {
 		this.ventanaInicio.addRegistrarseListener(new RegistrarseListener());
 		this.ventanaInicio.addRecuperarContrasenaListener(new RecuperarContrasenaListener());
 		
-		//this.ventanaInicio.addSeleccionarConfigListener(new SeleccionConfigListener());
+		//this.ventanaInicio.addRecuperarContraseñaListener(new RecuperarContraseñaListener());
+		this.ventanaInicio.addCrearConfigListener(new ConfiguracionListener());
+		this.ventanaInicio.addSeleccionarConfigListener(new SeleccionConfigListener());
+
 		
 
 		this.ventanaInicio.addContinuarListener(new ContinuarListener());
@@ -172,6 +185,10 @@ public class Controlador {
 	private void mostrarVentanaSeleccionConfig(){		
         this.ventanaSeleccionConfig.setVisible(true);
     }
+	
+	private void mostrarVentanaConfiguracion(){
+		this.ventanaConfiguracion.setVisible(true);
+	}
 	
 	public void actualizarPartidas() {
 		this.ventanaPartidasGuardadas.actualizarPartidas(misGestorBD.obtenerPartidas());		
@@ -278,6 +295,12 @@ public class Controlador {
 		}
 	}
 	
+	class ConfiguracionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+		    mostrarVentanaConfiguracion();
+		}
+	}
+	
 	class RankingListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -285,7 +308,7 @@ public class Controlador {
 		}
 	}
 	
-	/*class SeleccionConfigListener implements ActionListener {
+	class SeleccionConfigListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
@@ -297,7 +320,7 @@ public class Controlador {
 		    mostrarVentanaSeleccionConfig();
 		}
 
-	}*/
+	}
 	
 	class ElegirCarta1Listener implements ActionListener {
 		@Override
@@ -433,5 +456,19 @@ public class Controlador {
 		Usuario usAct = miGestorUsuarios.buscarUsuario(usuarioAct);
 		usAct.anadirConf(cF);
 		
+	}
+	public boolean comprobarConf(int pIdConfig, String pUs) {
+		Usuario usAct = miGestorUsuarios.buscarUsuario(usuarioAct);
+		
+		return usAct.comprobarConf(pIdConfig);
+		
+	}
+	public int getConfAct() {
+		
+		return configAct;
+	}
+	public String getImagenConfig(int numeroCartaActual) {
+		
+		return miGestorConfig.getGestorConfig().imagenConfig(numeroCartaActual,configAct);
 	}
 }

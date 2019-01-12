@@ -44,5 +44,20 @@ public class ConfiguracionUs {
 		ConfiguracionCarta cC = new ConfiguracionCarta(nombreImg, this.idConfig, carta);
 		anadirConfiguracionCarta(cC);
 	}
+
+
+
+	public String getImagenPos(int numeroCartaActual) {
+		String imagen = null;
+		int i=0;
+		while(i<listaConfiguracionesCarta.size()){
+			if(listaConfiguracionesCarta.get(i).getCarta()==numeroCartaActual){
+				imagen = listaConfiguracionesCarta.get(i).getImagen();
+				i=200;	
+			}
+			
+		}
+		return imagen;
+	}
 	
 }

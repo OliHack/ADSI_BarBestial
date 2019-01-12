@@ -40,6 +40,19 @@ public class VentanaConfiguracion extends JFrame{
 	private ArrayList<Integer> numeros;
 	private String nombre;
 	private String desc;
+	
+	
+	public static void main(String[] args){
+    	EventQueue.invokeLater(() -> {
+            try {
+                VentanaConfiguracion frame = new VentanaConfiguracion();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+	
     
     public VentanaConfiguracion(){
     super("Crear una Configuración");
@@ -103,15 +116,33 @@ public class VentanaConfiguracion extends JFrame{
     imagenes = new ArrayList<String>();
     numeros = new ArrayList<Integer>();
     
+    button4.addActionListener(new ActionListener(){
+    	public void actionPerformed(ActionEvent e) {
+    		imagenes = new ArrayList<String>();
+    		numeros = new ArrayList<Integer>();
+    		button3.setEnabled(false);
+    		button2.setEnabled(false);
+    		label.setIcon(null);
+    		setVisible(false);
+    	}
+    });
+    
     button2.addActionListener(new ActionListener(){
     	public void actionPerformed(ActionEvent e) {
-    		 
-    		try {
-				Controlador.getMiControlador().crearConf(imagenes, numeros, nombre, desc, Controlador.getMiControlador().getUsuarioAct());
-				JOptionPane.showMessageDialog(rootPane, "Configuración realizada con éxito.");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+    		
+	    	if(imagenes.size()!=12){
+	    		JOptionPane.showMessageDialog(rootPane, "Debes introducir imágenes para todas las cartas.");
+	    	}
+	    	else{
+	    		try {
+					Controlador.getMiControlador().crearConf(imagenes, numeros, nombre, desc, Controlador.getMiControlador().getUsuarioAct());
+					JOptionPane.showMessageDialog(rootPane, "Configuración realizada con éxito.");
+					setVisible(false);
+					
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+	    	}
     	 }
     });
     
@@ -120,6 +151,7 @@ public class VentanaConfiguracion extends JFrame{
     		 
     		 int cartaSel = cBox.getSelectedIndex()+1;
     		 button2.setEnabled(true);
+    		 button3.setEnabled(false);
     		 label.setIcon(null);
     		 
     		 if(numeros.contains(cartaSel)){ 
@@ -179,6 +211,7 @@ public class VentanaConfiguracion extends JFrame{
           //filter the files
           FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg");
           file.addChoosableFileFilter(filter);
+          file.setFileFilter(filter);
           int result = file.showSaveDialog(null);
           
           
@@ -257,16 +290,7 @@ public class VentanaConfiguracion extends JFrame{
         return image;
     }
     
-    public static void main(String[] args){
-    	EventQueue.invokeLater(() -> {
-            try {
-                VentanaConfiguracion frame = new VentanaConfiguracion();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
+
    }
 
 

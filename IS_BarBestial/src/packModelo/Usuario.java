@@ -52,4 +52,12 @@ public class Usuario {
 		listaConfiguraciones.add(cF);
 		
 	}
+
+	public boolean comprobarConf(int pIdConfig) {
+		int i = 0;
+		while(pIdConfig != listaConfiguraciones.get(i).getIdConfig()){
+			i++;
+		}
+		return (pIdConfig == listaConfiguraciones.get(i).getIdConfig());
+	}
 }

@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 
+import packControlador.Controlador;
+
 public class ListaCartas {
     private ArrayList<Carta> lista;
 
@@ -132,23 +134,41 @@ public class ListaCartas {
         Carta carta;
         String infoCartas = "";
         String infoCartaActual;
-
-        while (iterator.hasNext()) {
-            carta = iterator.next();
-            infoCartaActual = carta.getEspecie();
-
-            switch (carta.getColor()) {
-                case AZUL:
-                    infoCartaActual = infoCartaActual + "Azul";
-                    break;
-                case VERDE:
-                    infoCartaActual = infoCartaActual + "Verde";
-            }
-
-            infoCartas = infoCartas + infoCartaActual;
-            if (iterator.hasNext()) {
-                infoCartas = infoCartas + " ";
-            }
+        if(Controlador.getMiControlador().getConfAct()==0){
+	        while (iterator.hasNext()) {
+	            carta = iterator.next();
+	            infoCartaActual = carta.getEspecie();
+	
+	            switch (carta.getColor()) {
+	                case AZUL:
+	                    infoCartaActual = infoCartaActual + "Azul";
+	                    break;
+	                case VERDE:
+	                    infoCartaActual = infoCartaActual + "Verde";
+	            }
+	
+	            infoCartas = infoCartas + infoCartaActual;
+	            if (iterator.hasNext()) {
+	                infoCartas = infoCartas + " ";
+	            }
+	        }
+        }
+        else{
+        	while (iterator.hasNext()) {
+	            carta = iterator.next();
+	            int numeroCartaActual = carta.getNumero();
+	            String imagenActual = Controlador.getMiControlador().getImagenConfig(numeroCartaActual);
+	            infoCartaActual = imagenActual.split(".")[0];
+	            
+	            if(carta.getColor().equals("VERDE")) {
+	                    infoCartaActual = infoCartaActual + "Verde";
+	            }
+	
+	            infoCartas = infoCartas + infoCartaActual;
+	            if (iterator.hasNext()) {
+	                infoCartas = infoCartas + " ";
+	            }
+	        }
         }
         return infoCartas;
     }

@@ -38,31 +38,45 @@ public class GestorConfiguraciones {
 	}
 	
 	public void instanciarConfig(int pIdConfig, String pUs) throws SQLException{
-		String consulta1 = "SELECT * FROM ConfiguracionUs WHERE idUsuario="+pUs+" AND idConfig="+pIdConfig;
-		ResultSet rs = GestorBD.getGestorBD().execSql(consulta1);
-		rs.next();
-		int idConfig = rs.getInt(1);
-		String nombre = rs.getString(2);
-		String desc = rs.getString(3);
-		String fecha = rs.getString(4);
 		
-		ConfiguracionUs cF = new ConfiguracionUs(fecha,nombre,desc,idConfig);
-		listaConfiguraciones.add(cF);
-		
-		Controlador.getMiControlador().anadirConf(cF);
-		
-		String consulta2 = "SELECT * FROM ConfiguracionCarta WHERE idConfig="+pIdConfig;
-		ResultSet rs1 = GestorBD.getGestorBD().execSql(consulta2);
-		
-		while(rs1.next()){
-			int nCarta = Integer.parseInt(rs1.getString(2));
-			String nImg = rs1.getString(3);
-			cF.nuevaConfiguracionCarta(nImg, nCarta);
+
+		if(!Controlador.getMiControlador().comprobarConf(pIdConfig,pUs)){
+			String consulta1 = "SELECT * FROM ConfiguracionUs WHERE idUsuario="+pUs+" AND idConfig="+pIdConfig;
+			ResultSet rs = GestorBD.getGestorBD().execSql(consulta1);
+			rs.next();
+			int idConfig = rs.getInt(1);
+			String nombre = rs.getString(2);
+			String desc = rs.getString(3);
+			String fecha = rs.getString(4);
 			
+			ConfiguracionUs cF = new ConfiguracionUs(fecha,nombre,desc,idConfig);
+			listaConfiguraciones.add(cF);
+			
+			Controlador.getMiControlador().anadirConf(cF);
+			
+			String consulta2 = "SELECT * FROM ConfiguracionCarta WHERE idConfig="+pIdConfig;
+			ResultSet rs1 = GestorBD.getGestorBD().execSql(consulta2);
+			
+			while(rs1.next()){
+				int nCarta = Integer.parseInt(rs1.getString(2));
+				String nImg = rs1.getString(3);
+				cF.nuevaConfiguracionCarta(nImg, nCarta);
+				
+			}
 		}
 		
 		
+	}
+
+	public String imagenConfig(int numeroCartaActual, int configAct) {
 		
+		
+		for (int i = 0; i < this.listaConfiguraciones.size(); i++) {
+			if (listaConfiguraciones.get(i).getIdConfig()==configAct) {
+				return listaConfiguraciones.get(i).getImagenPos(numeroCartaActual);
+			}
+		}
+		return null;
 	}
 
 	

@@ -41,4 +41,48 @@ public class Carta implements Comparable<Carta> {
             }
         }
     }
+
+	public int getNumero() {
+		int numeroEspecie = 0;
+		
+		 switch (getEspecie()) {
+		 case "Camaleon":
+             numeroEspecie = 5;
+             break;
+         case "Canguro":
+        	 numeroEspecie = 3;
+             break;
+         case "Cebra":
+        	 numeroEspecie = 7;
+             break;
+         case "Cocodrilo":
+        	 numeroEspecie = 10;
+             break;
+         case "Foca":
+        	 numeroEspecie = 6;
+             break;
+         case "Hipopotamo":
+        	 numeroEspecie = 11;
+             break;
+         case "Jirafa":
+        	 numeroEspecie = 8;
+             break;
+         case "Leon":
+        	 numeroEspecie = 12;
+             break;
+         case "Loro":
+        	 numeroEspecie = 2;
+             break;
+         case "Mofeta":
+        	 numeroEspecie = 1;
+             break;
+         case "Mono":
+        	 numeroEspecie = 4;
+             break;
+         case "Serpiente":
+        	 numeroEspecie = 9;
+             break;
+     }
+		return numeroEspecie;
+	}
 }
