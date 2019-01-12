@@ -107,9 +107,7 @@ public class Controlador {
 		this.ventanaJuego.addElegirCarta4Listener(new ElegirCarta4Listener());
 		this.ventanaJuego.addSiguienteListener(new SiguienteListener());
 		this.ventanaJuego.addCambiarContraseñaListener(new cambiarContraseñaListener());
-
 		this.ventanaJuego.addUsarAyuda(new UsarAyudaListener());
-
 		this.ventanaJuego.addGuardarPartida(new GuardarListener());
 		
 
@@ -220,12 +218,12 @@ public class Controlador {
 				mostrarVentanaJuego(user);
 				partida.inicializarPartida(user);
 				setUpObservers();
-				try {
+				/*try {
 					partida.obtenerJugadorReal().cargarAyuda();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+				}*/
 			}
 			else{ ventanaInicio.showNombreErrorMessage();}
 			
