@@ -8,26 +8,6 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import packModelo.GestorBD;
-import packModelo.Carta;
-import packModelo.GestorConfiguraciones;
-import packModelo.GestorUsuarios;
-
-import packModelo.EnumColor;
-
-
-import packModelo.Jugador;
-import packModelo.JugadorReal;
-import packModelo.Partida;
-import packModelo.RankingDB;
-import packModelo.Tablero;
-
-import packVista.VentanaAyuda;
-import packVista.VentanaInicio;
-import packVista.VentanaJuego;
-import packVista.VentanaRanking;
-import packVista.VentanaSeleccionConfig;
-
 import packModelo.*;
 
 import packVista.*;
@@ -41,7 +21,7 @@ public class Controlador {
 	/* Modelo */
 	private Partida partida;
 	private Tablero tablero;
-	private RankingDB rankingDB;
+	private GestorRanking gestorRanking;
 	private Jugador jug;
 	private int usos;
 
@@ -57,17 +37,21 @@ public class Controlador {
 	private VentanaInicio ventanaInicio;
 	private VentanaJuego ventanaJuego;
 	private VentanaAyuda ventanaAyuda;
-	private VentanaRanking ventanaRanking;
+	private Ranking ventanaRanking;
 	private VentanaSeleccionConfig ventanaSeleccionConfig;
 	private VentanaPartidasGuardadas ventanaPartidasGuardadas;
 	private VentanaGuardada ventanaGuardada;
 	private VentanaCambiarContrasena ventanaCambiarContrasena;
+	private VentanaMejIndv ventanaMejIndv;
+	private VentanaHoy ventanaHoy;
+	private VentanaSiempre ventanaSiempre;
+	private VentanaMedias ventanaMedias;
 	
 	public Controlador() {
 		this.usuarioAct = null;
 		this.partida = Partida.getMiPartida();
 		this.tablero = Tablero.getMiTablero();
-		this.rankingDB = RankingDB.getRankingDB();
+		this.gestorRanking = GestorRanking.getRankingDB();
 		this.configAct = 0;
 		this.usos = 0;
 
@@ -80,8 +64,14 @@ public class Controlador {
 
 		this.ventanaInicio = new VentanaInicio();
 		this.ventanaAyuda = new VentanaAyuda();
-		this.ventanaRanking = new VentanaRanking();
+		this.ventanaRanking = Ranking.getRanking();
+		this.ventanaMejIndv = VentanaMejIndv.getMejIndv();
+		this.ventanaHoy = VentanaHoy.getHoy();
+		this.ventanaSiempre = VentanaSiempre.getSiempre();
+		this.ventanaMedias = VentanaMedias.getMedias();
+		this.ventanaJuego = new VentanaJuego("pepes");//test
 		this.ventanaSeleccionConfig = new VentanaSeleccionConfig();
+		this.ventanaCambiarContrasena = new VentanaCambiarContrasena("pepes");//tesst
 
 		this.ventanaPartidasGuardadas = new VentanaPartidasGuardadas();
 		this.ventanaGuardada = new VentanaGuardada();
@@ -168,10 +158,7 @@ public class Controlador {
 	private void mostrarVentanaAyuda(){
 	    this.ventanaAyuda.setVisible(true);
     }
-	
-	private void actualizarRanking() {
-		this.ventanaRanking.actualizarRanking(rankingDB.obtenerMejoresPuntuaciones());		
-	}
+
 	
 	private void mostrarVentanaRanking(){
         this.ventanaRanking.setVisible(true);
@@ -294,7 +281,6 @@ public class Controlador {
 	class RankingListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			actualizarRanking();
 		    mostrarVentanaRanking();
 		}
 	}
