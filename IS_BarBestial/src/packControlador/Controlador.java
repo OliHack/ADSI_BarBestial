@@ -58,6 +58,7 @@ public class Controlador {
 	private VentanaJuego ventanaJuego;
 	private VentanaAyuda ventanaAyuda;
 	private VentanaRanking ventanaRanking;
+	private VentanaConfiguracion ventanaConfiguracion;
 	private VentanaSeleccionConfig ventanaSeleccionConfig;
 	private VentanaPartidasGuardadas ventanaPartidasGuardadas;
 	private VentanaGuardada ventanaGuardada;
@@ -81,6 +82,7 @@ public class Controlador {
 		this.ventanaInicio = new VentanaInicio();
 		this.ventanaAyuda = new VentanaAyuda();
 		this.ventanaRanking = new VentanaRanking();
+		this.ventanaConfiguracion = new VentanaConfiguracion();
 		this.ventanaSeleccionConfig = new VentanaSeleccionConfig();
 
 		this.ventanaPartidasGuardadas = new VentanaPartidasGuardadas();
@@ -93,8 +95,8 @@ public class Controlador {
 		this.ventanaInicio.addRankingListener(new RankingListener());
 		this.ventanaInicio.addRegistrarseListener(new RegistrarseListener());
 		this.ventanaInicio.addRecuperarContraseñaListener(new RecuperarContraseñaListener());
-		
-		//this.ventanaInicio.addSeleccionarConfigListener(new SeleccionConfigListener());
+		this.ventanaInicio.addCrearConfigListener(new ConfiguracionListener());
+		this.ventanaInicio.addSeleccionarConfigListener(new SeleccionConfigListener());
 		
 
 		this.ventanaInicio.addContinuarListener(new ContinuarListener());
@@ -185,6 +187,10 @@ public class Controlador {
 	private void mostrarVentanaSeleccionConfig(){		
         this.ventanaSeleccionConfig.setVisible(true);
     }
+	
+	private void mostrarVentanaConfiguracion(){
+		this.ventanaConfiguracion.setVisible(true);
+	}
 	
 	private void actualizarPartidas() {
 		this.ventanaPartidasGuardadas.actualizarPartidas(misGestorBD.obtenerPartidas());		
@@ -291,6 +297,12 @@ public class Controlador {
 		}
 	}
 	
+	class ConfiguracionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+		    mostrarVentanaConfiguracion();
+		}
+	}
+	
 	class RankingListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -299,7 +311,7 @@ public class Controlador {
 		}
 	}
 	
-	/*class SeleccionConfigListener implements ActionListener {
+	class SeleccionConfigListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
@@ -311,7 +323,7 @@ public class Controlador {
 		    mostrarVentanaSeleccionConfig();
 		}
 
-	}*/
+	}
 	
 	class ElegirCarta1Listener implements ActionListener {
 		@Override
@@ -447,5 +459,19 @@ public class Controlador {
 		Usuario usAct = miGestorUsuarios.buscarUsuario(usuarioAct);
 		usAct.añadirConf(cF);
 		
+	}
+	public boolean comprobarConf(int pIdConfig, String pUs) {
+		Usuario usAct = miGestorUsuarios.buscarUsuario(usuarioAct);
+		
+		return usAct.comprobarConf(pIdConfig);
+		
+	}
+	public int getConfAct() {
+		
+		return configAct;
+	}
+	public String getImagenConfig(int numeroCartaActual) {
+		
+		return miGestorConfig.getGestorConfig().imagenConfig(numeroCartaActual,configAct);
 	}
 }
