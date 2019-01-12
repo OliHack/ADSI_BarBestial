@@ -93,16 +93,15 @@ public class GestorBD {
 	            s=c.createStatement();
 	            instruccion = "INSERT INTO USUARIO (idUsuario,numAyudas) VALUES ('Unai',4)";
 	            s.executeUpdate(instruccion);
-	            
-	            		
+           		
 	            		
 	            		
 	            
 	            //Creamos una tabla para la Partida
-	           // s = c.createStatement();
-	            //instruccion = "INSERT INTO Partida (idPartida, fecha) VALUES (2," + "datetime('now')" + ")";
+	            /*s = c.createStatement();
+	            instruccion = "INSERT INTO Partida (idPartida, fecha) VALUES (2," + "datetime('now')" + ")";
 	           
-	          //  s.executeUpdate(instruccion);
+	            s.executeUpdate(instruccion);*/
 	            
 	            s.close();
 	            c.close();
@@ -151,6 +150,55 @@ public class GestorBD {
 	        return partidas;
 	    }
 	    
+	    public Vector<String> infoPartidas(){
+	    	Vector<String> info = new Vector<>();
+	    	 try {
+		            Class.forName("org.sqlite.JDBC");
+		            c = DriverManager.getConnection("jdbc:sqlite:DataBase.db");
+		            c.setAutoCommit(false);
+		            s = c.createStatement();
+		            
+		            ResultSet rs = s.executeQuery("SELECT ayUsuario,turno,manoMaq,manoUs,calle,bar,mazoMaq,mazoUs,cola,idUs FROM Partida;");
+
+		            
+		            while (rs.next()) {
+		                info = new Vector<>();
+
+		                String ayUs = rs.getString("ayUsuario");
+		                String turno = rs.getString("turno");
+		                String manoMaq = rs.getString("manoMaq");
+		                String manoUs = rs.getString("manoUs");
+		                String calle = rs.getString("calle");
+		                String bar = rs.getString("bar");
+		                String mazoMaq = rs.getString("mazoMaq");
+		                String mazoUs = rs.getString("mazoUs");
+		                String cola = rs.getString("cola");
+		                String idUs = rs.getString("idUs");
+		                
+		                info.add(ayUs);
+		                info.add(turno);
+		                info.add(manoMaq);
+		                info.add(manoUs);
+		                info.add(calle);
+		                info.add(bar);
+		                info.add(mazoMaq);
+		                info.add(mazoUs);
+		                info.add(cola);
+		                info.add(idUs);
+		            }
+
+		            rs.close();
+		            s.close();
+		            c.close();
+
+		        } catch (Exception e) {
+		            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		            System.exit(0);
+		        }
+	    	
+	    	return info;
+	    }
+	    
 	    public void obtenerInfoyGuardarPartida() {
 
 	    	Partida part = Partida.getMiPartida();
@@ -196,7 +244,37 @@ public class GestorBD {
 	    	sqlUpdate("INSERT INTO Partida (ayUsuario,turno,manoMaq,manoUs,calle,bar,mazoMaq,mazoUs,cola,idUs,fecha) VALUES(" + ayUs + "," + turnoAct + "," + "'" + manoMaq + "'" + "," + "'" + manoJug + "'" + "," + "'" + calle + "'" + "," + "'" + bar + "'" + "," + "'" + mazoMaq + "'" + "," + "'" + mazoJug + "'" + "," + "'" + cola + "'" + "," + "'" + nombre + "'" + "," + "datetime('now')" + ");");
 	    }
 	    
-	  
+	    public void insertarPartidaPrueba() {
+	    	sqlUpdate("INSERT INTO Partida (fecha) VALUES (" + "datetime('now')" + ")");
+	    }
+	    
+	    public int contarPartidas() {
+	    	int num=0;
+	    	try {
+	            Class.forName("org.sqlite.JDBC");
+	            c = DriverManager.getConnection("jdbc:sqlite:DataBase.db");
+	            c.setAutoCommit(false);
+	            s = c.createStatement();
+	            
+	            ResultSet rs = s.executeQuery("SELECT COUNT(*) FROM Partida;");
+	            
+	            
+	            while (rs.next()) {
+	                num = rs.getInt("COUNT(*)");
+	            }
+
+	            rs.close();
+	            s.close();
+	            c.close();
+
+	        } catch (Exception e) {
+	            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+	            System.exit(0);
+	        }
+	        System.out.println("Consulta terminada contar");
+	        return num;
+	    }
+	    
 		public ResultSet execSql(String consulta) {
 			ResultSet rs = null;
 			try {

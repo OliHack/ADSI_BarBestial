@@ -209,9 +209,9 @@ public abstract class Jugador extends Observable {
     public void cargarAyuda() throws SQLException{
     	//String sql = String.format("SELECT numAyudas FROM Usuario WHERE idUsuario = %s; ", this.nombre);
     	//ResultSet rs =GestorBD.execSql(sql);
-    	ResultSet rs = GestorBD.getGestorBD().execSql("SELECT numAyudas FROM Usuario WHERE idUsuario = 'Unai';");
-    	this.numAyudas= rs.getInt("numAyudas");
-    	rs.close();	
+    	//ResultSet rs = GestorBD.getGestorBD().execSql("SELECT numAyudas FROM Usuario WHERE idUsuario = 'Unai';");
+    	//this.numAyudas= rs.getInt("numAyudas");
+    	//rs.close();	
     }
     
     public void usarAyuda() {

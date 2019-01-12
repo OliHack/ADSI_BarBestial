@@ -142,7 +142,7 @@ public class Controlador {
 		this.mostrarVentanaInicio();
 	}
 	
-	private void mostrarVentanaInicio() {
+	public void mostrarVentanaInicio() {
 		this.ventanaInicio.setVisible(true);
 	}
 	
@@ -171,11 +171,11 @@ public class Controlador {
         this.ventanaSeleccionConfig.setVisible(true);
     }
 	
-	private void actualizarPartidas() {
+	public void actualizarPartidas() {
 		this.ventanaPartidasGuardadas.actualizarPartidas(misGestorBD.obtenerPartidas());		
 	}
 	
-	private void mostrarVentanaPartidas(){
+	public void mostrarVentanaPartidas(){
         this.ventanaPartidasGuardadas.setVisible(true);
     }
 	

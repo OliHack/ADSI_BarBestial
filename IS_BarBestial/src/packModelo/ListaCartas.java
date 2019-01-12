@@ -332,7 +332,7 @@ public class ListaCartas {
     }
     
     public String convertirListaString() {
-    	String res = "/";
+    	String res = "";
     	Iterator<Carta> it = lista.iterator();
     	while(it.hasNext()) {
     		Carta c = it.next();
@@ -343,7 +343,7 @@ public class ListaCartas {
     }
     
     public String convertirListaStringColor() {
-    	String res = "/";
+    	String res = "";
     	Iterator<Carta> it = lista.iterator();
     	while(it.hasNext()) {
     		Carta c = it.next();
