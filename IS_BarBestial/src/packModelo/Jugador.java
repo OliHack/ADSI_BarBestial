@@ -23,7 +23,7 @@ public abstract class Jugador extends Observable {
         this.colorJugador = pColorJugador;
         this.mano = new ListaCartas();
         this.mazo = new ListaCartas();
-        this.numAyudas =pNumAyudas;
+        this.numAyudas =4;
     }
 
     public void robarCarta() {
@@ -190,7 +190,7 @@ public abstract class Jugador extends Observable {
     	this.numAyudas= this.numAyudas -1;
     	//String sql = String.format("UPDATE Usuario SET numAyudas = numAyudas -1 WHERE idUsuario= %s ; ", this.nombre);
     	//GestorBD.sqlUpdate(sql);
-    	int ayudaResta = this.numAyudas;
+    	//int ayudaResta = this.numAyudas;
     	//GestorBD.sqlUpdate("UPDATE Usuario SET numAyudas = " + ayudaResta + " WHERE idUsuario= 'Unai';");
     }
     
@@ -217,8 +217,7 @@ public abstract class Jugador extends Observable {
     		if( bar.getLista().obtenerNumeroDeCartasColor(EnumColor.VERDE) ==0) {
     			System.out.println("No hay cartas");
     			JOptionPane.showMessageDialog(null, "No hay ninguna carta rival.");
-    			//partida.avanzarTurno();
-    			partida.obtenerJugadorReal().restarAyuda();
+    			partida.obtenerJugadorReal().restarAyuda();    			
     			System.out.println(partida.obtenerJugadorReal().getAyudas());
     		}
     		else{
@@ -226,6 +225,7 @@ public abstract class Jugador extends Observable {
     			System.out.println("Tengo la carta del rival y es: "+ aux.getAnimal().getEspecie());
     			tablero.anadirALaCola(aux);
     			partida.obtenerJugadorReal().restarAyuda();
+    			System.out.println(partida.obtenerJugadorReal().getAyudas());
     			System.out.println("He añadido la carta");
     			tablero.hacerUltimaAnimalada();
     			tablero.hacerAnimaladasRecurrentes();

@@ -190,12 +190,12 @@ public class Controlador {
 				mostrarVentanaJuego();
 				partida.inicializarPartida(nombre);
 				setUpObservers();
-				try {
+				/*try {
 					partida.obtenerJugadorReal().cargarAyuda();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+				}*/
 			}
 			else{ ventanaInicio.showNombreErrorMessage();}
 			if(partida.obtenerJugadorReal().getAyudas()==0){

@@ -115,8 +115,6 @@ public class GestorBD {
 	        }
 	        System.out.println("Tabla creada");
 	    }
-	    
-
 
 		public static ResultSet execSql(String consulta) {
 			ResultSet rs = null;
