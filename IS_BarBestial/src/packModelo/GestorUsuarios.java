@@ -29,8 +29,8 @@ public class GestorUsuarios {
 		return nombres;
 	}
 	
-	public void añadirConfiguracion(ConfiguracionUs pConfig, Usuario user) {
-		user.añadirConf(pConfig);
+	public void anadirConfiguracion(ConfiguracionUs pConfig, Usuario user) {
+		user.anadirConf(pConfig);
 	}
 	
 	public Usuario buscarUsuario(String pNomUsuario) {
@@ -45,11 +45,11 @@ public class GestorUsuarios {
 	}
 	
 	public boolean comprobarLogin(String user, String pass) {
-		if (this.buscarUsuario(user).getContraseña().equals(pass)) {return true;}
+		if (this.buscarUsuario(user).getContrasena().equals(pass)) {return true;}
 		else{return false;}
 	}
 	
-	public String recuperarContraseña(String user) {
+	public String recuperarContrasena(String user) {
 		Usuario userEncontrado = buscarUsuario(user);
 		if (!userEncontrado.equals(null)) {
 			String uuid = UUID.randomUUID().toString();
@@ -59,7 +59,7 @@ public class GestorUsuarios {
 		return null;
 	}
 	
-	public void cambiarContraseña(String user, String nueva) {
+	public void cambiarContrasena(String user, String nueva) {
 		this.buscarUsuario(user).setPassword(nueva);
 	}
 	

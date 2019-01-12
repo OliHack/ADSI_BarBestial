@@ -49,7 +49,7 @@ public class GestorConfiguraciones {
 		ConfiguracionUs cF = new ConfiguracionUs(fecha,nombre,desc,idConfig);
 		listaConfiguraciones.add(cF);
 		
-		Controlador.getMiControlador().añadirConf(cF);
+		Controlador.getMiControlador().anadirConf(cF);
 		
 		String consulta2 = "SELECT * FROM ConfiguracionCarta WHERE idConfig="+pIdConfig;
 		ResultSet rs1 = GestorBD.getGestorBD().execSql(consulta2);

@@ -52,7 +52,7 @@ public class VentanaJuego extends JFrame implements Observer {
     private JButton btnJugarTurno;
     private JButton btnSiguiente;
     private JButton btnAyuda;
-    private JButton btnCambiarContraseña;
+    private JButton btnCambiarContrasena;
     private String MUser;
 
     /**
@@ -141,8 +141,8 @@ public class VentanaJuego extends JFrame implements Observer {
         btnAyuda.setPreferredSize(new Dimension(90, 25));
         panelElegirCartas.add(btnAyuda);
         
-        btnCambiarContraseña = new JButton("Cam. Contrase\u00F1a");
-        panelElegirCartas.add(btnCambiarContraseña);
+        btnCambiarContrasena = new JButton("Cam. Contrase\u00F1a");
+        panelElegirCartas.add(btnCambiarContrasena);
         
 
         panelCola = new JPanel();
@@ -368,8 +368,8 @@ public class VentanaJuego extends JFrame implements Observer {
         btnSiguiente.addActionListener(listenForBtnSiguiente);
     }
     
-    public void addCambiarContraseñaListener(ActionListener listenForBtnCambiarContraseña) {
-        btnCambiarContraseña.addActionListener(listenForBtnCambiarContraseña);
+    public void addCambiarContrasenaListener(ActionListener listenForBtnCambiarContrasena) {
+        btnCambiarContrasena.addActionListener(listenForBtnCambiarContrasena);
     }
     
     public void addUsarAyuda (ActionListener listenForBtnUsarAyuda){

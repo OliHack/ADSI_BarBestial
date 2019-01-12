@@ -11,10 +11,10 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-public class VentanaCambiarContraseña extends JFrame {
+public class VentanaCambiarContrasena extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textNContraseña;
+	private JTextField textNContrasena;
 	private JButton btnCambiar;
 	private String MUser;
 
@@ -25,7 +25,7 @@ public class VentanaCambiarContraseña extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaCambiarContraseña frame = new VentanaCambiarContraseña("Prueba");
+					VentanaCambiarContrasena frame = new VentanaCambiarContrasena("Prueba");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +37,7 @@ public class VentanaCambiarContraseña extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaCambiarContraseña(String user) {
+	public VentanaCambiarContrasena(String user) {
 		MUser = user;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 453, 193);
@@ -46,10 +46,10 @@ public class VentanaCambiarContraseña extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textNContraseña = new JTextField();
-		textNContraseña.setBounds(176, 65, 86, 20);
-		contentPane.add(textNContraseña);
-		textNContraseña.setColumns(10);
+		textNContrasena = new JTextField();
+		textNContrasena.setBounds(176, 65, 86, 20);
+		contentPane.add(textNContrasena);
+		textNContrasena.setColumns(10);
 		
 		btnCambiar = new JButton("Cambiar");
 		btnCambiar.setBounds(277, 64, 89, 23);
@@ -64,8 +64,8 @@ public class VentanaCambiarContraseña extends JFrame {
 		return MUser;
 	}
 
-	public String getTextNContraseña() {
-		return textNContraseña.toString();
+	public String getTextNContrasena() {
+		return textNContrasena.toString();
 	}
 
 	public void addCambiarListener(ActionListener listenForBtnCambiar) {

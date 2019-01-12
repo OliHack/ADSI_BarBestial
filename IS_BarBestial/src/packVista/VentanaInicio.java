@@ -21,7 +21,7 @@ public class VentanaInicio extends JFrame {
     private JButton btnContinuarPartida;
     private JButton btnRegistrarse;
     private JButton btnRecuperarContrasea;
-    private JTextField textContraseña;
+    private JTextField textContrasena;
     private JLabel lblContrasea;
     private JPanel panel;
 
@@ -81,10 +81,10 @@ public class VentanaInicio extends JFrame {
         lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 11));
         panelMenu.add(lblContrasea);
         
-        textContraseña = new JTextField();
-        textContraseña.setFont(new Font("Tahoma", Font.PLAIN, 11));
-        panelMenu.add(textContraseña);
-        textContraseña.setColumns(10);
+        textContrasena = new JTextField();
+        textContrasena.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        panelMenu.add(textContrasena);
+        textContrasena.setColumns(10);
 
         this.btnJugar = new JButton("Iniciar Sesi\u00F3n");
         btnJugar.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -154,8 +154,8 @@ public class VentanaInicio extends JFrame {
     	btnRegistrarse.addActionListener(listenForBtnRegistrarse);
     }
     
-    public void addRecuperarContraseñaListener(ActionListener listenForBtnRecuperarContraseña) {
-    	btnRecuperarContrasea.addActionListener(listenForBtnRecuperarContraseña);
+    public void addRecuperarContrasenaListener(ActionListener listenForBtnRecuperarContrasena) {
+    	btnRecuperarContrasea.addActionListener(listenForBtnRecuperarContrasena);
     }
     
 
@@ -177,12 +177,12 @@ public class VentanaInicio extends JFrame {
 		this.textUsuario = textUsuario;
 	}
 
-	public String getTextContraseña() {
-		return textContraseña.toString();
+	public String getTextContrasena() {
+		return textContrasena.toString();
 	}
 
-	public void setTextContraseña(JTextField textContraseña) {
-		this.textContraseña = textContraseña;
+	public void setTextContrasena(JTextField textContrasena) {
+		this.textContrasena = textContrasena;
 	}
 
     

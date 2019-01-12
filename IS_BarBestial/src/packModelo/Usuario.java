@@ -20,7 +20,7 @@ public class Usuario {
 		return idUsuario;
 	}
 
-	public String getContraseña() {
+	public String getContrasena() {
 		return password;
 	}
 	
@@ -48,7 +48,7 @@ public class Usuario {
 		else {return false;}
 	}
 
-	public void añadirConf(ConfiguracionUs cF) {
+	public void anadirConf(ConfiguracionUs cF) {
 		listaConfiguraciones.add(cF);
 		
 	}
