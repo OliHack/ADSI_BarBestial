@@ -29,8 +29,8 @@ public class GestorUsuarios {
 		return nombres;
 	}
 	
-	public void añadirConfiguracion(ConfiguracionCarta pConfig, Usuario user) {
-		user.addConfig(pConfig);
+	public void añadirConfiguracion(ConfiguracionUs pConfig, Usuario user) {
+		user.añadirConf(pConfig);
 	}
 	
 	public Usuario buscarUsuario(String pNomUsuario) {
@@ -65,5 +65,6 @@ public class GestorUsuarios {
 	
 	public void registrarse(String user, String pass) {
 		this.listaUsuarios.add(new Usuario(user, pass));
+
 	}
 }

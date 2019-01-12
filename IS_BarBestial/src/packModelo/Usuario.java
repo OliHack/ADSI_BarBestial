@@ -2,11 +2,13 @@ package packModelo;
 
 import java.util.ArrayList;
 
+
 public class Usuario {
 	private String idUsuario;
+	String nombre;
 	private String password;
 	private int numAyudas;
-	private ArrayList<ConfiguracionCarta> ConfiguracionCarta;
+	private ArrayList<ConfiguracionUs> listaConfiguraciones;
 	
 	public Usuario(String user, String pass){
 		this.idUsuario = user;
@@ -20,6 +22,15 @@ public class Usuario {
 
 	public String getContraseña() {
 		return password;
+	}
+	
+	public String getNombre() {
+		
+		return nombre;
+	}
+	
+	public int getNumConfig(){
+		return listaConfiguraciones.size();
 	}
 
 	public void setPassword(String password) {
@@ -37,7 +48,8 @@ public class Usuario {
 		else {return false;}
 	}
 
-	public void addConfig(ConfiguracionCarta pConfig) {
-		this.ConfiguracionCarta.add(pConfig);
+	public void añadirConf(ConfiguracionUs cF) {
+		listaConfiguraciones.add(cF);
+		
 	}
 }

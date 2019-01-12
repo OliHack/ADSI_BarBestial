@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 
 import packModelo.GestorBD;
 import packModelo.Carta;
-import packModelo.GestorCartas;
 import packModelo.GestorConfiguraciones;
 import packModelo.GestorUsuarios;
 
@@ -22,6 +21,7 @@ import packModelo.JugadorReal;
 import packModelo.Partida;
 import packModelo.RankingDB;
 import packModelo.Tablero;
+
 import packVista.VentanaAyuda;
 import packVista.VentanaInicio;
 import packVista.VentanaJuego;
@@ -36,6 +36,7 @@ import packVista.*;
 public class Controlador {
 	private static Controlador miControlador;
 	private String usuarioAct;
+	private int configAct;
 	
 	/* Modelo */
 	private Partida partida;
@@ -45,7 +46,6 @@ public class Controlador {
 	private int usos;
 
 	private GestorConfiguraciones miGestorConfig;
-	private GestorCartas miGestorCartas;
 	private GestorUsuarios miGestorUsuarios;
 
 	private GestorBD misGestorBD;
@@ -68,10 +68,10 @@ public class Controlador {
 		this.partida = Partida.getMiPartida();
 		this.tablero = Tablero.getMiTablero();
 		this.rankingDB = RankingDB.getRankingDB();
+		this.configAct = 0;
 		this.usos = 0;
 
 		this.miGestorConfig = GestorConfiguraciones.getGestorConfig();
-		this.miGestorCartas = GestorCartas.getGestorCartas();
 		this.miGestorUsuarios = GestorUsuarios.getGestorUsuarios();
 
 		this.misGestorBD = GestorBD.getGestorBD();
@@ -140,6 +140,16 @@ public class Controlador {
 	
 	public void setUsuarioAct(String pUsuario){
 		this.usuarioAct = pUsuario;
+	}
+	
+	public void crearConf(ArrayList<String> pImagenes,  ArrayList<Integer> pNumeros, String pNombre, String pDesc, String pUs) throws SQLException{
+		
+		miGestorConfig.crearConf(pImagenes, pNumeros, pNombre, pDesc, pUs);
+	}
+	
+	public int numConfUsuarioAct(){
+		Usuario usAct = miGestorUsuarios.buscarUsuario(usuarioAct);
+		return usAct.getNumConfig();
 	}
 	
 	public void iniciarAplicacion() {
@@ -423,5 +433,19 @@ public class Controlador {
 	public static Carta buscarCarta(int nCarta) {
 		
 		return null;
+	}
+	
+	public void elegirConfig(String pUs, int pIdConfig) throws SQLException{
+		
+		miGestorConfig.instanciarConfig(pIdConfig, pUs);
+		configAct = pIdConfig;
+		
+		
+	}
+
+	public void añadirConf(ConfiguracionUs cF) {
+		Usuario usAct = miGestorUsuarios.buscarUsuario(usuarioAct);
+		usAct.añadirConf(cF);
+		
 	}
 }
