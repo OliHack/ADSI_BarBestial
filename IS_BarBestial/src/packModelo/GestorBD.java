@@ -351,4 +351,20 @@ public class GestorBD {
 		public void introducirUsuario(String user, String pass) {
 			sqlUpdate("INSERT INTO usuario (idUsuario, password, numAyudas) VALUES ('" + user + "', '" + pass + "', 0)");
 		}
+
+		public boolean comprobarLogin(String user, String pass) {
+			sqlUpdate("Select * from Usuario where idUsuario = '" + user + "' password = '" + pass + "'");	
+			return false;
+		}
+
+
+		public String recuperarContrasena(String user) {
+			sqlUpdate("Select contraseña from Usuario where idUsuario = '" + user + "'");	
+			return null;
+		}
+
+
+		public void cambiarContrasena(String usuarioAct, String pass) {
+			sqlUpdate("UPDATE Usuario SET Contraseña = '" + pass + "' WHERE idUsuario = '" + usuarioAct + "'");
+		}
 }

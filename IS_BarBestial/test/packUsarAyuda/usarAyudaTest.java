@@ -77,9 +77,9 @@ public class usarAyudaTest {
 
 	@Test
 	public void inicializar() {
-		//testAyudaSinCartasEnElBar();  
+		testAyudaSinCartasEnElBar();  
 		//testAyuda2SinCartasEnElBar();
-		testAyudaConCartasEnElBar();
+		//testAyudaConCartasEnElBar();
 	}
 	
 	public void testAyudaSinCartasEnElBar(){
