@@ -81,7 +81,7 @@ public class Controlador {
 		this.ventanaConfiguracion = new VentanaConfiguracion();
 
 		this.ventanaSeleccionConfig = new VentanaSeleccionConfig();
-		this.ventanaCambiarContrasena = new VentanaCambiarContrasena();//tesst
+		this.ventanaCambiarContrasena = new VentanaCambiarContrasena();
 
 		this.ventanaPartidasGuardadas = new VentanaPartidasGuardadas();
 		this.ventanaGuardada = new VentanaGuardada();
@@ -226,26 +226,30 @@ public class Controlador {
 			String user = ventanaInicio.getTextUsuario();
 			String pass = ventanaInicio.getTextContrasena();
 			
-			if(miGestorUsuarios.comprobarLogin(user, pass)) {
-				ocultarVentanaInicio();
-				mostrarVentanaJuego();
-				partida.inicializarPartida(user);
-				setUpObservers();
-				/*try {
-					partida.obtenerJugadorReal().cargarAyuda();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}*/
+			if ((user.length() <= 0) || (pass.length() <= 0)) {
+				JOptionPane.showMessageDialog(null, "Introduce usuario y contraseÒa primero");
+			}else {
+				if(miGestorUsuarios.comprobarLogin(user, pass)) {
+					usuarioAct = user;
+					ocultarVentanaInicio();
+					mostrarVentanaJuego();
+					partida.inicializarPartida(user);
+					setUpObservers();
+					/*try {
+						partida.obtenerJugadorReal().cargarAyuda();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}*/
+				}
+				else{ ventanaInicio.showNombreErrorMessage();}
+				
+				if(partida.obtenerJugadorReal().getAyudas()==0){
+					ventanaJuego.desactivarBotonUsarAyuda();
+				}else{
+					ventanaJuego.activarBotonUsarAyuda();
+				}
 			}
-			else{ ventanaInicio.showNombreErrorMessage();}
-			
-			if(partida.obtenerJugadorReal().getAyudas()==0){
-				ventanaJuego.desactivarBotonUsarAyuda();
-			}else{
-				ventanaJuego.activarBotonUsarAyuda();
-			}
-			
 		}
 
 		private void ocultarVentanaInicio() {
@@ -277,10 +281,19 @@ public class Controlador {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String user = ventanaInicio.getTextUsuario();
+			
+			if (user.length() <= 0) {
+				JOptionPane.showMessageDialog(null, "Introduce tu usuario primero");
+			}else {
 			String nuevaPass = miGestorUsuarios.recuperarContrasena(user);
-			JOptionPane.showMessageDialog(null, ", tu nueva contraseÔøΩa es " + nuevaPass);
+			if (nuevaPass == null){
+				JOptionPane.showMessageDialog(null, "Ese usuario no existe");
+			}else {
+			JOptionPane.showMessageDialog(null, user + ", tu nueva contrasena es " + nuevaPass);
+			}
 		}
 	}
+	}	
 	
 	class GuardarListener implements ActionListener {
 		@Override
@@ -438,13 +451,14 @@ public class Controlador {
 	class cambiarListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			System.out.println("asd");
 			String pass = ventanaCambiarContrasena.getTextNContrasena();
 			
 			if (pass.length() > 0) {
 				miGestorUsuarios.cambiarContrasena(usuarioAct, pass);
 				ventanaCambiarContrasena.setVisible(false);
 			}else {
-				JOptionPane.showMessageDialog(null, "Introduce una contrase√±a");
+				JOptionPane.showMessageDialog(null, "Introduce una contrasena");
 			}
 		}
 	}

@@ -139,7 +139,7 @@ public class VentanaJuego extends JFrame implements Observer {
         btnAyuda.setPreferredSize(new Dimension(90, 25));
         panelElegirCartas.add(btnAyuda);
         
-        btnCambiarContrasena = new JButton("Cam. Contrase\u00F1a");
+        btnCambiarContrasena = new JButton("Contrase\u00F1a");
         panelElegirCartas.add(btnCambiarContrasena);
         
 

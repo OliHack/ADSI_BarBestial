@@ -51,7 +51,7 @@ public class GestorUsuarios {
 	
 	public String recuperarContrasena(String user) {
 		Usuario userEncontrado = buscarUsuario(user);
-		if (!userEncontrado.equals(null)) {
+		if (userEncontrado != null) {
 			String uuid = UUID.randomUUID().toString();
 			userEncontrado.setPassword(uuid);
 			return uuid;

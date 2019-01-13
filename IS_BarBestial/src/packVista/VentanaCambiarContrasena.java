@@ -1,6 +1,6 @@
 package packVista;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 
@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 
 public class VentanaCambiarContrasena extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textNContrasena;
 	private JButton btnCambiar;
@@ -60,7 +61,7 @@ public class VentanaCambiarContrasena extends JFrame {
 
 
 	public String getTextNContrasena() {
-		return textNContrasena.toString();
+		return textNContrasena.getText();
 	}
 
 	public void addCambiarListener(ActionListener listenForBtnCambiar) {
