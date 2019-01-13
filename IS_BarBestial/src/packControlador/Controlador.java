@@ -53,7 +53,7 @@ public class Controlador {
 	private VentanaMedias ventanaMedias;
 	
 	public Controlador() {
-		this.usuarioAct = "Javi";
+		this.usuarioAct = null;
 		this.partida = Partida.getMiPartida();
 		this.tablero = Tablero.getMiTablero();
 		this.gestorRanking = GestorRanking.getRankingDB();
@@ -121,8 +121,6 @@ public class Controlador {
 		/* Listeners VentanaCambiarContrasena */
 		this.ventanaCambiarContrasena.addCambiarListener(new cambiarListener());
 		
-		miGestorUsuarios.registrarse("Javi", "123");
-		
 		
 	}
 	public int getUsos(){
@@ -180,7 +178,8 @@ public class Controlador {
 	
 	private void configUsuario() throws SQLException {
 		
-		this.ventanaSeleccionConfig.configUsuario(misGestorBD.execSql("SELECT idConfig,nombre,fecha FROM ConfiguracionUs WHERE idUs='"+usuarioAct+"'"));	
+		this.ventanaSeleccionConfig.configUsuario(GestorBD.getGestorBD().execSql("SELECT * FROM ConfiguracionUs WHERE idUs='"+usuarioAct+"'"));
+		System.out.println("AQUÍ ENTRO");
 	}
 	
 	private void mostrarVentanaSeleccionConfig(){		

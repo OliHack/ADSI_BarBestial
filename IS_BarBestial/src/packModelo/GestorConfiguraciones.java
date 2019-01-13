@@ -23,10 +23,12 @@ public class GestorConfiguraciones {
 	
 	public void crearConf(ArrayList<String> pImagenes, ArrayList<Integer> pNumeros, String pNombre, String pDesc, String pUs) throws SQLException{
 		
-		String consulta = "SELECT COUNT(*) AS total FROM ConfiguracionUs WHERE idUs='"+pUs+"'";
+		String consulta = "SELECT * FROM ConfiguracionUs WHERE idUs='"+pUs+"'";
 		ResultSet result = GestorBD.getGestorBD().execSql(consulta);
-		result.next();
-		int pIdConf = result.getInt("total")+1;
+		int pIdConf = 1;
+		while(result.next()){
+			pIdConf++;
+		}
 
 		String strUpdate = "INSERT INTO ConfiguracionUs VALUES ("+pIdConf+",'"+pNombre+"','"+ pDesc +"',datetime('now'),'"+pUs+"')";
 		GestorBD.getGestorBD().sqlUpdate(strUpdate);
