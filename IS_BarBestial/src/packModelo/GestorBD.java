@@ -349,22 +349,76 @@ public class GestorBD {
 		}
 		
 		public void introducirUsuario(String user, String pass) {
-			sqlUpdate("INSERT INTO usuario (idUsuario, password, numAyudas) VALUES ('" + user + "', '" + pass + "', 0)");
+			sqlUpdate("INSERT INTO usuario (idUsuario, password, numAyudas) VALUES ('" + user + "', '" + pass + "', 4)");
 		}
 
 		public boolean comprobarLogin(String user, String pass) {
-			sqlUpdate("Select * from Usuario where idUsuario = '" + user + "' password = '" + pass + "'");	
-			return false;
+			boolean resultado = false;
+	    	 try {
+		            Class.forName("org.sqlite.JDBC");
+		            c = DriverManager.getConnection("jdbc:sqlite:DataBase.db");
+		            c.setAutoCommit(false);
+		            s = c.createStatement();
+		            
+		            ResultSet rs = s.executeQuery("SELECT * FROM Usuario WHERE idUsuario = '" + user + "' AND password = '" + pass + "'");
+
+		            String usuario = "";
+		            String contrasena = "";
+		            while (rs.next()) {
+
+		                usuario = rs.getString("idUsuario");
+		                contrasena = rs.getString("password");
+		            }
+		            
+		            if ((usuario.equals(user)) && (contrasena.equals(pass))) {
+		            	resultado = true;
+		            }
+		            
+		            
+		            rs.close();
+		            s.close();
+		            c.close();
+
+		        } catch (Exception e) {
+		            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		            System.exit(0);
+		        }
+	    	
+	    	return resultado;
 		}
 
 
 		public String recuperarContrasena(String user) {
-			sqlUpdate("Select contraseña from Usuario where idUsuario = '" + user + "'");	
-			return null;
-		}
+			String pass = null;
+			try {
+	            Class.forName("org.sqlite.JDBC");
+	            c = DriverManager.getConnection("jdbc:sqlite:DataBase.db");
+	            c.setAutoCommit(false);
+	            s = c.createStatement();
+	            
+	            ResultSet rs = s.executeQuery("SELECT password FROM Usuario where idUsuario = '" + user + "'");
 
+	            String contrasena = "";
+	            while (rs.next()) {
+	                contrasena = rs.getString("password");
+	            }
+	            
+	            pass = contrasena;
+	            
+	            
+	            rs.close();
+	            s.close();
+	            c.close();
+
+	        } catch (Exception e) {
+	            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+	            System.exit(0);
+	        }
+    	
+    	return pass;
+	}
 
 		public void cambiarContrasena(String usuarioAct, String pass) {
-			sqlUpdate("UPDATE Usuario SET Contraseña = '" + pass + "' WHERE idUsuario = '" + usuarioAct + "'");
+			sqlUpdate("UPDATE Usuario SET password= '" + pass + "' WHERE idUsuario = '" + usuarioAct + "'");
 		}
 }

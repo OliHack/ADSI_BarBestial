@@ -206,7 +206,7 @@ public abstract class Jugador extends Observable {
     }
     
     public void cargarAyuda() throws SQLException{
-    	System.out.println(this.nombre);
+    	System.out.println("El nombre del usuario es :" + this.nombre);
     	//String sql = String.format("SELECT numAyudas FROM Usuario WHERE idUsuario = %s ", this.nombre);
     	//ResultSet rs = GestorBD.getGestorBD().execSql(sql);
     	//ResultSet rs = GestorBD.getGestorBD().execSql("SELECT numAyudas FROM Usuario WHERE idUsuario = 'Unai';");
@@ -229,17 +229,17 @@ public abstract class Jugador extends Observable {
     		bar.getLista().imprimirCartasColor(EnumColor.VERDE);
     		
     		if( bar.getLista().obtenerNumeroDeCartasColor(EnumColor.VERDE) ==0) {
-    			System.out.println("No hay cartas");
+    			System.out.println("No hay cartas en el bar.");
     			JOptionPane.showMessageDialog(null, "No hay ninguna carta rival.");
     			partida.obtenerJugadorReal().restarAyuda();    			
-    			System.out.println(partida.obtenerJugadorReal().getAyudas());
+    			System.out.println("Ayudas = " + partida.obtenerJugadorReal().getAyudas());
     		}
     		else{
     			aux = bar.getLista().obtenerPrimeraCartaRival();
     			System.out.println("Tengo la carta del rival y es: "+ aux.getAnimal().getEspecie());
     			tablero.anadirALaCola(aux);
     			partida.obtenerJugadorReal().restarAyuda();
-    			System.out.println(partida.obtenerJugadorReal().getAyudas());
+    			System.out.println("Ayudas = " + partida.obtenerJugadorReal().getAyudas());
     			System.out.println("He añadido la carta");
     			tablero.hacerUltimaAnimalada();
     			tablero.hacerAnimaladasRecurrentes();

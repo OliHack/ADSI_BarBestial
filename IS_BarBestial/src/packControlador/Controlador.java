@@ -421,11 +421,11 @@ public class Controlador {
 		public void actionPerformed(ActionEvent e) {
 			Controlador.getMiControlador().sumarUso();
 			partida.obtenerJugadorReal().usarAyuda();
-			partida.getMiPartida().ayudaUsada();
+			partida.ayudaUsada();
 			ventanaJuego.desactivarBotonUsarAyuda();
 			ventanaJuego.activarBotonesElegir();
 			if(partida.obtenerJugadorReal().getAyudas()==0){
-				JOptionPane.showMessageDialog(null, "Ayuda utilizada. No te quedan m�s ayudas.");
+				JOptionPane.showMessageDialog(null, "Ayuda utilizada. No te quedan mas ayudas.");
 			}
 			
 			//ventanaJuego.activarBotonSiguiente();
