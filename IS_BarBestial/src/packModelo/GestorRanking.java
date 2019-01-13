@@ -68,7 +68,7 @@ public class GestorRanking {
 
             s = c.createStatement();
             //Incrementar las ayudas
-            if (pNCartas > 6) {
+            if (pNCartas > 6 && pNombre != "Maquina") {
             	GestorBD a = GestorBD.getGestorBD();
             	String sql = String.format("UPDATE Usuario SET numAyudas = numAyudas + 1 WHERE idUsuario = '%s';", pNombre);
             	a.sqlUpdate(sql);
