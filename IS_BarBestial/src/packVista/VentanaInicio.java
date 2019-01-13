@@ -94,7 +94,7 @@ public class VentanaInicio extends JFrame {
         
         btnJugar = new JButton("Jugar");
         panelMenu.add(btnJugar);
-        btnJugar.setEnabled(false);;
+        btnJugar.setEnabled(false);
         
         btnRegistrarse = new JButton("Registrarse");
         btnRegistrarse.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -165,7 +165,7 @@ public class VentanaInicio extends JFrame {
     }
     
     public void addJugarListener(ActionListener listenForBtnJugar) {
-        btnAyuda.addActionListener(listenForBtnJugar);
+        btnJugar.addActionListener(listenForBtnJugar);
     }
     
 

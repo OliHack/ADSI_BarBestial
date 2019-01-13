@@ -289,6 +289,7 @@ public class Controlador {
 				JOptionPane.showMessageDialog(null, "Introduce usuario y contraseña primero");
 			}else {
 			miGestorUsuarios.registrarse(user, pass);
+			GestorBD.getGestorBD().introducirUsuario(user, pass);
 			
 			JOptionPane.showMessageDialog(null, user + ", te has registrado con exito");
 		

@@ -1,5 +1,6 @@
 package packModelo;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -72,6 +73,7 @@ public class GestorUsuarios {
 	
 	public void registrarse(String user, String pass) {
 		this.listaUsuarios.add(new Usuario(user, pass));
-
+		
+		
 	}
 }
