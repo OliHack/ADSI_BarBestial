@@ -191,8 +191,8 @@ public class Controlador {
 		this.ventanaConfiguracion.setVisible(true);
 	}
 	
-	public void actualizarPartidas() {
-		this.ventanaPartidasGuardadas.actualizarPartidas(misGestorBD.obtenerPartidas());		
+	public void actualizarPartidas() {		
+		this.ventanaPartidasGuardadas.actualizarPartidas(misGestorBD.obtenerPartidas(usuarioAct));		
 	}
 	
 	public void mostrarVentanaPartidas(){

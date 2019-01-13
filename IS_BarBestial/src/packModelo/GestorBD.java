@@ -112,7 +112,7 @@ public class GestorBD {
 	        System.out.println("Tabla creada");
 	    }
 	    
-	    public Vector<Vector<String>> obtenerPartidas() {
+	    public Vector<Vector<String>> obtenerPartidas(String nombre) {
 	        Vector<String> info;
 	        Vector<Vector<String>> partidas = new Vector<>();
 
@@ -122,7 +122,7 @@ public class GestorBD {
 	            c.setAutoCommit(false);
 	            s = c.createStatement();
 	            
-	            ResultSet rs = s.executeQuery("SELECT idPartida, fecha FROM Partida;");
+	            ResultSet rs = s.executeQuery("SELECT idPartida, fecha FROM Partida WHERE idUs=" + "'" + nombre + "'" + ";");
 
 	            
 	            while (rs.next()) {
