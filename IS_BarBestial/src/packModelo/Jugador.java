@@ -23,7 +23,7 @@ public abstract class Jugador extends Observable {
         this.colorJugador = pColorJugador;
         this.mano = new ListaCartas();
         this.mazo = new ListaCartas();
-        this.numAyudas =4;
+        this.numAyudas =pNumAyudas;
     }
 
     public void robarCarta() {

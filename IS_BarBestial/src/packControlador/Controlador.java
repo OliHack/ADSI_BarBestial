@@ -199,7 +199,7 @@ public class Controlador {
 	
 	public void guardarPartida() {
 		misGestorBD.obtenerInfoyGuardarPartida();
-		JOptionPane.showMessageDialog(null, "Su partida ha sido guardada con �xito.");
+		JOptionPane.showMessageDialog(null, "Su partida ha sido guardada con exito.");
 	}
 	
 	private void mostrarVentanaGuardado(){
