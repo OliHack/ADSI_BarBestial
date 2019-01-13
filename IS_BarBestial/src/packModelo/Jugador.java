@@ -173,15 +173,6 @@ public abstract class Jugador extends Observable {
     }
     
     
-    public boolean ayudasMaxPartida(){
-    		if (this.numAyudas == 0){
-    			return true;
-    		}else{
-    			return false;
-    			}
-
-    }
-    
     public int getAyudas(){
     	return this.numAyudas;
     }
@@ -190,8 +181,8 @@ public abstract class Jugador extends Observable {
     	this.numAyudas= this.numAyudas -1;
     	//String sql = String.format("UPDATE Usuario SET numAyudas = numAyudas -1 WHERE idUsuario= %s ; ", this.nombre);
     	//GestorBD.sqlUpdate(sql);
-    	//int ayudaResta = this.numAyudas;
-    	//GestorBD.sqlUpdate("UPDATE Usuario SET numAyudas = " + ayudaResta + " WHERE idUsuario= 'Unai';");
+    	int ayudaResta = this.numAyudas;
+    	GestorBD.sqlUpdate("UPDATE Usuario SET numAyudas = " + ayudaResta + " WHERE idUsuario= 'Unai';");
     }
     
     public void cargarAyuda() throws SQLException{
@@ -207,10 +198,7 @@ public abstract class Jugador extends Observable {
     	Carta aux = null;
     	Tablero tablero = Tablero.getMiTablero();
     	Partida partida= Partida.getMiPartida();
-    	if( (partida.obtenerJugadorReal().getAyudas()==0)){
-	        JOptionPane.showMessageDialog(null, "No tienes ninguna ayuda.");
-	        //partida.obtenerJugadorReal().restarAyuda();
-    	}
+    	
     	if ((partida.obtenerJugadorReal().getAyudas() !=0)){
     		bar.getLista().imprimirCartasColor(EnumColor.VERDE);
     		
@@ -224,9 +212,9 @@ public abstract class Jugador extends Observable {
     			aux = bar.getLista().obtenerPrimeraCartaRival();
     			System.out.println("Tengo la carta del rival y es: "+ aux.getAnimal().getEspecie());
     			tablero.anadirALaCola(aux);
+    			System.out.println("He añadido la carta del rival en la Cola");
     			partida.obtenerJugadorReal().restarAyuda();
-    			System.out.println(partida.obtenerJugadorReal().getAyudas());
-    			System.out.println("He añadido la carta");
+    			System.out.println("El número de ayudas es : " + partida.obtenerJugadorReal().getAyudas());
     			tablero.hacerUltimaAnimalada();
     			tablero.hacerAnimaladasRecurrentes();
     			tablero.revisarCola();
@@ -234,9 +222,6 @@ public abstract class Jugador extends Observable {
     			if (partida.comprobarFinalizacion()) {
     				partida.finalizar();
     			}
-    			/*else {
-    				partida.avanzarTurno();
-    			}*/
     		} 
     	}
     }

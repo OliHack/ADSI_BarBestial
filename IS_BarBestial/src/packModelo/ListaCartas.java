@@ -305,6 +305,19 @@ public class ListaCartas {
         return i;
     }
     
+    public boolean seisCartasEnBar(){
+    	int i=0, cont=0;
+    	while(i< this.lista.size()){
+    		if( this.lista.get(i).getColor().equals(EnumColor.AZUL)){
+    			cont++;
+    		}
+    	}
+    	if (cont>=6){
+    		return true;
+    	}else{
+    		return false;
+    	}
+    }
       
     public Carta obtenerPrimeraCartaRival(){
     	int i=0;

@@ -124,6 +124,8 @@ public class GestorBD {
 		            c.setAutoCommit(false);
 		            s = c.createStatement();
 		            rs = s.executeQuery(consulta);
+		            s.close();
+		            c.close();
 			 } catch (Exception e) {
 		            System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		            System.exit(0);
