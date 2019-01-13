@@ -261,11 +261,17 @@ public class Controlador {
 			String user = ventanaInicio.getTextUsuario();
 			String pass = ventanaInicio.getTextContrasena();
 			
+			if ((user.length() <= 0) || (pass.length() <= 0)) {
+				JOptionPane.showMessageDialog(null, "Introduce usuario y contraseÒa primero");
+			}else {
 			miGestorUsuarios.registrarse(user, pass);
 			
-			JOptionPane.showMessageDialog(null, "Te has registrado con exito");
+			JOptionPane.showMessageDialog(null, user + ", te has registrado con exito");
+		
+			}
 		}
 	}
+		
 	
 	class RecuperarContrasenaListener implements ActionListener {
 		@Override
@@ -435,7 +441,7 @@ public class Controlador {
 			String pass = ventanaCambiarContrasena.getTextNContrasena();
 			
 			if (pass.length() > 0) {
-				miGestorUsuarios.cambiarContrasena("CANMBIAR", pass);
+				miGestorUsuarios.cambiarContrasena(usuarioAct, pass);
 				ventanaCambiarContrasena.setVisible(false);
 			}else {
 				JOptionPane.showMessageDialog(null, "Introduce una contrase√±a");

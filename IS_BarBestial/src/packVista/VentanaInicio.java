@@ -170,7 +170,7 @@ public class VentanaInicio extends JFrame {
     }
 
 	public String getTextUsuario() {
-		return textUsuario.toString();
+		return textUsuario.getText();
 	}
 
 	public void setTextUsuario(JTextField textUsuario) {
@@ -178,7 +178,7 @@ public class VentanaInicio extends JFrame {
 	}
 
 	public String getTextContrasena() {
-		return textContrasena.toString();
+		return textContrasena.getText();
 	}
 
 	public void setTextContrasena(JTextField textContrasena) {
