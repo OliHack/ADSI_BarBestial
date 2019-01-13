@@ -53,7 +53,7 @@ public class Controlador {
 	private VentanaMedias ventanaMedias;
 	
 	public Controlador() {
-		this.usuarioAct = null;
+		this.usuarioAct = "Carlos";
 		this.partida = Partida.getMiPartida();
 		this.tablero = Tablero.getMiTablero();
 		this.gestorRanking = GestorRanking.getRankingDB();
@@ -121,7 +121,7 @@ public class Controlador {
 		/* Listeners VentanaCambiarContrasena */
 		this.ventanaCambiarContrasena.addCambiarListener(new cambiarListener());
 		
-		
+		this.miGestorUsuarios.registrarse(usuarioAct, "123");
 	}
 	public int getUsos(){
 		return usos;

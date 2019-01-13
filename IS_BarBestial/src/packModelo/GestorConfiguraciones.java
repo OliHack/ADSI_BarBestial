@@ -23,7 +23,7 @@ public class GestorConfiguraciones {
 	
 	public void crearConf(ArrayList<String> pImagenes, ArrayList<Integer> pNumeros, String pNombre, String pDesc, String pUs) throws SQLException{
 		
-		String consulta = "SELECT * FROM ConfiguracionUs WHERE idUs='"+pUs+"'";
+		String consulta = "SELECT * FROM ConfiguracionUs";
 		ResultSet result = GestorBD.getGestorBD().execSql(consulta);
 		int pIdConf = 1;
 		while(result.next()){
