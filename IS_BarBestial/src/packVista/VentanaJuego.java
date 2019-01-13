@@ -53,13 +53,11 @@ public class VentanaJuego extends JFrame implements Observer {
     private JButton btnSiguiente;
     private JButton btnAyuda;
     private JButton btnCambiarContrasena;
-    private String MUser;
 
     /**
      * Create the frame.
      */
-    public VentanaJuego(String user) {
-    	MUser = user;
+    public VentanaJuego() {
         setTitle("BarBestial");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -235,7 +233,7 @@ public class VentanaJuego extends JFrame implements Observer {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
-                VentanaJuego frame = new VentanaJuego("prueba");
+                VentanaJuego frame = new VentanaJuego();
                 frame.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -592,8 +590,5 @@ public class VentanaJuego extends JFrame implements Observer {
         }
     }
 
-	public String getUser() {
-		return MUser;
-	}
 
 }

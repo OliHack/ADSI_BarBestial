@@ -16,7 +16,6 @@ public class VentanaCambiarContrasena extends JFrame {
 	private JPanel contentPane;
 	private JTextField textNContrasena;
 	private JButton btnCambiar;
-	private String MUser;
 
 	/**
 	 * Launch the application.
@@ -25,7 +24,7 @@ public class VentanaCambiarContrasena extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaCambiarContrasena frame = new VentanaCambiarContrasena("Prueba");
+					VentanaCambiarContrasena frame = new VentanaCambiarContrasena();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,8 +36,7 @@ public class VentanaCambiarContrasena extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaCambiarContrasena(String user) {
-		MUser = user;
+	public VentanaCambiarContrasena() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 453, 193);
 		contentPane = new JPanel();
@@ -59,10 +57,7 @@ public class VentanaCambiarContrasena extends JFrame {
 		lblNuevaContrasea.setBounds(69, 68, 125, 14);
 		contentPane.add(lblNuevaContrasea);
 	}
-	
-	public String getUser() {
-		return MUser;
-	}
+
 
 	public String getTextNContrasena() {
 		return textNContrasena.toString();
