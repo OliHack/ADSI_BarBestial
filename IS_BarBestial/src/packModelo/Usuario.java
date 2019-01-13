@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class Usuario {
 	private String idUsuario;
-	String nombre;
 	private String password;
 	private int numAyudas;
 	private ArrayList<ConfiguracionUs> listaConfiguraciones;
@@ -14,6 +13,7 @@ public class Usuario {
 		this.idUsuario = user;
 		this.password = pass;
 		this.numAyudas = 0;
+		listaConfiguraciones = new ArrayList<ConfiguracionUs>();
 	}
 
 	public String getIdUsuario() {
@@ -24,10 +24,6 @@ public class Usuario {
 		return password;
 	}
 	
-	public String getNombre() {
-		
-		return nombre;
-	}
 	
 	public int getNumConfig(){
 		return listaConfiguraciones.size();

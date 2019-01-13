@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Vector;
-//TODO me falta gestionar el usuario actual con el que se insertan las puntuaciones, tambien incrementar ayudas en el caso determinado
+
 public class GestorRanking {
     private static GestorRanking miRankingDB;
     private Connection c;
@@ -67,7 +67,12 @@ public class GestorRanking {
             c.setAutoCommit(false);
 
             s = c.createStatement();
-            //TODO comprobar quien ha ganado e incrementar ayudas si se dan las codiciones (+ de 6 cartas)
+            //Incrementar las ayudas
+            if (pNCartas > 6) {
+            	GestorBD a = GestorBD.getGestorBD();
+            	String sql = String.format("UPDATE Usuario SET numAyudas = numAyudas + 1 WHERE idUsuario = '%s';", pNombre);
+            	a.sqlUpdate(sql);
+            }
             int ptsCartas = pNCartas * 10;
             int ptsFuerza = pFuerza * 2;
             int punts = ptsCartas - ptsFuerza;
@@ -90,7 +95,7 @@ public class GestorRanking {
         System.out.println("Puntuacion insertada");
     }
 
-    public Vector<Vector<String>> getMejInd() {
+    public Vector<Vector<String>> getMejInd(String pNombre) {
         Vector<String> puntuacion;
         Vector<Vector<String>> puntuaciones = new Vector<>();
 
@@ -99,17 +104,16 @@ public class GestorRanking {
             c = DriverManager.getConnection("jdbc:sqlite:ranking.db");
             c.setAutoCommit(false);
             s = c.createStatement();
-            ResultSet rs = s.executeQuery("SELECT fecha, puntuacion FROM PUNTUACIONES WHERE nombre = 'oliver' ORDER BY puntuacion desc;"); //TODO cambiar where usuario = usuario actual
-
+            String sql1 = String.format("SELECT fecha, puntuacion FROM PUNTUACIONES WHERE nombre = '%s' ORDER BY puntuacion desc;", pNombre);
+            //ResultSet rs = s.executeQuery("SELECT fecha, puntuacion FROM PUNTUACIONES WHERE nombre = 'oliver' ORDER BY puntuacion desc;"); //TODO cambiar where usuario = usuario actual
+            ResultSet rs = s.executeQuery(sql1);
 
             while (rs.next()) {
                 puntuacion = new Vector<>();
 
-               // String nombre = rs.getString("nombre");
                 String fecha = rs.getString("fecha");
                 String pts = rs.getString("puntuacion");
 
-              //  puntuacion.add(nombre);
                 puntuacion.add(fecha);
                 puntuacion.add(pts);
 
@@ -143,11 +147,9 @@ public class GestorRanking {
                 puntuacion = new Vector<>();
 
                 String nombre = rs.getString("nombre");
-                //String fecha = rs.getString("fecha");
                 String pts = rs.getString("puntuacion");
 
                 puntuacion.add(nombre);
-              //  puntuacion.add(fecha);
                 puntuacion.add(pts);
 
                 puntuaciones.add(puntuacion);
@@ -212,16 +214,13 @@ public class GestorRanking {
             c.setAutoCommit(false);
             s = c.createStatement();
             ResultSet rs = s.executeQuery("SELECT nombre, AVG(puntuacion) as Media FROM PUNTUACIONES GROUP BY nombre ORDER BY Media desc LIMIT 10;");
-            //TODO CAMBIAR POR : SELECT idUsuario, nombre, AVG(puntuacion) as Media FROM PUNTUACIONES GROUP BY idUsuario ORDER BY PUNTUACION LIMIT 10;
             while (rs.next()) {
                 puntuacion = new Vector<>();
 
                 String nombre = rs.getString("nombre");
-             //   String fecha = rs.getString("fecha");
                 String media = rs.getString("Media");
 
                 puntuacion.add(nombre);
-            //    puntuacion.add(fecha);
                 puntuacion.add(media);
 
                 puntuaciones.add(puntuacion);

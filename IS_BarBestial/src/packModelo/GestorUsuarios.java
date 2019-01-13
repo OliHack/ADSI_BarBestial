@@ -45,7 +45,14 @@ public class GestorUsuarios {
 	}
 	
 	public boolean comprobarLogin(String user, String pass) {
-		if (this.buscarUsuario(user).getContrasena().equals(pass)) {return true;}
+		
+		Usuario us = this.buscarUsuario(user);
+		if (us!=null) {
+			if(us.getContrasena().equals(pass)){
+				return true;
+			}
+			return false;
+		}
 		else{return false;}
 	}
 	

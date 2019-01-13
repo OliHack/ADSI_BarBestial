@@ -14,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import packModelo.GestorRanking;
+import packModelo.Partida;
 
 public class Ranking extends JFrame {
 	//Submenu principal para redirigir a las distintas interfaces segun el tipo de ranking que se quiera consultar
@@ -54,7 +55,8 @@ public class Ranking extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				miRanking.setVisible(false);
-				VentanaMejIndv.getMejIndv().actualizarRanking(gestorRanking.getMejInd());
+				String nombre = Partida.getMiPartida().obtenerJugadorReal().getNombre();
+				VentanaMejIndv.getMejIndv().actualizarRanking(gestorRanking.getMejInd(nombre));
 				VentanaMejIndv.getMejIndv().setVisible(true);
 			}
 		});

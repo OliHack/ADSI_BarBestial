@@ -304,7 +304,7 @@ public class VentanaConfiguracion extends JFrame{
 	    setLayout(null);
 	    setLocationRelativeTo(null);
 	    setSize(800,500);
-	    setVisible(true);
+	    setVisible(false);
     }
      
      // Methode to resize imageIcon with the same size of a Jlabel
