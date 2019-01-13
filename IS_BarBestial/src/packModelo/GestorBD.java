@@ -58,7 +58,7 @@ public class GestorBD {
 	            s = c.createStatement();
 	            instruccion = "CREATE TABLE ConfiguracionCarta " +
 	                    "(idConfig	INT    NOT NULL, " +
-	                    "numCarta	INT NOT NULL, " +
+	                    "numCarta	INT	 NOT NULL, " +
 	                    "nombreImagen		VARCHAR(20) NOT NULL, " +
 	                    " FOREIGN KEY (idConfig) REFERENCES ConfiguracionUs(idConfig))";
 	            s.executeUpdate(instruccion);
@@ -283,6 +283,9 @@ public class GestorBD {
 		            c.setAutoCommit(false);
 		            s = c.createStatement();
 		            rs = s.executeQuery(consulta);
+		            s.close();
+		            c.close();
+		            
 			 } catch (Exception e) {
 		            System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		            System.exit(0);

@@ -22,17 +22,19 @@ public class GestorConfiguraciones {
 	}
 	
 	public void crearConf(ArrayList<String> pImagenes, ArrayList<Integer> pNumeros, String pNombre, String pDesc, String pUs) throws SQLException{
-
 		
-		int pIdConf = Controlador.getMiControlador().numConfUsuarioAct() + 1;
+		String consulta = "SELECT COUNT(*) AS total FROM ConfiguracionUs WHERE idUs='"+pUs+"'";
+		ResultSet result = GestorBD.getGestorBD().execSql(consulta);
+		result.next();
+		int pIdConf = result.getInt("total")+1;
 
-		String strUpdate = "INSERT INTO ConfiguracionUs VALUES ("+pIdConf+","+pNombre+","+ pDesc +",GETDATE(),"+pUs+")";
+		String strUpdate = "INSERT INTO ConfiguracionUs VALUES ("+pIdConf+",'"+pNombre+"','"+ pDesc +"',datetime('now'),'"+pUs+"')";
 		GestorBD.getGestorBD().sqlUpdate(strUpdate);
 		
 		for(int i=0; i<pImagenes.size(); i++){
 			int pNum = pNumeros.get(i);
 			String pImg = pImagenes.get(i);
-			String strUpdate2 = "INSERT INTO ConfiguracionCarta VALUES ("+pIdConf+","+ pNum +","+pImg+")";
+			String strUpdate2 = "INSERT INTO ConfiguracionCarta VALUES ("+pIdConf+","+ pNum +",'"+pImg+"')";
 			GestorBD.getGestorBD().sqlUpdate(strUpdate2);
 		}
 	}
@@ -41,7 +43,7 @@ public class GestorConfiguraciones {
 		
 
 		if(!Controlador.getMiControlador().comprobarConf(pIdConfig,pUs)){
-			String consulta1 = "SELECT * FROM ConfiguracionUs WHERE idUsuario="+pUs+" AND idConfig="+pIdConfig;
+			String consulta1 = "SELECT * FROM ConfiguracionUs WHERE idUs='"+pUs+"' AND idConfig="+pIdConfig;
 			ResultSet rs = GestorBD.getGestorBD().execSql(consulta1);
 			rs.next();
 			int idConfig = rs.getInt(1);
