@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
@@ -55,9 +56,13 @@ public class Ranking extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				miRanking.setVisible(false);
-				String nombre = Partida.getMiPartida().obtenerJugadorReal().getNombre();
-				VentanaMejIndv.getMejIndv().actualizarRanking(gestorRanking.getMejInd(nombre));
-				VentanaMejIndv.getMejIndv().setVisible(true);
+				if (Partida.getMiPartida().obtenerJugadorReal()==null) {
+					JOptionPane.showMessageDialog(null, "No hay ningun jugador logueado.");
+				}else {
+					String nombre = Partida.getMiPartida().obtenerJugadorReal().getNombre();
+					VentanaMejIndv.getMejIndv().actualizarRanking(gestorRanking.getMejInd(nombre));
+					VentanaMejIndv.getMejIndv().setVisible(true);
+				}
 			}
 		});
 		btnPersonalAbsoluto.setBounds(123, 30, 209, 37);

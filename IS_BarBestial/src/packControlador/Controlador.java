@@ -231,7 +231,7 @@ public class Controlador {
 			if ((user.length() <= 0) || (pass.length() <= 0)) {
 				JOptionPane.showMessageDialog(null, "Introduce usuario y contraseña primero");
 			}else {
-				if(miGestorUsuarios.comprobarLogin(user, pass)) {
+				if(GestorBD.getGestorBD().comprobarLogin(user, pass)) {
 					usuarioAct = user;
 					ventanaInicio.activarBotonContinuarPartida();
 					ventanaInicio.activarBotonJugar();
@@ -306,7 +306,7 @@ public class Controlador {
 			if (user.length() <= 0) {
 				JOptionPane.showMessageDialog(null, "Introduce tu usuario primero");
 			}else {
-			String nuevaPass = miGestorUsuarios.recuperarContrasena(user);
+			String nuevaPass = GestorBD.getGestorBD().recuperarContrasena(user);
 			if (nuevaPass == null){
 				JOptionPane.showMessageDialog(null, "Ese usuario no existe");
 			}else {
@@ -477,6 +477,7 @@ public class Controlador {
 			
 			if (pass.length() > 0) {
 				miGestorUsuarios.cambiarContrasena(usuarioAct, pass);
+				GestorBD.getGestorBD().cambiarContrasena(usuarioAct, pass);
 				ventanaCambiarContrasena.setVisible(false);
 			}else {
 				JOptionPane.showMessageDialog(null, "Introduce una contrasena");

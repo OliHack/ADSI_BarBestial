@@ -202,17 +202,18 @@ public abstract class Jugador extends Observable {
     	this.numAyudas= this.numAyudas -1;
     	//String sql = String.format("UPDATE Usuario SET numAyudas = numAyudas -1 WHERE idUsuario= %s ; ", this.nombre);
     	//GestorBD.sqlUpdate(sql);
-    	//int ayudaResta = this.numAyudas;
-    	//GestorBD.sqlUpdate("UPDATE Usuario SET numAyudas = " + ayudaResta + " WHERE idUsuario= 'Unai';");
+    	GestorBD.getGestorBD().actualizarAyudas(this.numAyudas, this.nombre);
     }
     
     public void cargarAyuda() throws SQLException{
     	System.out.println(this.nombre);
-    	String sql = String.format("SELECT numAyudas FROM Usuario WHERE idUsuario = %s ", this.nombre);
-    	ResultSet rs = GestorBD.getGestorBD().execSql(sql);
+    	//String sql = String.format("SELECT numAyudas FROM Usuario WHERE idUsuario = %s ", this.nombre);
+    	//ResultSet rs = GestorBD.getGestorBD().execSql(sql);
     	//ResultSet rs = GestorBD.getGestorBD().execSql("SELECT numAyudas FROM Usuario WHERE idUsuario = 'Unai';");
-    	this.numAyudas= rs.getInt("numAyudas");
+    	//this.numAyudas= rs.getInt("numAyudas");
     	//rs.close();	
+    	this.numAyudas = GestorBD.getGestorBD().cargarAyudas(this.nombre);
+    	
     }
     
     public void usarAyuda() {
