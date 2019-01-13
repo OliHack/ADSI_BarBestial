@@ -349,6 +349,6 @@ public class GestorBD {
 		}
 		
 		public void introducirUsuario(String user, String pass) {
-			sqlUpdate("INSERT INTO usuario (idUsuario, password, numAyudas) VALUES ('" + user + "', '" + pass + "', 4)");
+			sqlUpdate("INSERT INTO usuario (idUsuario, password, numAyudas) VALUES ('" + user + "', '" + pass + "', 0)");
 		}
 }
