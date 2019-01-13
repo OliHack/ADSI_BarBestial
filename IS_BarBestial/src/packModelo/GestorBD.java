@@ -248,6 +248,37 @@ public class GestorBD {
 	    	sqlUpdate("INSERT INTO Partida (fecha) VALUES (" + "datetime('now')" + ")");
 	    }
 	    
+	    public void actualizarAyudas(int ayudaResta, String user) {
+	    	sqlUpdate("UPDATE Usuario SET numAyudas = " + ayudaResta + " WHERE idUsuario = '"+ user + "'");
+	    }
+	    
+	    public int cargarAyudas(String user) {
+	    		int res=0;
+		    	 try {
+			            Class.forName("org.sqlite.JDBC");
+			            c = DriverManager.getConnection("jdbc:sqlite:DataBase.db");
+			            c.setAutoCommit(false);
+			            s = c.createStatement();
+			            
+			            ResultSet rs = s.executeQuery("SELECT numAyudas FROM Usuario WHERE idUsuario = '"+ user + "'");
+
+			            
+			            while (rs.next()) {
+			               res= rs.getInt("numAyudas");
+			            }
+
+			            rs.close();
+			            s.close();
+			            c.close();
+
+			        } catch (Exception e) {
+			            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			            System.exit(0);
+			        }
+		    	
+		    	return res;
+		}
+	    
 	    public int contarPartidas() {
 	    	int num=0;
 	    	try {
@@ -318,6 +349,6 @@ public class GestorBD {
 		}
 		
 		public void introducirUsuario(String user, String pass) {
-			sqlUpdate("INSERT INTO usuario (idUsuario, password, numAyudas) VALUES ('" + user + "', '" + pass + "', 0)");
+			sqlUpdate("INSERT INTO usuario (idUsuario, password, numAyudas) VALUES ('" + user + "', '" + pass + "', 4)");
 		}
 }
