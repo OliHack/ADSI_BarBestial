@@ -90,9 +90,9 @@ public class GestorBD {
 	            		" PRIMARY KEY (idUsuario))";
 	            s.executeUpdate(instruccion);
 	            
-	            s=c.createStatement();
+	           /* s=c.createStatement();
 	            instruccion = "INSERT INTO USUARIO (idUsuario,numAyudas) VALUES ('Unai',4)";
-	            s.executeUpdate(instruccion);
+	            s.executeUpdate(instruccion);*/
            		
 	            		
 	            		
@@ -315,5 +315,9 @@ public class GestorBD {
 		        }
 		        System.out.println("Actualizado");
 			
+		}
+		
+		public void introducirUsuario(String user, String pass) {
+			sqlUpdate("INSERT INTO usuario (idUsuario, password, numAyudas) VALUES ('" + user + "', '" + pass + "', 0)");
 		}
 }
