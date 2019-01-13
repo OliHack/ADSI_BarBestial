@@ -11,7 +11,7 @@ public class VentanaInicio extends JFrame {
     private JPanel contentPane;
     private JTextField textUsuario;
 
-    private JButton btnJugar;
+    private JButton btnIS;
     private JButton btnAyuda;
     private JButton btnRanking;
 
@@ -24,6 +24,7 @@ public class VentanaInicio extends JFrame {
     private JTextField textContrasena;
     private JLabel lblContrasea;
     private JPanel panel;
+    private JButton btnJugar;
 
     /**
      * Create the frame.
@@ -62,8 +63,9 @@ public class VentanaInicio extends JFrame {
                 panel.add(btnCrearConfig);
                 btnCrearConfig.setFont(new Font("Tahoma", Font.PLAIN, 11));
                 
-                        this.btnContinuarPartida = new JButton("Continuar Partida");
-                        panel.add(btnContinuarPartida);
+                this.btnContinuarPartida = new JButton("Continuar Partida");
+                panel.add(btnContinuarPartida);
+                btnContinuarPartida.setEnabled(false);
 
         JPanel panelMenu = new JPanel();
         contentPane.add(panelMenu, BorderLayout.SOUTH);
@@ -86,9 +88,13 @@ public class VentanaInicio extends JFrame {
         panelMenu.add(textContrasena);
         textContrasena.setColumns(10);
 
-        this.btnJugar = new JButton("Iniciar Sesi\u00F3n");
-        btnJugar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        this.btnIS = new JButton("Iniciar Sesi\u00F3n");
+        btnIS.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        panelMenu.add(btnIS);
+        
+        btnJugar = new JButton("Jugar");
         panelMenu.add(btnJugar);
+        btnJugar.setEnabled(false);;
         
         btnRegistrarse = new JButton("Registrarse");
         btnRegistrarse.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -127,7 +133,7 @@ public class VentanaInicio extends JFrame {
     
     
     public void addIniciarSesionListener(ActionListener listenForBtnJugar) {
-        btnJugar.addActionListener(listenForBtnJugar);
+        btnIS.addActionListener(listenForBtnJugar);
     }
 
     public void addAyudaListener(ActionListener listenForBtnAyuda) {
@@ -158,10 +164,14 @@ public class VentanaInicio extends JFrame {
     	btnRecuperarContrasea.addActionListener(listenForBtnRecuperarContrasena);
     }
     
+    public void addJugarListener(ActionListener listenForBtnJugar) {
+        btnAyuda.addActionListener(listenForBtnJugar);
+    }
+    
 
     public void showNombreErrorMessage() {
         JOptionPane.showMessageDialog(this,
-                "Introduce un nombre.");
+                "Introduce un nombre válido.");
     }
 
     public void cerrarVentana() {
@@ -185,5 +195,16 @@ public class VentanaInicio extends JFrame {
 		this.textContrasena = textContrasena;
 	}
 
+	public void activarBotonContinuarPartida() {
+		btnContinuarPartida.setEnabled(true);
+	}
     
+	public void activarBotonJugar() {
+		btnJugar.setEnabled(true);
+	}
+
+	public void desactivarBotonIniciarSesion() {
+		btnIS.setEnabled(false);
+		
+	}
 }

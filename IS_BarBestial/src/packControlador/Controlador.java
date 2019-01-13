@@ -93,6 +93,7 @@ public class Controlador {
 		this.ventanaInicio.addRankingListener(new RankingListener());
 		this.ventanaInicio.addRegistrarseListener(new RegistrarseListener());
 		this.ventanaInicio.addRecuperarContrasenaListener(new RecuperarContrasenaListener());
+		this.ventanaInicio.addJugarListener(new JugarListener());
 		
 		//this.ventanaInicio.addRecuperarContraseñaListener(new RecuperarContraseñaListener());
 		this.ventanaInicio.addCrearConfigListener(new ConfiguracionListener());
@@ -232,33 +233,51 @@ public class Controlador {
 			}else {
 				if(miGestorUsuarios.comprobarLogin(user, pass)) {
 					usuarioAct = user;
-					ocultarVentanaInicio();
-					mostrarVentanaJuego();
-					partida.inicializarPartida(user);
-					setUpObservers();
-					/*try {
-						partida.obtenerJugadorReal().cargarAyuda();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}*/
+					ventanaInicio.activarBotonContinuarPartida();
+					ventanaInicio.activarBotonJugar();
+					ventanaInicio.desactivarBotonIniciarSesion();
+					JOptionPane.showMessageDialog(null, user + ", has iniciado sesión");
 				}
 				else{ ventanaInicio.showNombreErrorMessage();}
 				
-				if(partida.obtenerJugadorReal().getAyudas()==0){
+				/*if(partida.obtenerJugadorReal().getAyudas()==0){
 					ventanaJuego.desactivarBotonUsarAyuda();
 				}else{
 					ventanaJuego.activarBotonUsarAyuda();
-				}
+				}*/
 			}
 		}
 
-		private void ocultarVentanaInicio() {
-			ventanaInicio.setVisible(false);
-			
-		}
+		
 	}
 	
+	private void ocultarVentanaInicio() {
+		ventanaInicio.setVisible(false);
+		
+	}
+	
+	class JugarListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ocultarVentanaInicio();
+			mostrarVentanaJuego();
+			partida.inicializarPartida(usuarioAct);
+			setUpObservers();
+			try {
+				partida.obtenerJugadorReal().cargarAyuda();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			if(partida.obtenerJugadorReal().getAyudas()==0){
+				ventanaJuego.desactivarBotonUsarAyuda();
+			}else{
+				ventanaJuego.activarBotonUsarAyuda();
+			}
+		}
+
+	}
 	
 	class RegistrarseListener implements ActionListener {
 		@Override
